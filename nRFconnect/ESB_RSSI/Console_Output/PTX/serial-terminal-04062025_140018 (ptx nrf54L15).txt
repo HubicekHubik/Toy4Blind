@@ -1,0 +1,43 @@
+*** Booting nRF Connect SDK v3.0.1-9eb5615da66b ***
+*** Using Zephyr OS v4.0.99-77f865b8f8d0 ***
+Enhanced ShockBurst ptx sample
+TX Performance test and RSSI value
+[PTX] Version: 3 | Build: Jun  4 2025 13:52:12
+Board: nrf54l15dk
+Device ID: 3170380583
+FEM TX support: disabled
+HF clock started
+Initialization complete
+Sending test packet
+----------------------
+Set TX power to: 0 dBm (0x00)
+Sending: TX SUCCESS
+TX-Power = 0 dBm, FEM TX-Power = 0 dBm, Totaal TX-Power = 0 dBm
+Set TX power to: 1 dBm (0x01)
+Sending: TX SUCCESS
+TX-Power = 1 dBm, FEM TX-Power = 0 dBm, Totaal TX-Power = 1 dBm
+Set TX power to: 2 dBm (0x02)
+Sending: TX SUCCESS
+TX-Power = 2 dBm, FEM TX-Power = 0 dBm, Totaal TX-Power = 2 dBm
+Set TX power to: 3 dBm (0x03)
+Sending: TX SUCCESS
+TX-Power = 3 dBm, FEM TX-Power = 0 dBm, Totaal TX-Power = 3 dBm
+Set TX power to: 4 dBm (0x04)
+Sending: TX SUCCESS
+TX-Power = 4 dBm, FEM TX-Power = 0 dBm, Totaal TX-Power = 4 dBm
+Set TX power to: 5 dBm (0x05)
+Sending: TX SUCCESS
+TX-Power = 5 dBm, FEM TX-Power = 0 dBm, Totaal TX-Power = 5 dBm
+Set TX power to: 6 dBm (0x06)
+Sending: TX SUCCESS
+TX-Power = 6 dBm, FEM TX-Power = 0 dBm, Totaal TX-Power = 6 dBm
+Set TX power to: 7 dBm (0x07)
+Sending: TX SUCCESS
+TX-Power = 7 dBm, FEM TX-Power = 0 dBm, Totaal TX-Power = 7 dBm
+Set TX power to: 8 dBm (0x08)
+Sending: TX SUCCESS
+TX-Power = 8 dBm, FEM TX-Power = 0 dBm, Totaal TX-Power = 8 dBm
+TX power 9 dBm is NOT supported.
+TX power 10 dBm is NOT supported.
+Sending: TX SUCCESS
+End of test

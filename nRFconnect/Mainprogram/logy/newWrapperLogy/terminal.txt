@@ -1,0 +1,972 @@
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+E: valueof err:0
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+E: valueof err:0
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+I: Prediction started...
+
+
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model framesize: 450
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 1.020538 Y:-0.363110 Z:9.597013Axel data X: 1.057029 Y:-0.399601 Z:9.619146Axel data X: 0.998405 Y:-0.367896 Z:9.577870Axel data X: 0.942173 Y:-0.363709 Z:9.588638Axel data X: 0.948754 Y:-0.384646 Z:9.577272Axel data X: 0.964905 YAxel data X: 1.012163 Y:-0.352941 Z:9.544969Axel data X: 1.017547 Y:-0.366700 Z:9.568897Axel data X: 1.028913 Y:-0.446261 Z:9.534799Axel data X: 1.022333 Y:-0.381655 Z:9.568897Axel data X: 1.059422 Y:-0.335593 Z:9.559326Axel data X: 1.006780 Y:-0.366101 Z:9.549754Axel data X: 0.984048 Y:-0.416949 Z:9.565906Axel data X: 1.021137 Y:-0.386440 Z:9.574879Axel data X: 1.049252 Y:-0.320638 Z:9.564111Axel data X: 1.070788 Y:-0.287736 Z:9.576076Axel data X: 1.118644 Y:-0.364307 Z:9.518648Axel data X: 0.976271 Y:-0.470189 Z:9.577870Axel data X: 0.982253 Y:-0.457029 Z:9.537790Axel data X: 1.014556 Y:-0.352343 Z:9.550951Axel data X: 1.061216 Y:-0.349352 Z:9.547362Axel data X: 1.018146 Y:-0.463011 Z:9.574879Axel data X: 0.980459 Y:-0.468993 Z:9.527023Axel data X: 0.989432 Y:-0.354137 Z:9.554540Axel data X: 1.039681 Y:-0.275772 Z:9.550951Axel data X: 1.095912 Y:-0.267996 Z:9.571888Axel data X: 1.064207 Y:-0.407378 Z:9.568897Axel data X: 1.003190 Y:-0.417547 Z:9.569495Axel data X: 0.966102 Y:-0.346361 Z:9.578468Axel data X: 0.978066 Y:-0.286540 Z:9.552746Axel data X: 1.013958 Y:-0.317048 Z:9.565906Axel data X: 1.090528 Y:-0.391824 Z:9.527023Axel data X: 1.060020 Y:-0.437288 Z:9.549156Axel data X: 0.980459 Y:-0.360119 Z:9.531210Axel data X: 0.986441 Y:-0.325423 Z:9.549754Axel data X: 1.038485 Y:-0.369691 Z:9.558129Axel data X: 1.036092 Y:-0.470787 Z:9.540183Axel data X: 1.047458 Y:-0.458225 Z:9.589236Axel data X: 1.015154 Y:-0.357128 Z:9.576076Axel data X: 1.006780 Y:-0.344566 Z:9.567701Axel data X: 1.044467 Y:-0.363709 Z:9.582058Axel data X: 1.054038 Y:-0.394815 Z:9.562915Axel data X: 1.016949 Y:-0.366101 Z:9.574281Axel data X: 1.052243 Y:-0.266799 Z:9.552746Axel data X: 1.016949 Y:-0.303888 Z:9.571888Axel data X: 0.976869 Y:-0.409172 Z:9.586245Axel data X: 0.980459 Y:-0.418743 Z:9.576076Axel data X: 1.049252 Y:-0.366700 Z:9.580861Axel data X: 1.048654 Y:-0.351744 Z:9.559924Axel data X: 1.074975 Y:-0.356530 Z:9.530612Axel data X: 1.054038 Y:-0.449252 Z:9.608379Axel data X: 1.010967 Y:-0.461814 Z:9.543772Axel data X: 0.986441 Y:-0.373280 Z:9.547362Axel data X: 1.009172 Y:-0.302093 Z:9.562915Axel data X: 1.051047 Y:-0.357128 Z:9.560522Axel data X: 1.012163 Y:-0.436690 Z:9.585049Axel data X: 1.028315 Y:-0.404985 Z:9.554540Axel data X: 0.987039 Y:-0.267996 Z:9.569495Axel data X: 1.041476 Y:-0.269790 Z:9.578468Axel data X: 1.057029 Y:-0.335593 Z:9.516853Axel data X: 1.040877 Y:-0.418743 Z:9.585049Axel data X: 0.990628 Y:-0.385244 Z:9.543174Axel data X: 1.029511 Y:-0.332004 Z:9.557531Axel data X: 1.070788 Y:-0.354137 Z:9.559326Axel data X: 1.018146 Y:-0.419342 Z:9.523433Axel data X: 1.030708 Y:-0.500099 Z:9.531210Axel data X: 0.981655 Y:-0.442672 Z:9.551549Axel data X: 0.953539 Y:-0.338584 Z:9.576076Axel data X: 1.066002 Y:-0.306281 Z:9.587441Axel data X: 1.074975 Y:-0.385842 Z:9.565906Axel data X: 1.030708 Y:-0.406779 Z:9.559924Axel data X: 0.997208 Y:-0.393619 Z:9.564111Axel data X: 1.042074 Y:-0.311665 Z:9.558129Axel data X: 1.033101 Y:-0.282353 Z:9.534799Axel data X: 1.029511 Y:-0.366101 Z:9.577870Axel data X: 1.010967 Y:-0.386440 Z:9.557531Axel data X: 0.982253 Y:-0.382253 Z:9.572486Axel data X: 0.987637 Y:-0.356530 Z:9.563513Axel data X: 1.019342 Y:-0.354137 Z:9.571888Axel data X: 1.052841 Y:-0.397806 Z:9.556335Axel data X: 1.044467 Y:-0.421734 Z:9.537192Axel data X: 1.008574 Y:-0.422333 Z:9.559326Axel data X: 1.015154 Y:-0.388833 Z:9.552147Axel data X: 1.029511 Y:-0.346361 Z:9.551549Axel data X: 1.073180 Y:-0.362512 Z:9.562317Axel data X: 1.067797 Y:-0.372083 Z:9.562915Axel data X: 1.003789 Y:-0.364307 Z:9.546165Axel data X: 0.979860 Y:-0.307477 Z:9.552746Axel data X: 1.003789 Y:-0.342173 Z:9.555138Axel data X: 1.042074 Y:-0.352343 Z:9.531210Axel data X: 1.024128 Y:-0.383449 Z:9.552746Axel data X: 0.979262 Y:-0.395413 Z:9.569495Axel data X: 1.020538 Y:-0.391824 Z:9.555138ASSERTION FAIL @ WEST_TOPDIR/zephyr/include/zephy
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model framesize: 450
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 0.958325 Y:-0.477368 Z:9.544371Axel data X: 0.978664 Y:-0.440279 Z:9.535398Axel data X: 0.970887 Y:-0.372083 Z:9.566504Axel data X: 1.033699 Y:-0.306281 Z:9.570692Axel data X: 1.092921 Y:-0.309272 Z:9.539585Axel data X: 1.073779 YAxel data X: 1.001396 Y:-0.435493 Z:9.547960Axel data X: 1.010369 Y:-0.391226 Z:9.501300Axel data X: 1.097707 Y:-0.352941 Z:9.503693Axel data X: 1.099501 Y:-0.372682 Z:9.489336Axel data X: 1.054038 Y:-0.396610 Z:9.558129Axel data X: 0.976271 Y:-0.370887 Z:9.548558Axel data X: 1.009172 Y:-0.321236 Z:9.494121Axel data X: 1.040877 Y:-0.333798 Z:9.506684Axel data X: 1.059422 Y:-0.358325 Z:9.480363Axel data X: 1.060020 Y:-0.399003 Z:9.523433Axel data X: 1.028315 Y:-0.401395 Z:9.508478Axel data X: 1.006780 Y:-0.347557 Z:9.534799Axel data X: 1.051645 Y:-0.333200 Z:9.600004Axel data X: 1.075573 Y:-0.410369 Z:9.549156Axel data X: 1.067797 Y:-0.451645 Z:9.569495Axel data X: 1.013360 Y:-0.446859 Z:9.541380Axel data X: 0.920638 Y:-0.382253 Z:9.534201Axel data X: 1.045065 Y:-0.375673 Z:9.533603Axel data X: 1.033699 Y:-0.380458 Z:9.574879Axel data X: 1.037288 Y:-0.336789 Z:9.440881Axel data X: 1.021137 Y:-0.330807 Z:9.512666Axel data X: 0.996012 Y:-0.339780 Z:9.661619Axel data X: 1.043868 Y:-0.313459 Z:9.576076Axel data X: 1.028315 Y:-0.323629 Z:9.645467Axel data X: 1.039083 Y:-0.339780 Z:9.514460Axel data X: 0.972682 Y:-0.378065 Z:9.568299Axel data X: 1.048056 Y:-0.334995 Z:9.539585Axel data X: 1.009771 Y:-0.377467 Z:9.510273Axel data X: 1.013958 Y:-0.388833 Z:9.579067Axel data X: 1.066002 Y:-0.470189 Z:9.485148Axel data X: 1.039681 Y:-0.468993 Z:9.528219Axel data X: 1.016351 Y:-0.400797 Z:9.509077Axel data X: 1.042672 Y:-0.369092 Z:9.584450Axel data X: 0.991226 Y:-0.353539 Z:9.547960Axel data X: 1.031306 Y:-0.372682 Z:9.567102Axel data X: 1.040279 Y:-0.337387 Z:9.547960Axel data X: 1.048654 Y:-0.310468 Z:9.548558Axel data X: 1.044467 Y:-0.333798 Z:9.535398Axel data X: 0.996610 Y:-0.359521 Z:9.561120Axel data X: 1.007976 Y:-0.399003 Z:9.591629Axel data X: 0.995414 Y:-0.364905 Z:9.561719Axel data X: 1.027717 Y:-0.384646 Z:9.561719Axel data X: 1.008574 Y:-0.386440 Z:9.567701Axel data X: 1.051047 Y:-0.415154 Z:9.559924Axel data X: 1.036092 Y:-0.406779 Z:9.543772Axel data X: 1.028913 Y:-0.402592 Z:9.529416Axel data X: 1.057627 Y:-0.375673 Z:9.575477Axel data X: 1.034895 Y:-0.407378 Z:9.537790Axel data X: 1.004387 Y:-0.384048 Z:9.531808Axel data X: 1.006780 Y:-0.338584 Z:9.567701Axel data X: 1.041476 Y:-0.326022 Z:9.548558Axel data X: 1.008574 Y:-0.286540 Z:9.541978Axel data X: 1.019940 Y:-0.334995 Z:9.535996Axel data X: 1.023529 Y:-0.358923 Z:9.567701Axel data X: 1.020538 Y:-0.396012 Z:9.553942Axel data X: 1.013958 Y:-0.405583 Z:9.554540Axel data X: 1.045065 Y:-0.391824 Z:9.585049Axel data X: 1.071386 Y:-0.426520 Z:9.557531Axel data X: 1.054038 Y:-0.448056 Z:9.518050Axel data X: 1.024726 Y:-0.409172 Z:9.516853Axel data X: 1.039681 Y:-0.362512 Z:9.552746Axel data X: 1.082154 Y:-0.352343 Z:9.553344Axel data X: 1.049252 Y:-0.342771 Z:9.549754Axel data X: 0.997807 Y:-0.388235 Z:9.586843Axel data X: 0.985244 Y:-0.360119 Z:9.569495Axel data X: 0.987637 Y:-0.329611 Z:9.540183Axel data X: 1.019342 Y:-0.351146 Z:9.530014Axel data X: 1.040279 Y:-0.357128 Z:9.596415Axel data X: 1.043868 Y:-0.377467 Z:9.546763Axel data X: 1.036092 Y:-0.361316 Z:9.551549Axel data X: 1.019342 Y:-0.380458 Z:9.525826Axel data X: 1.060618 Y:-0.431306 Z:9.555737Axel data X: 1.007976 Y:-0.433699 Z:9.583254Axel data X: 1.023529 Y:-0.397806 Z:9.549754Axel data X: 1.012163 Y:-0.423529 Z:9.565308Axel data X: 0.998405 Y:-0.365503 Z:9.538987Axel data X: 1.010369 Y:-0.347557 Z:9.577870Axel data X: 1.012163 Y:-0.373280 Z:9.566504Axel data X: 1.041476 Y:-0.340977 Z:9.552147Axel data X: 1.040877 Y:-0.306281 Z:9.576674Axel data X: 0.990030 Y:-0.332602 Z:9.569495Axel data X: 1.021137 Y:-0.360119 Z:9.579067Axel data X: 1.014556 Y:-0.419342 Z:9.517451Axel data X: 0.981057 Y:-0.399003 Z:9.547362Axel data X: 1.011565 Y:-0.397806 Z:9.555138Axel data X: 1.036092 Y:-0.405583 Z:9.552147Axel data X: 1.027717 Y:-0.422931 Z:9.536594Axel data X: 1.011565 Y:-0.450448 Z:9.574879Axel data X: 1.031306 Y:-0.379262 Z:9.550353Axel data X: 1.003190 Y:-0.353539 Z:9.530014Axel data X: 1.013958 Y:-0.367298 Z:9.547960Axel data X: 1.039083 Y:-0.381056 Z:9.550951Axel data X: 1.015753 Y:-0.375074 Z:9.609575Axel data X: 1.019940 Y:-0.326620 Z:9.577272Axel data X: 1.052243 Y:-0.299701 Z:9.574879Axel data X: 1.045065 Y:-0.306879 Z:9.568299Axel data X: 1.012762 Y:-0.373280 Z:9.546165Axel data X: 0.993619 Y:-0.403190 Z:9.594022Axel data X: 1.004985 Y:-0.398404 Z:9.516255Axel data X: 1.016949 Y:-0.387637 Z:9.554540Axel data X: 1.064207 Y:-0.398404 Z:9.553942Axel data X: 1.031904 Y:-0.403190 Z:9.534201Axel data X: 1.028315 Y:-0.406779 Z:9.549156Axel data X: 1.043868 Y:-0.382253 Z:9.541380Axel data X: 1.032502 Y:-0.367298 Z:9.574879Axel data X: 1.043868 Y:-0.337986 Z:9.577272Axel data X: 1.013958 Y:-0.354137 Z:9.564710Axel data X: 1.014556 Y:-0.355932 Z:9.544969Axel data X: 1.010369 Y:-0.340977 Z:9.579067Axel data X: 1.026520 Y:-0.339780 Z:9.543174ASSERTION FAIL @ WEST_TOPDIR/zephyr/include/zephyr/
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model window: 450
+Machine learning model framesize: 3
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 1.019940 Y: -0.491725 Z: 9.585647
+Axel data X: 1.010967 Y: -0.497707 Z: 9.576076
+Axel data X: 0.981057 Y: -0.506081 Z: 9.580861
+Axel data X: 0.954736 Y: -0.484546 Z: 9.564710
+Axel data X: 0.95Axel data X: 0.918245 Y: -0.424726 Z: 9.576076
+Axel data X: 1.027717 Y: -0.464207 Z: 9.553942
+Axel data X: 1.042672 Y: -0.528813 Z: 9.533603
+Axel data X: 1.052243 Y: -0.504885 Z: 9.543174
+Axel data X: 0.992423 Y: -0.509671 Z: 9.548558
+Axel data X: 0.895513 Y: -0.550349 Z: 9.513862
+Axel data X: 0.899701 Y: -0.494117 Z: 9.546165
+Axel data X: 0.946959 Y: -0.452841 Z: 9.574281
+Axel data X: 0.980459 Y: -0.418743 Z: 9.563513
+Axel data X: 0.969093 Y: -0.408574 Z: 9.571888
+Axel data X: 0.917049 Y: -0.485742 Z: 9.588638
+Axel data X: 0.918245 Y: -0.469591 Z: 9.561120
+Axel data X: 0.982851 Y: -0.417547 Z: 9.609575
+Axel data X: 1.032502 Y: -0.362512 Z: 9.600004
+Axel data X: 0.978066 Y: -0.369092 Z: 9.563513
+Axel data X: 0.949950 Y: -0.486939 Z: 9.568299
+Axel data X: 0.921236 Y: -0.525822 Z: 9.556335
+Axel data X: 0.920638 Y: -0.482153 Z: 9.542576
+Axel data X: 0.985842 Y: -0.458823 Z: 9.552746
+Axel data X: 0.987039 Y: -0.491126 Z: 9.573085
+Axel data X: 0.951146 Y: -0.583848 Z: 9.530014
+Axel data X: 0.956530 Y: -0.565304 Z: 9.567701
+Axel data X: 0.973280 Y: -0.464207 Z: 9.546763
+Axel data X: 0.988235 Y: -0.381655 Z: 9.559326
+Axel data X: 0.968494 Y: -0.360718 Z: 9.585647
+Axel data X: 0.919442 Y: -0.406181 Z: 9.564710
+Axel data X: 0.958325 Y: -0.379262 Z: 9.571290
+Axel data X: 0.984048 Y: -0.416351 Z: 9.583852
+Axel data X: 0.961914 Y: -0.460020 Z: 9.571888
+Axel data X: 0.940977 Y: -0.440877 Z: 9.565308
+Axel data X: 0.923031 Y: -0.486939 Z: 9.545567
+Axel data X: 0.930209 Y: -0.501894 Z: 9.538389
+Axel data X: 0.949950 Y: -0.477966 Z: 9.525228
+Axel data X: 0.976869 Y: -0.484546 Z: 9.536594
+Axel data X: 1.007378 Y: -0.521037 Z: 9.566504
+Axel data X: 0.969093 Y: -0.476171 Z: 9.572486
+Axel data X: 0.988833 Y: -0.497108 Z: 9.577870
+Axel data X: 0.975673 Y: -0.463011 Z: 9.535996
+Axel data X: 0.977468 Y: -0.441475 Z: 9.577870
+Axel data X: 0.939182 Y: -0.440877 Z: 9.587441
+Axel data X: 0.911665 Y: -0.391824 Z: 9.590432
+Axel data X: 0.896112 Y: -0.352941 Z: 9.572486
+Axel data X: 0.929611 Y: -0.388235 Z: 9.549156
+Axel data X: 0.925424 Y: -0.429511 Z: 9.588638
+Axel data X: 0.967896 Y: -0.498903 Z: 9.567701
+Axel data X: 1.012163 Y: -0.504287 Z: 9.565906
+Axel data X: 1.004387 Y: -0.477368 Z: 9.531210
+Axel data X: 0.969093 Y: -0.513858 Z: 9.531210
+Axel data X: 0.921236 Y: -0.561116 Z: 9.516853
+Axel data X: 0.960718 Y: -0.541376 Z: 9.543174
+Axel data X: 0.981057 Y: -0.464207 Z: 9.547362
+Axel data X: 1.034895 Y: -0.407378 Z: 9.547362
+Axel data X: 0.936790 Y: -0.431306 Z: 9.576076
+Axel data X: 0.871585 Y: -0.470189 Z: 9.565906
+Axel data X: 0.855434 Y: -0.438484 Z: 9.586245
+Axel data X: 0.943968 Y: -0.381056 Z: 9.576674
+Axel data X: 0.984646 Y: -0.332602 Z: 9.562317
+Axel data X: 0.934995 Y: -0.379860 Z: 9.572486
+Axel data X: 0.933200 Y: -0.506680 Z: 9.546763
+Axel data X: 0.970289 Y: -0.518644 Z: 9.544969
+Axel data X: 1.012762 Y: -0.483350 Z: 9.539585
+Axel data X: 1.025922 Y: -0.455234 Z: 9.546763
+Axel data X: 0.949352 Y: -0.576670 Z: 9.547960
+Axel data X: 0.930209 Y: -0.625124 Z: 9.550353
+Axel data X: 0.945763 Y: -0.477368 Z: 9.545567
+Axel data X: 0.955334 Y: -0.366101 Z: 9.552147
+Axel data X: 0.887138 Y: -0.395413 Z: 9.528817
+Axel data X: 0.917647 Y: -0.519840 Z: 9.572486
+Axel data X: 0.979860 Y: -0.492921 Z: 9.557531
+Axel data X: 1.045663 Y: -0.334995 Z: 9.559326
+Axel data X: 1.014556 Y: -0.300897 Z: 9.565906
+Axel data X: 0.960120 Y: -0.349950 Z: 9.586245
+Axel data X: 0.844666 Y: -0.580259 Z: 9.553344
+Axel data X: 0.904486 Y: -0.608973 Z: 9.516255
+Axel data X: 1.026520 Y: -0.387039 Z: 9.562317
+Axel data X: 1.036690 Y: -0.407976 Z: 9.553942
+Axel data X: 0.966700 Y: -0.481555 Z: 9.547362
+Axel data X: 0.860219 Y: -0.653240 Z: 9.535996
+Axel data X: 0.908674 Y: -0.585643 Z: 9.577870
+Axel data X: 1.012163 Y: -0.364307 Z: 9.591629
+Axel data X: 0.975673 Y: -0.349950 Z: 9.550951
+Axel data X: 0.930807 Y: -0.415154 Z: 9.598807
+Axel data X: 0.887737 Y: -0.460618 Z: 9.575477
+Axel data X: 0.944566 Y: -0.442672 Z: 9.562317
+Axel data X: 0.999601 Y: -0.350548 Z: 9.599406
+Axel data X: 0.985244 Y: -0.344566 Z: 9.555138
+Axel data X: 0.965503 Y: -0.390628 Z: 9.551549
+Axel data X: 0.899701 Y: -0.511465 Z: 9.573085
+Axel data X: 0.903290 Y: -0.567697 Z: 9.559326
+Axel data X: 0.947557 Y: -0.474975 Z: 9.565906
+Axel data X: 0.990628 Y: -0.462412 Z: 9.530014
+Axel data X: 0.948155 Y: -0.539581 Z: 9.537790
+Axel data X: 0.985244 Y: -0.561116 Z: 9.554540
+Axel data X: 0.997208 Y: -0.480359 Z: 9.538389
+Axel data X: 1.017547 Y: -0.401994 Z: 9.558129
+Axel data X: 0.954138 Y: -0.384048 Z: 9.591031
+Axel data X: 0.881755 Y: -0.418743 Z: 9.542576
+Axel data X: 0.881755 Y: -0.424726 Z: 9.562317
+Axel data X: 0.936790 Y: -0.366700 Z: 9.569495
+Axel data X: 0.970289 Y: -0.372682 Z: 9.567701
+Axel data X: 0.956530 Y: -0.473180 Z: 9.590432
+Axel data X: 0.984646 Y: -0.511465 Z: 9.570692
+Axel data X: 0.997807 Y: -0.476171 Z: 9.538389
+Axel data X: 0.946959 Y: -0.428315 Z: 9.574879
+Axel data X: 0.972084 Y: -0.463011 Z: 9.570093
+Axel data X: 0.952343 Y: -0.577866 Z: 9.565308
+Axel data X: 0.975673 Y: -0.555134 Z: 9.535398
+Axel data X: 0.992423 Y: -0.441475 Z: 9.562915
+Axel data X: 1.015753 Y: -0.397806 Z: 9.544371
+Axel data X: 0.969691 Y: -0.453439 Z: 9.543174
+Axel data X: 0.893719 Y: -0.498903 Z: 9.546165
+Axel data X: 0.909870 Y: -0.444466 Z: 9.542576
+Axel data X: 0.951745 Y: -0.336191 Z: 9.586245
+Axel data X: 0.929611 Y: -0.337986 Z: 9.570093
+Axel data X: 0.902692 Y: -0.410967 Z: 9.569495
+Axel data X: 0.923629 Y: -0.534795 Z: 9.565906
+Axel data X: 1.045663 Y: -0.524626 Z: 9.584450
+Axel data X: 1.057029 Y: -0.418743 Z: 9.552746
+Axel data X: 0.979262 Y: -0.441475 Z: 9.535996
+Axel data X: 0.918245 Y: -0.555733 Z: 9.532407
+Axel data X: 0.876969 Y: -0.574277 Z: 9.510871
+Axel data X: 0.972084 Y: -0.473180 Z: 9.564111
+Axel data X: 1.000798 Y: -0.399003 Z: 9.575477
+Axel data X: 0.945164 Y: -0.446261 Z: 9.545567
+Axel data X: 0.900897 Y: -0.492921 Z: 9.543174
+Axel data X: 0.915852 Y: -0.451047 Z: 9.548558
+ASSERTION FAIL @ WEST_TOPDIR/zephyr/include
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model window: 450
+Machine learning model framesize: 3
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 0.975075 Y: -0.470189 Z: 9.604789
+Axel data X: 0.967298 Y: -0.460020 Z: 9.537790
+Axel data X: 0.935593 Y: -0.469591 Z: 9.558129
+Axel data X: 0.943968 Y: -0.488734 Z: 9.561719
+Axel data X: 0.92Axel data X: 1.034297 Y: -0.396610 Z: 9.567102
+Axel data X: 1.004387 Y: -0.369691 Z: 9.546165
+Axel data X: 0.913460 Y: -0.475573 Z: 9.573085
+Axel data X: 0.904486 Y: -0.575473 Z: 9.566504
+Axel data X: 0.898504 Y: -0.464207 Z: 9.560522
+Axel data X: 0.966102 Y: -0.370887 Z: 9.589236
+Axel data X: 1.007378 Y: -0.357726 Z: 9.539585
+Axel data X: 0.942173 Y: -0.478564 Z: 9.524032
+Axel data X: 0.955932 Y: -0.531804 Z: 9.564710
+Axel data X: 0.990030 Y: -0.497707 Z: 9.580263
+Axel data X: 1.000798 Y: -0.370887 Z: 9.593424
+Axel data X: 0.973280 Y: -0.384048 Z: 9.604191
+Axel data X: 0.919442 Y: -0.512064 Z: 9.531210
+Axel data X: 0.899701 Y: -0.546161 Z: 9.559924
+Axel data X: 0.939182 Y: -0.501296 Z: 9.572486
+Axel data X: 1.022931 Y: -0.419342 Z: 9.592227
+Axel data X: 1.000798 Y: -0.413360 Z: 9.575477
+Axel data X: 0.939781 Y: -0.494117 Z: 9.560522
+Axel data X: 0.914058 Y: -0.471984 Z: 9.533005
+Axel data X: 0.957129 Y: -0.402592 Z: 9.491130
+Axel data X: 0.939182 Y: -0.395413 Z: 9.602995
+Axel data X: 0.962512 Y: -0.425324 Z: 9.557531
+Axel data X: 0.936191 Y: -0.486939 Z: 9.583254
+Axel data X: 0.891924 Y: -0.466600 Z: 9.487541
+Axel data X: 0.991824 Y: -0.446261 Z: 9.538987
+Axel data X: 1.000798 Y: -0.430708 Z: 9.567701
+Axel data X: 0.951745 Y: -0.512662 Z: 9.564111
+Axel data X: 0.946361 Y: -0.488734 Z: 9.472586
+Axel data X: 0.942772 Y: -0.460618 Z: 9.580263
+Axel data X: 0.960718 Y: -0.429511 Z: 9.610771
+Axel data X: 0.975075 Y: -0.455234 Z: 9.550951
+Axel data X: 0.932602 Y: -0.511465 Z: 9.587441
+Axel data X: 0.927218 Y: -0.501296 Z: 9.565906
+Axel data X: 0.991824 Y: -0.412163 Z: 9.610173
+Axel data X: 0.987039 Y: -0.369092 Z: 9.543174
+Axel data X: 0.952941 Y: -0.407378 Z: 9.586843
+Axel data X: 0.911067 Y: -0.451645 Z: 9.562915
+Axel data X: 0.914656 Y: -0.491126 Z: 9.569495
+Axel data X: 0.960120 Y: -0.456430 Z: 9.548558
+Axel data X: 0.995414 Y: -0.434297 Z: 9.590432
+Axel data X: 0.985842 Y: -0.497707 Z: 9.577870
+Axel data X: 0.965503 Y: -0.536590 Z: 9.591031
+Axel data X: 0.951146 Y: -0.488135 Z: 9.531210
+Axel data X: 0.969093 Y: -0.462412 Z: 9.577272
+Axel data X: 0.979860 Y: -0.424127 Z: 9.568299
+Axel data X: 0.948155 Y: -0.450448 Z: 9.565906
+Axel data X: 0.912263 Y: -0.482153 Z: 9.554540
+Axel data X: 0.949950 Y: -0.456430 Z: 9.555138
+Axel data X: 0.911665 Y: -0.429511 Z: 9.580861
+Axel data X: 0.966102 Y: -0.423529 Z: 9.586245
+Axel data X: 0.959521 Y: -0.463011 Z: 9.555737
+Axel data X: 1.044467 Y: -0.489332 Z: 9.558728
+Axel data X: 1.022333 Y: -0.492921 Z: 9.602397
+Axel data X: 0.970887 Y: -0.486341 Z: 9.567701
+Axel data X: 0.905683 Y: -0.473778 Z: 9.564111
+Axel data X: 0.878165 Y: -0.450448 Z: 9.533005
+Axel data X: 0.903888 Y: -0.447457 Z: 9.550951
+Axel data X: 0.990628 Y: -0.480359 Z: 9.525826
+Axel data X: 0.949950 Y: -0.448056 Z: 9.576674
+Axel data X: 0.959521 Y: -0.439082 Z: 9.577272
+Axel data X: 0.929611 Y: -0.409770 Z: 9.558129
+Axel data X: 0.918245 Y: -0.440279 Z: 9.573085
+Axel data X: 0.964307 Y: -0.427118 Z: 9.551549
+Axel data X: 0.956530 Y: -0.418743 Z: 9.545567
+Axel data X: 0.991226 Y: -0.434297 Z: 9.565308
+Axel data X: 0.988235 Y: -0.489930 Z: 9.564111
+Axel data X: 0.958923 Y: -0.524626 Z: 9.535996
+Axel data X: 0.978066 Y: -0.517447 Z: 9.535398
+Axel data X: 0.989432 Y: -0.502492 Z: 9.561719
+Axel data X: 0.960120 Y: -0.469591 Z: 9.553344
+Axel data X: 0.940379 Y: -0.468993 Z: 9.545567
+Axel data X: 0.890130 Y: -0.473180 Z: 9.558728
+Axel data X: 0.928415 Y: -0.442073 Z: 9.546763
+Axel data X: 0.972682 Y: -0.408574 Z: 9.540183
+Axel data X: 0.987637 Y: -0.391226 Z: 9.569495
+Axel data X: 1.005583 Y: -0.451047 Z: 9.571290
+Axel data X: 0.982253 Y: -0.455234 Z: 9.572486
+Axel data X: 0.969093 Y: -0.443270 Z: 9.528817
+Axel data X: 0.939781 Y: -0.437886 Z: 9.550353
+Axel data X: 0.948155 Y: -0.445065 Z: 9.521041
+Axel data X: 0.953539 Y: -0.500698 Z: 9.538987
+Axel data X: 0.939182 Y: -0.520438 Z: 9.549156
+Axel data X: 0.961914 Y: -0.537188 Z: 9.535996
+Axel data X: 0.981655 Y: -0.464805 Z: 9.537790
+Axel data X: 0.991226 Y: -0.465403 Z: 9.556335
+Axel data X: 0.951146 Y: -0.455234 Z: 9.535996
+Axel data X: 0.972682 Y: -0.471984 Z: 9.565308
+Axel data X: 0.941575 Y: -0.434895 Z: 9.580263
+Axel data X: 0.961316 Y: -0.407976 Z: 9.577272
+Axel data X: 0.976271 Y: -0.414556 Z: 9.590432
+Axel data X: 0.970289 Y: -0.427717 Z: 9.585647
+Axel data X: 0.957129 Y: -0.453439 Z: 9.558728
+Axel data X: 0.914058 Y: -0.459421 Z: 9.564111
+Axel data X: 0.914656 Y: -0.440279 Z: 9.541978
+Axel data X: 0.949950 Y: -0.479162 Z: 9.601200
+Axel data X: 0.940379 Y: -0.470189 Z: 9.575477
+Axel data X: 0.916451 Y: -0.504885 Z: 9.546763
+Axel data X: 0.997807 Y: -0.483948 Z: 9.519246
+Axel data X: 1.010369 Y: -0.460020 Z: 9.535996
+Axel data X: 1.033101 Y: -0.468395 Z: 9.902696
+Axel data X: 0.952343 Y: -0.460618 Z: 9.598807
+Axel data X: 0.995414 Y: -0.457029 Z: 9.392426
+Axel data X: 0.917647 Y: -0.431306 Z: 9.548558
+Axel data X: 0.917049 Y: -0.371485 Z: 9.501898
+Axel data X: 0.872782 Y: -0.415154 Z: 9.608977
+Axel data X: 0.912263 Y: -0.420538 Z: 9.528817
+Axel data X: 1.009172 Y: -0.445065 Z: 9.626923
+Axel data X: 1.017547 Y: -0.445663 Z: 9.559326
+Axel data X: 0.961914 Y: -0.461216 Z: 9.583852
+Axel data X: 0.958923 Y: -0.503090 Z: 9.527023
+ASSERTION FAIL @ WEST_TOPDIR/zephyr/include/ze
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model window: 450
+Machine learning model framesize: 3
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 0.829711 Y: -0.582652 Z: 9.590432
+Axel data X: 0.961914 Y: -0.428913 Z: 9.607182
+Axel data X: 0.703489 Y: -0.234496 Z: 9.563513
+Axel data X: 0.881156 Y: -0.457029 Z: 9.628718
+Axel data X: 0.72Axel data X: 0.865603 Y: -0.387039 Z: 9.566504
+Axel data X: 0.682552 Y: -0.355334 Z: 9.600602
+Axel data X: 0.693918 Y: -0.410369 Z: 9.594620
+Axel data X: 0.716052 Y: -0.507876 Z: 9.588040
+Axel data X: 0.715453 Y: -0.441475 Z: 9.585647
+Axel data X: 0.705284 Y: -0.434297 Z: 9.591031
+Axel data X: 0.658026 Y: -0.327816 Z: 9.588040
+Axel data X: 0.738783 Y: -0.338584 Z: 9.594620
+Axel data X: 0.708873 Y: -0.377467 Z: 9.596415
+Axel data X: 0.598803 Y: -0.389431 Z: 9.566504
+Axel data X: 0.601794 Y: -0.560518 Z: 9.583254
+Axel data X: 0.672383 Y: -0.324825 Z: 9.575477
+Axel data X: 0.547358 Y: -0.309870 Z: 9.564710
+Axel data X: 0.750149 Y: -0.436091 Z: 9.620941
+Axel data X: 0.575473 Y: -0.445663 Z: 9.560522
+Axel data X: 0.588036 Y: -0.602991 Z: 9.610173
+Axel data X: 0.610767 Y: -0.406181 Z: 9.603593
+Axel data X: 0.690329 Y: -0.351146 Z: 9.602995
+Axel data X: 0.765105 Y: -0.305084 Z: 9.614959
+Axel data X: 0.499501 Y: -0.671186 Z: 9.569495
+Axel data X: 0.565304 Y: -0.598205 Z: 9.587441
+Axel data X: 0.556929 Y: -0.379262 Z: 9.624530
+Axel data X: 0.519840 Y: -0.337986 Z: 9.619146
+Axel data X: 0.438484 Y: -0.187836 Z: 9.581459
+Axel data X: 0.397806 Y: -0.300897 Z: 9.556933
+Axel data X: 0.652044 Y: -0.620937 Z: 9.631110
+Axel data X: 0.519242 Y: -0.573081 Z: 9.610173
+Axel data X: 0.683150 Y: -0.528813 Z: 9.631709
+Axel data X: 0.580857 Y: -0.523429 Z: 9.635896
+Axel data X: 0.652044 Y: -0.200997 Z: 9.617352
+Axel data X: 0.374476 Y: -0.433100 Z: 9.559326
+Axel data X: 0.528215 Y: -0.355932 Z: 9.601200
+Axel data X: 0.518644 Y: -0.371485 Z: 9.571888
+Axel data X: 0.510867 Y: -0.449252 Z: 9.602397
+Axel data X: 0.626321 Y: -0.525224 Z: 9.632905
+Axel data X: 0.540179 Y: -0.443270 Z: 9.568299
+Axel data X: 0.541974 Y: -0.333798 Z: 9.613763
+Axel data X: 0.488734 Y: -0.410967 Z: 9.594620
+Axel data X: 0.474975 Y: -0.367896 Z: 9.653244
+Axel data X: 0.608973 Y: -0.588634 Z: 9.638289
+Axel data X: 0.542572 Y: -0.485742 Z: 9.577870
+Axel data X: 0.497707 Y: -0.434895 Z: 9.605388
+Axel data X: 0.591027 Y: -0.353539 Z: 9.615557
+Axel data X: 0.525224 Y: -0.367298 Z: 9.636494
+Axel data X: 0.465403 Y: -0.395413 Z: 9.613763
+Axel data X: 0.510269 Y: -0.498903 Z: 9.579067
+Axel data X: 0.479162 Y: -0.488135 Z: 9.617950
+Axel data X: 0.522831 Y: -0.354137 Z: 9.620343
+Axel data X: 0.479162 Y: -0.417547 Z: 9.586843
+Axel data X: 0.457029 Y: -0.564107 Z: 9.591629
+Axel data X: 0.493519 Y: -0.500698 Z: 9.605986
+Axel data X: 0.583250 Y: -0.486341 Z: 9.621539
+Axel data X: 0.517447 Y: -0.366700 Z: 9.605986
+Axel data X: 0.604187 Y: -0.397208 Z: 9.634700
+Axel data X: 0.509073 Y: -0.505483 Z: 9.596415
+Axel data X: 0.438484 Y: -0.497707 Z: 9.626325
+Axel data X: 0.565304 Y: -0.443270 Z: 9.640084
+Axel data X: 0.547956 Y: -0.340977 Z: 9.634101
+Axel data X: 0.431904 Y: -0.464207 Z: 9.614361
+Axel data X: 0.574875 Y: -0.494716 Z: 9.610771
+Axel data X: 0.569491 Y: -0.485144 Z: 9.597611
+Axel data X: 0.494117 Y: -0.586241 Z: 9.600004
+Axel data X: 0.547956 Y: -0.381056 Z: 9.613164
+Axel data X: 0.509073 Y: -0.407976 Z: 9.586245
+Axel data X: 0.511465 Y: -0.346361 Z: 9.591629
+Axel data X: 0.452841 Y: -0.445065 Z: 9.580263
+Axel data X: 0.579661 Y: -0.522831 Z: 9.610771
+Axel data X: 0.506680 Y: -0.444466 Z: 9.616754
+Axel data X: 0.489930 Y: -0.392422 Z: 9.584450
+Axel data X: 0.543768 Y: 0.115453 Z: 9.572486
+Axel data X: 0.418145 Y: -0.722632 Z: 9.602397
+Axel data X: 0.440877 Y: -0.616750 Z: 9.569495
+Axel data X: 0.485742 Y: -0.401994 Z: 9.620941
+Axel data X: 0.438484 Y: -0.364905 Z: 9.652646
+Axel data X: 0.583250 Y: -0.457627 Z: 9.602397
+Axel data X: 0.511465 Y: -0.385244 Z: 9.597611
+Axel data X: 0.495912 Y: -0.644267 Z: 9.611968
+Axel data X: 0.593420 Y: -0.492323 Z: 9.586245
+Axel data X: 0.466600 Y: -0.391824 Z: 9.573683
+Axel data X: 0.622732 Y: -0.454636 Z: 9.594022
+Axel data X: 0.509671 Y: -0.373878 Z: 9.588638
+Axel data X: 0.528813 Y: -0.422333 Z: 9.608379
+Axel data X: 0.650847 Y: -0.604187 Z: 9.605986
+Axel data X: 0.517447 Y: -0.427717 Z: 9.583852
+Axel data X: 0.483350 Y: -0.352343 Z: 9.565308
+Axel data X: 0.716650 Y: -0.469591 Z: 9.646066
+Axel data X: 0.516849 Y: -0.408574 Z: 9.600004
+Axel data X: 0.575473 Y: -0.449850 Z: 9.597611
+Axel data X: 0.594616 Y: -0.475573 Z: 9.603593
+Axel data X: 0.530010 Y: -0.334995 Z: 9.584450
+Axel data X: 0.608973 Y: -0.425922 Z: 9.619745
+Axel data X: 0.498305 Y: -0.300897 Z: 9.555138
+Axel data X: 0.569491 Y: -0.417547 Z: 9.583254
+Axel data X: 0.466002 Y: -0.400199 Z: 9.571888
+Axel data X: 0.614955 Y: -0.401994 Z: 9.586843
+Axel data X: 0.628115 Y: -0.260817 Z: 9.610173
+Axel data X: 0.552742 Y: -0.479162 Z: 9.598807
+Axel data X: 0.602991 Y: -0.543170 Z: 9.595218
+Axel data X: 0.652642 Y: -0.399601 Z: 9.607182
+Axel data X: 0.631705 Y: -0.371485 Z: 9.623334
+Axel data X: 0.503090 Y: -0.257228 Z: 9.579067
+Axel data X: 0.484546 Y: -0.366101 Z: 9.589834
+Axel data X: 0.566500 Y: -0.503689 Z: 9.610173
+Axel data X: 0.609571 Y: -0.394217 Z: 9.619745
+Axel data X: 0.633499 Y: -0.271585 Z: 9.571888
+Axel data X: 0.518046 Y: -0.405583 Z: 9.574879
+Axel data X: 0.612562 Y: -0.409172 Z: 9.581459
+Axel data X: 0.512064 Y: -0.360718 Z: 9.573683
+Axel data X: 0.699900 Y: -0.437886 Z: 9.605986
+Axel data X: 0.604187 Y: -0.355334 Z: 9.602995
+ASSERTION FAIL @ WEST_TOPDIR/zephyr/include/z
+* Connecting to COM15 (3m25s) - Opening COM15: File not found

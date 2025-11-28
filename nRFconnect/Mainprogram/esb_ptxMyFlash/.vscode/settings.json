@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "log.h": "c",
+        "nrf.h": "c",
+        "device.h": "c",
+        "disk_access.h": "c",
+        "kernel.h": "c",
+        "fs.h": "c",
+        "ff.h": "c",
+        "dk_buttons_and_leds.h": "c",
+        "nrf_lrcconf.h": "c"
+    },
+    "nrf-connect.applications": []
+}

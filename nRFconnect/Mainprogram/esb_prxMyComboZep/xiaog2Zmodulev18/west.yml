@@ -1,0 +1,8 @@
+manifest:
+
+  projects:
+    - name: edge-impulse-sdk-zephyr
+      description: Edge Impulse SDK for Zephyr
+      path: modules/edge-impulse-sdk-zephyr
+      revision: v1.79.0
+      url: https://github.com/edgeimpulse/edge-impulse-sdk-zephyr

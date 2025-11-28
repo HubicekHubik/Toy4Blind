@@ -1,0 +1,47 @@
+*** Booting nRF Connect SDK v3.0.1-9eb5615da66b ***
+*** Using Zephyr OS v4.0.99-77f865b8f8d0 ***
+
+Enhanced ShockBurst prx sample
+TX Performance test and RSSI value
+
+[PRX] Version: 3 | Build: Jun  2 2025 15:11:19
+Board: nrf54l15dk
+Device ID: 416016678
+
+FEM RX support: disabled
+HF clock started
+Initialization complete
+
+Setting up for packet receiption
+----------------------
+ID:2693870648 | Board:nRF52840DK            | Counter:  0 | TX:  0 dBm | RSSI:-70 dBm (Weak)
+ID:2693870648 | Board:nRF52840DK            | Counter:  1 | TX:  2 dBm | RSSI:-67 dBm (Weak)
+ID:2693870648 | Board:nRF52840DK            | Counter:  2 | TX:  3 dBm | RSSI:-66 dBm (Weak)
+ID:2693870648 | Board:nRF52840DK            | Counter:  3 | TX:  4 dBm | RSSI:-65 dBm (Average)
+ID:2693870648 | Board:nRF52840DK            | Counter:  4 | TX:  5 dBm | RSSI:-65 dBm (Average)
+ID:2693870648 | Board:nRF52840DK            | Counter:  5 | TX:  6 dBm | RSSI:-65 dBm (Average)
+ID:2693870648 | Board:nRF52840DK            | Counter:  6 | TX:  7 dBm | RSSI:-64 dBm (Average)
+ID:2693870648 | Board:nRF52840DK            | Counter:  7 | TX:  8 dBm | RSSI:-62 dBm (Average)
+
+ID:2693870648 | Board:nRF52840DK FEM Active | Counter:  0 | TX: 20 dBm | RSSI:-83 dBm (Critical)
+ID:2693870648 | Board:nRF52840DK FEM Active | Counter:  1 | TX: 22 dBm | RSSI:-79 dBm (Very Poor)
+ID:2693870648 | Board:nRF52840DK FEM Active | Counter:  2 | TX: 23 dBm | RSSI:-79 dBm (Very Poor)
+ID:2693870648 | Board:nRF52840DK FEM Active | Counter:  3 | TX: 24 dBm | RSSI:-79 dBm (Very Poor)
+ID:2693870648 | Board:nRF52840DK FEM Active | Counter:  4 | TX: 25 dBm | RSSI:-79 dBm (Very Poor)
+ID:2693870648 | Board:nRF52840DK FEM Active | Counter:  5 | TX: 26 dBm | RSSI:-76 dBm (Very Poor)
+ID:2693870648 | Board:nRF52840DK FEM Active | Counter:  6 | TX: 27 dBm | RSSI:-76 dBm (Very Poor)
+ID:2693870648 | Board:nRF52840DK FEM Active | Counter:  7 | TX: 28 dBm | RSSI:-76 dBm (Very Poor)
+
+ID:0686171830 | Board:nRF5340DK             | Counter:  0 | TX:  0 dBm | RSSI:-69 dBm (Weak)
+
+ID:2628253021 | Board:nRF7002DK             | Counter:  0 | TX:  0 dBm | RSSI:-69 dBm (Weak)
+
+ID:3170380583 | Board:nRF54L15DK            | Counter:  0 | TX:  0 dBm | RSSI:-69 dBm (Weak)
+ID:3170380583 | Board:nRF54L15DK            | Counter:  1 | TX:  1 dBm | RSSI:-68 dBm (Weak)
+ID:3170380583 | Board:nRF54L15DK            | Counter:  2 | TX:  2 dBm | RSSI:-66 dBm (Weak)
+ID:3170380583 | Board:nRF54L15DK            | Counter:  3 | TX:  3 dBm | RSSI:-66 dBm (Weak)
+ID:3170380583 | Board:nRF54L15DK            | Counter:  4 | TX:  4 dBm | RSSI:-64 dBm (Average)
+ID:3170380583 | Board:nRF54L15DK            | Counter:  5 | TX:  5 dBm | RSSI:-63 dBm (Average)
+ID:3170380583 | Board:nRF54L15DK            | Counter:  6 | TX:  6 dBm | RSSI:-62 dBm (Average)
+ID:3170380583 | Board:nRF54L15DK            | Counter:  7 | TX:  7 dBm | RSSI:-61 dBm (Average)
+ID:3170380583 | Board:nRF54L15DK            | Counter:  8 | TX:  8 dBm | RSSI:-61 dBm (Average)

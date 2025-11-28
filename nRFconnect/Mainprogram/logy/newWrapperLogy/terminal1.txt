@@ -1,0 +1,1019 @@
+Axel data X: 0.757328 Y: 0.402592 Z: 9.614361
+Axel data X: 0.747158 Y: 0.389431 Z: 9.592825
+Axel data X: 0.759721 Y: 0.432502 Z: 9.600004
+Axel data X: 0.749551 Y: 0.452243 Z: 9.562317
+Axel data X: 0.738185 Y: 0.469591 Z: 9.583852
+Axel data X: 0.726819 Y: 0.464805 Z: 9.560522
+Axel data X: 0.738783 Y: 0.477368 Z: 9.586843
+Axel data X: 0.717248 Y: 0.415154 Z: 9.556335
+Axel data X: 0.733400 Y: 0.381655 Z: 9.614361
+Axel data X: 0.701695 Y: 0.374476 Z: 9.538987
+Axel data X: 0.747757 Y: 0.379860 Z: 9.585647
+Axel data X: 0.772283 Y: 0.381655 Z: 9.598807
+Axel data X: 0.777667 Y: 0.403190 Z: 9.585049
+Axel data X: 0.792024 Y: 0.397806 Z: 9.564111
+Axel data X: 0.761515 Y: 0.439082 Z: 9.568897
+Axel data X: 0.763310 Y: 0.435493 Z: 9.567102
+Axel data X: 0.759721 Y: 0.413360 Z: 9.58504
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model window: 450
+Machine learning model framesize: 3
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 0.728614 Y: 0.428315 Z: 9.579665
+Axel data X: 0.780658 Y: 0.412761 Z: 9.605986
+Axel data X: 0.814157 Y: 0.379262 Z: 9.591031
+Axel data X: 0.750149 Y: 0.385244 Z: 9.607182
+Axel data X: 0.735194Axel data X: 0.739382 Y: 0.421734 Z: 9.582058
+Axel data X: 0.712462 Y: 0.437886 Z: 9.597611
+Axel data X: 0.735194 Y: 0.426520 Z: 9.562317
+Axel data X: 0.763310 Y: 0.409770 Z: 9.579067
+Axel data X: 0.752542 Y: 0.388833 Z: 9.571888
+Axel data X: 0.748355 Y: 0.387637 Z: 9.589236
+Axel data X: 0.761515 Y: 0.381056 Z: 9.603593
+Axel data X: 0.735194 Y: 0.413360 Z: 9.577272
+Axel data X: 0.759721 Y: 0.417547 Z: 9.615557
+Axel data X: 0.729212 Y: 0.466002 Z: 9.588040
+Axel data X: 0.714257 Y: 0.452841 Z: 9.605388
+Axel data X: 0.718444 Y: 0.436091 Z: 9.573683
+Axel data X: 0.701695 Y: 0.447457 Z: 9.620941
+Axel data X: 0.726819 Y: 0.411565 Z: 9.547362
+Axel data X: 0.750149 Y: 0.372682 Z: 9.589236
+Axel data X: 0.755533 Y: 0.384646 Z: 9.588040
+Axel data X: 0.795015 Y: 0.405583 Z: 9.601798
+Axel data X: 0.787836 Y: 0.375074 Z: 9.552147
+Axel data X: 0.766301 Y: 0.394815 Z: 9.600602
+Axel data X: 0.770488 Y: 0.392422 Z: 9.559326
+Axel data X: 0.743569 Y: 0.432502 Z: 9.584450
+Axel data X: 0.739980 Y: 0.423529 Z: 9.539585
+Axel data X: 0.710668 Y: 0.436690 Z: 9.565308
+Axel data X: 0.713659 Y: 0.433699 Z: 9.556335
+Axel data X: 0.730409 Y: 0.447457 Z: 9.554540
+Axel data X: 0.732801 Y: 0.438484 Z: 9.549754
+Axel data X: 0.742971 Y: 0.438484 Z: 9.581459
+Axel data X: 0.784845 Y: 0.427717 Z: 9.561719
+Axel data X: 0.760319 Y: 0.384048 Z: 9.565308
+Axel data X: 0.739980 Y: 0.401395 Z: 9.602397
+Axel data X: 0.776470 Y: 0.403788 Z: 9.550353
+Axel data X: 0.723230 Y: 0.406181 Z: 9.591629
+Axel data X: 0.750748 Y: 0.389431 Z: 9.570093
+Axel data X: 0.748953 Y: 0.408574 Z: 9.565308
+Axel data X: 0.745364 Y: 0.412761 Z: 9.559326
+Axel data X: 0.730409 Y: 0.442672 Z: 9.601798
+Axel data X: 0.735792 Y: 0.451645 Z: 9.564111
+Axel data X: 0.745364 Y: 0.431904 Z: 9.583254
+Axel data X: 0.751944 Y: 0.424726 Z: 9.559326
+Axel data X: 0.751944 Y: 0.408574 Z: 9.589834
+Axel data X: 0.744167 Y: 0.387039 Z: 9.537192
+Axel data X: 0.763310 Y: 0.372083 Z: 9.574281
+Axel data X: 0.724427 Y: 0.408574 Z: 9.579665
+Axel data X: 0.765105 Y: 0.416949 Z: 9.596415
+Axel data X: 0.746560 Y: 0.434297 Z: 9.558728
+Axel data X: 0.738783 Y: 0.427118 Z: 9.570692
+Axel data X: 0.742373 Y: 0.398404 Z: 9.559924
+Axel data X: 0.754935 Y: 0.411565 Z: 9.600602
+Axel data X: 0.770488 Y: 0.404985 Z: 9.563513
+Axel data X: 0.741176 Y: 0.409172 Z: 9.576674
+Axel data X: 0.774676 Y: 0.428315 Z: 9.583852
+Axel data X: 0.771087 Y: 0.464805 Z: 9.601798
+Axel data X: 0.750748 Y: 0.445065 Z: 9.598209
+Axel data X: 0.765703 Y: 0.439681 Z: 9.556335
+Axel data X: 0.747158 Y: 0.429511 Z: 9.583852
+Axel data X: 0.729810 Y: 0.424726 Z: 9.533603
+Axel data X: 0.731007 Y: 0.415752 Z: 9.597013
+Axel data X: 0.726221 Y: 0.411565 Z: 9.562915
+Axel data X: 0.766899 Y: 0.425922 Z: 9.582058
+Axel data X: 0.781256 Y: 0.391226 Z: 9.562317
+Axel data X: 0.750149 Y: 0.419342 Z: 9.592825
+Axel data X: 0.803390 Y: 0.397208 Z: 9.562317
+Axel data X: 0.792622 Y: 0.424726 Z: 9.593424
+Axel data X: 0.769890 Y: 0.456430 Z: 9.594620
+Axel data X: 0.722034 Y: 0.415752 Z: 9.602397
+Axel data X: 0.722034 Y: 0.457627 Z: 9.525826
+Axel data X: 0.718444 Y: 0.412163 Z: 9.591031
+Axel data X: 0.698105 Y: 0.403190 Z: 9.588040
+Axel data X: 0.729810 Y: 0.431904 Z: 9.590432
+Axel data X: 0.708275 Y: 0.392422 Z: 9.537790
+Axel data X: 0.763310 Y: 0.421136 Z: 9.580263
+Axel data X: 0.778265 Y: 0.403190 Z: 9.568299
+Axel data X: 0.767497 Y: 0.410967 Z: 9.617352
+Axel data X: 0.762712 Y: 0.401395 Z: 9.591629
+Axel data X: 0.738185 Y: 0.387637 Z: 9.542576
+Axel data X: 0.727418 Y: 0.392422 Z: 9.557531
+Axel data X: 0.747158 Y: 0.393619 Z: 9.546763
+Axel data X: 0.744766 Y: 0.417547 Z: 9.600602
+Axel data X: 0.747757 Y: 0.458823 Z: 9.583852
+Axel data X: 0.714257 Y: 0.473778 Z: 9.617352
+Axel data X: 0.727418 Y: 0.449252 Z: 9.573085
+Axel data X: 0.726819 Y: 0.407976 Z: 9.571888
+Axel data X: 0.753140 Y: 0.407976 Z: 9.571290
+Axel data X: 0.774078 Y: 0.387039 Z: 9.583852
+Axel data X: 0.757926 Y: 0.413360 Z: 9.571888
+Axel data X: 0.762113 Y: 0.394815 Z: 9.568897
+Axel data X: 0.758524 Y: 0.399003 Z: 9.573683
+Axel data X: 0.749551 Y: 0.422333 Z: 9.588040
+Axel data X: 0.744766 Y: 0.433100 Z: 9.576674
+Axel data X: 0.716052 Y: 0.433100 Z: 9.578468
+Axel data X: 0.734596 Y: 0.433100 Z: 9.571290
+Axel data X: 0.705882 Y: 0.420538 Z: 9.574879
+Axel data X: 0.747757 Y: 0.446261 Z: 9.597611
+Axel data X: 0.768694 Y: 0.412761 Z: 9.580861
+Axel data X: 0.717846 Y: 0.406779 Z: 9.577272
+Axel data X: 0.743569 Y: 0.423529 Z: 9.564111
+Axel data X: 0.795015 Y: 0.399003 Z: 9.558728
+Axel data X: 0.762113 Y: 0.384048 Z: 9.554540
+Axel data X: 0.769292 Y: 0.399601 Z: 9.583852
+Axel data X: 0.725623 Y: 0.420538 Z: 9.556933
+Axel data X: 0.690329 Y: 0.386440 Z: 9.585049
+Axel data X: 0.732801 Y: 0.370289 Z: 9.545567
+Axel data X: 0.742971 Y: 0.376271 Z: 9.574281
+Axel data X: 0.760319 Y: 0.356530 Z: 9.564710
+Axel data X: 0.786640 Y: 0.399003 Z: 9.604789
+Axel data X: 0.805184 Y: 0.371485 Z: 9.546165
+Axel data X: 0.762712 Y: 0.421734 Z: 9.619146
+Axel data X: 0.777069 Y: 0.447457 Z: 9.585647
+Axel data X: 0.699302 Y: 0.475573 Z: 9.57787
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model window: 450
+Machine learning model framesize: 3
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 0.751346 Y: 0.342771 Z: 9.579067
+Axel data X: 0.814157 Y: 0.354137 Z: 9.555737
+Axel data X: 0.780060 Y: 0.424726 Z: 9.627521
+Axel data X: 0.790827 Y: 0.436690 Z: 9.591629
+Axel data X: 0.742373Axel data X: 0.665802 Y: 0.492323 Z: 9.577272
+Axel data X: 0.664606 Y: 0.546759 Z: 9.541978
+Axel data X: 0.597607 Y: 0.479162 Z: 9.548558
+Axel data X: 0.638285 Y: 0.405583 Z: 9.566504
+Axel data X: 0.679561 Y: 0.354137 Z: 9.587441
+Axel data X: 0.749551 Y: 0.360718 Z: 9.556335
+Axel data X: 0.806381 Y: 0.378664 Z: 9.600602
+Axel data X: 0.861416 Y: 0.362512 Z: 9.611968
+Axel data X: 0.840478 Y: 0.379860 Z: 9.591031
+Axel data X: 0.866799 Y: 0.373280 Z: 9.643075
+Axel data X: 0.829711 Y: 0.409172 Z: 9.605388
+Axel data X: 0.780060 Y: 0.382851 Z: 9.616754
+Axel data X: 0.736391 Y: 0.422333 Z: 9.594022
+Axel data X: 0.632303 Y: 0.477966 Z: 9.591629
+Axel data X: 0.631705 Y: 0.513858 Z: 9.601200
+Axel data X: 0.617946 Y: 0.528215 Z: 9.543772
+Axel data X: 0.632303 Y: 0.489930 Z: 9.547960
+Axel data X: 0.669990 Y: 0.443270 Z: 9.608379
+Axel data X: 0.769292 Y: 0.424726 Z: 9.568897
+Axel data X: 0.833300 Y: 0.410369 Z: 9.589236
+Axel data X: 0.865005 Y: 0.362512 Z: 9.595218
+Axel data X: 0.867996 Y: 0.309272 Z: 9.602397
+Axel data X: 0.869192 Y: 0.289531 Z: 9.576674
+Axel data X: 0.867398 Y: 0.291924 Z: 9.658628
+Axel data X: 0.863808 Y: 0.336789 Z: 9.611968
+Axel data X: 0.833300 Y: 0.359521 Z: 9.598807
+Axel data X: 0.754935 Y: 0.429511 Z: 9.597013
+Axel data X: 0.672981 Y: 0.491725 Z: 9.571888
+Axel data X: 0.612562 Y: 0.614357 Z: 9.610173
+Axel data X: 0.601196 Y: 0.600598 Z: 9.532407
+Axel data X: 0.615553 Y: 0.506081 Z: 9.594620
+Axel data X: 0.646062 Y: 0.429511 Z: 9.598807
+Axel data X: 0.707079 Y: 0.354735 Z: 9.535398
+Axel data X: 0.768096 Y: 0.350548 Z: 9.582058
+Axel data X: 0.799202 Y: 0.369691 Z: 9.586843
+Axel data X: 0.847059 Y: 0.357726 Z: 9.604191
+Axel data X: 0.893719 Y: 0.356530 Z: 9.617352
+Axel data X: 0.869791 Y: 0.351146 Z: 9.594620
+Axel data X: 0.797408 Y: 0.361914 Z: 9.583852
+Axel data X: 0.780658 Y: 0.330807 Z: 9.584450
+Axel data X: 0.741176 Y: 0.376869 Z: 9.582656
+Axel data X: 0.698704 Y: 0.436091 Z: 9.584450
+Axel data X: 0.638883 Y: 0.537188 Z: 9.587441
+Axel data X: 0.638883 Y: 0.550349 Z: 9.580861
+Axel data X: 0.644267 Y: 0.589232 Z: 9.558129
+Axel data X: 0.668793 Y: 0.516251 Z: 9.588040
+Axel data X: 0.696909 Y: 0.412163 Z: 9.603593
+Axel data X: 0.729212 Y: 0.330807 Z: 9.577870
+Axel data X: 0.780060 Y: 0.299102 Z: 9.575477
+Axel data X: 0.806381 Y: 0.289531 Z: 9.594022
+Axel data X: 0.834496 Y: 0.350548 Z: 9.579067
+Axel data X: 0.823729 Y: 0.327218 Z: 9.588040
+Axel data X: 0.821336 Y: 0.409172 Z: 9.612566
+Axel data X: 0.798006 Y: 0.421734 Z: 9.594022
+Axel data X: 0.792622 Y: 0.459421 Z: 9.603593
+Axel data X: 0.693320 Y: 0.491126 Z: 9.538987
+Axel data X: 0.662811 Y: 0.486341 Z: 9.556933
+Axel data X: 0.649651 Y: 0.465403 Z: 9.565906
+Axel data X: 0.689731 Y: 0.419940 Z: 9.610173
+Axel data X: 0.712462 Y: 0.446261 Z: 9.589236
+Axel data X: 0.769890 Y: 0.446859 Z: 9.602995
+Axel data X: 0.783051 Y: 0.424726 Z: 9.599406
+Axel data X: 0.769890 Y: 0.422931 Z: 9.574281
+Axel data X: 0.796211 Y: 0.412761 Z: 9.577272
+Axel data X: 0.777069 Y: 0.400797 Z: 9.586245
+Axel data X: 0.745364 Y: 0.352941 Z: 9.601798
+Axel data X: 0.761515 Y: 0.350548 Z: 9.583852
+Axel data X: 0.748355 Y: 0.382851 Z: 9.599406
+Axel data X: 0.766899 Y: 0.430708 Z: 9.596415
+Axel data X: 0.763310 Y: 0.436091 Z: 9.576674
+Axel data X: 0.732801 Y: 0.484546 Z: 9.593424
+Axel data X: 0.700498 Y: 0.534197 Z: 9.588040
+Axel data X: 0.688534 Y: 0.481555 Z: 9.575477
+Axel data X: 0.674177 Y: 0.422931 Z: 9.582656
+Axel data X: 0.693918 Y: 0.381056 Z: 9.609575
+Axel data X: 0.693320 Y: 0.348753 Z: 9.566504
+Axel data X: 0.745962 Y: 0.427717 Z: 9.568897
+Axel data X: 0.775274 Y: 0.435493 Z: 9.564111
+Axel data X: 0.806381 Y: 0.418743 Z: 9.617950
+Axel data X: 0.762712 Y: 0.424726 Z: 9.574879
+Axel data X: 0.749551 Y: 0.401395 Z: 9.590432
+Axel data X: 0.766899 Y: 0.374476 Z: 9.562317
+Axel data X: 0.729810 Y: 0.351146 Z: 9.593424
+Axel data X: 0.726819 Y: 0.349950 Z: 9.592825
+Axel data X: 0.747757 Y: 0.380458 Z: 9.610771
+Axel data X: 0.719043 Y: 0.460618 Z: 9.579665
+Axel data X: 0.746560 Y: 0.565304 Z: 9.617352
+Axel data X: 0.728016 Y: 0.604785 Z: 9.601200
+Axel data X: 0.702293 Y: 0.583848 Z: 9.589236
+Axel data X: 0.708873 Y: 0.501296 Z: 9.580861
+Axel data X: 0.716052 Y: 0.385244 Z: 9.564710
+Axel data X: 0.741775 Y: 0.321834 Z: 9.568897
+Axel data X: 0.750748 Y: 0.248255 Z: 9.560522
+Axel data X: 0.757328 Y: 0.228514 Z: 9.577272
+Axel data X: 0.783051 Y: 0.270987 Z: 9.594022
+Axel data X: 0.836291 Y: 0.309272 Z: 9.597013
+Axel data X: 0.826720 Y: 0.392422 Z: 9.605986
+Axel data X: 0.821336 Y: 0.458823 Z: 9.604789
+Axel data X: 0.791426 Y: 0.531804 Z: 9.598807
+Axel data X: 0.732203 Y: 0.546759 Z: 9.593424
+Axel data X: 0.708275 Y: 0.604785 Z: 9.600004
+Axel data X: 0.684945 Y: 0.566500 Z: 9.570093
+Axel data X: 0.666999 Y: 0.513260 Z: 9.611370
+Axel data X: 0.658624 Y: 0.436091 Z: 9.549156
+Axel data X: 0.672981 Y: 0.385244 Z: 9.604191
+Axel data X: 0.703489 Y: 0.360119 Z: 9.576674
+Axel data X: 0.722034 Y: 0.309272 Z: 9.571290
+Axel data X: 0.763310 Y: 0.340379 Z: 9.547362
+Axel data X: 0.765105 Y: 0.318843 Z: 9.599406
+Axel data X: 0.815354 Y: 0.333798 Z: 9.558129
+ASSERTION FAIL @ WEST_TOPDIR/zephyr/includ
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model window: 450
+Machine learning model framesize: 3
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 0.570688 Y: 0.499501 Z: 9.602397
+Axel data X: 0.589830 Y: 0.488734 Z: 9.552746
+Axel data X: 0.592223 Y: 0.466600 Z: 9.591629
+Axel data X: 0.677168 Y: 0.436091 Z: 9.602397
+Axel data X: 0.754935Axel data X: 0.671784 Y: 0.415752 Z: 9.655637
+Axel data X: 0.737587 Y: 0.410369 Z: 9.586245
+Axel data X: 0.780060 Y: 0.361316 Z: 9.543174
+Axel data X: 0.774078 Y: 0.284745 Z: 9.577870
+Axel data X: 0.775872 Y: 0.287138 Z: 9.552147
+Axel data X: 0.818943 Y: 0.314057 Z: 9.626923
+Axel data X: 0.855434 Y: 0.399003 Z: 9.621539
+Axel data X: 0.866799 Y: 0.432502 Z: 9.596415
+Axel data X: 0.777069 Y: 0.482751 Z: 9.604789
+Axel data X: 0.725025 Y: 0.490528 Z: 9.582058
+Axel data X: 0.656231 Y: 0.554536 Z: 9.613763
+Axel data X: 0.607776 Y: 0.585045 Z: 9.569495
+Axel data X: 0.600000 Y: 0.571884 Z: 9.577272
+Axel data X: 0.657428 Y: 0.469591 Z: 9.537192
+Axel data X: 0.683150 Y: 0.390030 Z: 9.600004
+Axel data X: 0.779461 Y: 0.342771 Z: 9.555737
+Axel data X: 0.820139 Y: 0.348753 Z: 9.602995
+Axel data X: 0.800997 Y: 0.289531 Z: 9.579665
+Axel data X: 0.844068 Y: 0.256630 Z: 9.606584
+Axel data X: 0.823130 Y: 0.273379 Z: 9.583852
+Axel data X: 0.820738 Y: 0.329013 Z: 9.611370
+Axel data X: 0.869192 Y: 0.392422 Z: 9.593424
+Axel data X: 0.833898 Y: 0.419342 Z: 9.616155
+Axel data X: 0.786640 Y: 0.463011 Z: 9.616155
+Axel data X: 0.682552 Y: 0.586241 Z: 9.624530
+Axel data X: 0.639481 Y: 0.651445 Z: 9.560522
+Axel data X: 0.609571 Y: 0.651445 Z: 9.551549
+Axel data X: 0.607178 Y: 0.628714 Z: 9.560522
+Axel data X: 0.606580 Y: 0.500099 Z: 9.554540
+Axel data X: 0.637687 Y: 0.379860 Z: 9.610771
+Axel data X: 0.726819 Y: 0.240478 Z: 9.567102
+Axel data X: 0.735194 Y: 0.259621 Z: 9.630512
+Axel data X: 0.823729 Y: 0.205782 Z: 9.497711
+Axel data X: 0.849452 Y: 0.213559 Z: 9.610771
+Axel data X: 0.872782 Y: 0.231505 Z: 9.583254
+Axel data X: 0.924227 Y: 0.309870 Z: 9.619745
+Axel data X: 0.951146 Y: 0.341575 Z: 9.602995
+Axel data X: 0.980459 Y: 0.387637 Z: 9.611968
+Axel data X: 0.945763 Y: 0.425324 Z: 9.608977
+Axel data X: 0.912263 Y: 0.515055 Z: 9.604789
+Axel data X: 0.794417 Y: 0.558125 Z: 9.595816
+Axel data X: 0.661615 Y: 0.599402 Z: 9.601200
+Axel data X: 0.539581 Y: 0.621535 Z: 9.535996
+Axel data X: 0.506081 Y: 0.564706 Z: 9.512666
+Axel data X: 0.500698 Y: 0.496510 Z: 9.533005
+Axel data X: 0.534795 Y: 0.325423 Z: 9.521041
+Axel data X: 0.616151 Y: 0.226719 Z: 9.604191
+Axel data X: 0.709471 Y: 0.251246 Z: 9.559326
+Axel data X: 0.824327 Y: 0.255433 Z: 9.604789
+Axel data X: 0.928415 Y: 0.290129 Z: 9.515059
+Axel data X: 0.991824 Y: 0.346361 Z: 9.589834
+Axel data X: 1.033101 Y: 0.374476 Z: 9.598209
+Axel data X: 0.997208 Y: 0.425922 Z: 9.637691
+Axel data X: 0.964905 Y: 0.415154 Z: 9.635298
+Axel data X: 0.953539 Y: 0.413360 Z: 9.617352
+Axel data X: 0.876371 Y: 0.442672 Z: 9.588040
+Axel data X: 0.766899 Y: 0.490528 Z: 9.595218
+Axel data X: 0.579063 Y: 0.505483 Z: 9.559924
+Axel data X: 0.544367 Y: 0.529412 Z: 9.567701
+Axel data X: 0.479760 Y: 0.430109 Z: 9.553942
+Axel data X: 0.520438 Y: 0.364905 Z: 9.564111
+Axel data X: 0.579661 Y: 0.297308 Z: 9.589834
+Axel data X: 0.713061 Y: 0.254237 Z: 9.573683
+Axel data X: 0.805184 Y: 0.303290 Z: 9.569495
+Axel data X: 0.836889 Y: 0.347557 Z: 9.585049
+Axel data X: 0.909272 Y: 0.366700 Z: 9.607780
+Axel data X: 0.924227 Y: 0.404985 Z: 9.637093
+Axel data X: 0.917647 Y: 0.449252 Z: 9.620343
+Axel data X: 0.863808 Y: 0.483948 Z: 9.635298
+Axel data X: 0.773479 Y: 0.551545 Z: 9.586245
+Axel data X: 0.691525 Y: 0.574277 Z: 9.566504
+Axel data X: 0.614955 Y: 0.564706 Z: 9.561120
+Axel data X: 0.598803 Y: 0.531804 Z: 9.597013
+Axel data X: 0.584446 Y: 0.484546 Z: 9.573683
+Axel data X: 0.602393 Y: 0.331405 Z: 9.546165
+Axel data X: 0.698105 Y: 0.238684 Z: 9.553942
+Axel data X: 0.750149 Y: 0.218345 Z: 9.620941
+Axel data X: 0.797408 Y: 0.253040 Z: 9.573085
+Axel data X: 0.835693 Y: 0.308075 Z: 9.571888
+Axel data X: 0.932004 Y: 0.332004 Z: 9.597611
+Axel data X: 0.916451 Y: 0.379860 Z: 9.595218
+Axel data X: 0.919442 Y: 0.420538 Z: 9.636494
+Axel data X: 0.917647 Y: 0.466002 Z: 9.588638
+Axel data X: 0.869791 Y: 0.533599 Z: 9.666405
+Axel data X: 0.754935 Y: 0.567697 Z: 9.591629
+Axel data X: 0.659820 Y: 0.593420 Z: 9.602397
+Axel data X: 0.553340 Y: 0.567697 Z: 9.563513
+Axel data X: 0.544965 Y: 0.547956 Z: 9.592825
+Axel data X: 0.545563 Y: 0.525224 Z: 9.524032
+Axel data X: 0.573679 Y: 0.343370 Z: 9.634101
+Axel data X: 0.689132 Y: 0.231505 Z: 9.494121
+Axel data X: 0.753739 Y: 0.226121 Z: 9.646066
+Axel data X: 0.815952 Y: 0.256630 Z: 9.524032
+Axel data X: 0.912263 Y: 0.282353 Z: 9.522237
+Axel data X: 0.935593 Y: 0.324825 Z: 9.629316
+Axel data X: 0.988235 Y: 0.338584 Z: 9.605388
+Axel data X: 0.980459 Y: 0.355334 Z: 9.656235
+Axel data X: 0.997208 Y: 0.374476 Z: 9.619146
+Axel data X: 0.917049 Y: 0.403190 Z: 9.652048
+Axel data X: 0.907477 Y: 0.425922 Z: 9.607780
+Axel data X: 0.805184 Y: 0.456430 Z: 9.620941
+Axel data X: 0.661615 Y: 0.486939 Z: 9.504889
+Axel data X: 0.571884 Y: 0.550349 Z: 9.591629
+Axel data X: 0.540777 Y: 0.531206 Z: 9.533603
+Axel data X: 0.494716 Y: 0.485742 Z: 9.525228
+Axel data X: 0.561116 Y: 0.366700 Z: 9.556933
+Axel data X: 0.678365 Y: 0.323031 Z: 9.549156
+Axel data X: 0.783649 Y: 0.293718 Z: 9.582058
+Axel data X: 0.819541 Y: 0.293718 Z: 9.589834
+Axel data X: 0.860817 Y: 0.324227 Z: 9.635298
+ASSERTION FAIL @ WEST_TOPDIR/zephyr/incl
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model window: 450
+Machine learning model framesize: 3
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 0.659222 Y: 0.466600 Z: 9.540183
+Axel data X: 0.734596 Y: 0.424127 Z: 9.607182
+Axel data X: 0.759721 Y: 0.332602 Z: 9.609575
+Axel data X: 0.792024 Y: 0.349950 Z: 9.567701
+Axel data X: 0.786042Axel data X: 0.680758 Y: 0.510867 Z: 9.597013
+Axel data X: 0.622133 Y: 0.506081 Z: 9.560522
+Axel data X: 0.616151 Y: 0.524626 Z: 9.570692
+Axel data X: 0.637687 Y: 0.516251 Z: 9.544371
+Axel data X: 0.692722 Y: 0.471386 Z: 9.570692
+Axel data X: 0.741775 Y: 0.345164 Z: 9.612566
+Axel data X: 0.802193 Y: 0.328414 Z: 9.580861
+Axel data X: 0.802791 Y: 0.336191 Z: 9.613164
+Axel data X: 0.817148 Y: 0.342173 Z: 9.566504
+Axel data X: 0.850050 Y: 0.355932 Z: 9.613763
+Axel data X: 0.803390 Y: 0.334396 Z: 9.539585
+Axel data X: 0.787836 Y: 0.366101 Z: 9.574281
+Axel data X: 0.777667 Y: 0.391824 Z: 9.602397
+Axel data X: 0.736391 Y: 0.422931 Z: 9.615557
+Axel data X: 0.678365 Y: 0.474377 Z: 9.551549
+Axel data X: 0.651445 Y: 0.536590 Z: 9.588040
+Axel data X: 0.667597 Y: 0.534795 Z: 9.538389
+Axel data X: 0.645463 Y: 0.537188 Z: 9.609575
+Axel data X: 0.678365 Y: 0.467796 Z: 9.573683
+Axel data X: 0.697507 Y: 0.424127 Z: 9.585647
+Axel data X: 0.732801 Y: 0.348753 Z: 9.592227
+Axel data X: 0.753739 Y: 0.308674 Z: 9.626325
+Axel data X: 0.774078 Y: 0.318843 Z: 9.574281
+Axel data X: 0.782452 Y: 0.330209 Z: 9.619146
+Axel data X: 0.789033 Y: 0.365503 Z: 9.601798
+Axel data X: 0.762113 Y: 0.378065 Z: 9.565308
+Axel data X: 0.796809 Y: 0.417547 Z: 9.611968
+Axel data X: 0.748953 Y: 0.420538 Z: 9.580263
+Axel data X: 0.744167 Y: 0.450448 Z: 9.646066
+Axel data X: 0.708873 Y: 0.488135 Z: 9.573085
+Axel data X: 0.661615 Y: 0.492323 Z: 9.560522
+Axel data X: 0.705284 Y: 0.445065 Z: 9.542576
+Axel data X: 0.658624 Y: 0.481555 Z: 9.628119
+Axel data X: 0.695114 Y: 0.432502 Z: 9.527621
+Axel data X: 0.730409 Y: 0.431306 Z: 9.591629
+Axel data X: 0.703489 Y: 0.381655 Z: 9.553344
+Axel data X: 0.731007 Y: 0.370887 Z: 9.556933
+Axel data X: 0.777069 Y: 0.356530 Z: 9.607182
+Axel data X: 0.796211 Y: 0.372682 Z: 9.555138
+Axel data X: 0.829711 Y: 0.364905 Z: 9.625727
+Axel data X: 0.869192 Y: 0.375673 Z: 9.584450
+Axel data X: 0.801595 Y: 0.363110 Z: 9.635896
+Axel data X: 0.832104 Y: 0.378664 Z: 9.580263
+Axel data X: 0.764506 Y: 0.375673 Z: 9.632905
+Axel data X: 0.739382 Y: 0.468395 Z: 9.613763
+Axel data X: 0.646660 Y: 0.521037 Z: 9.611968
+Axel data X: 0.623330 Y: 0.528813 Z: 9.589236
+Axel data X: 0.603589 Y: 0.530608 Z: 9.589834
+Axel data X: 0.597607 Y: 0.468993 Z: 9.561719
+Axel data X: 0.666999 Y: 0.406181 Z: 9.629316
+Axel data X: 0.761515 Y: 0.404387 Z: 9.556335
+Axel data X: 0.824327 Y: 0.400199 Z: 9.586245
+Axel data X: 0.800997 Y: 0.367896 Z: 9.579067
+Axel data X: 0.852443 Y: 0.367896 Z: 9.589236
+Axel data X: 0.815354 Y: 0.376271 Z: 9.544969
+Axel data X: 0.822532 Y: 0.365503 Z: 9.580861
+Axel data X: 0.789033 Y: 0.326022 Z: 9.592227
+Axel data X: 0.760917 Y: 0.336191 Z: 9.602397
+Axel data X: 0.675972 Y: 0.332004 Z: 9.562915
+Axel data X: 0.692123 Y: 0.362512 Z: 9.565308
+Axel data X: 0.646062 Y: 0.487537 Z: 9.604789
+Axel data X: 0.686141 Y: 0.534197 Z: 9.582058
+Axel data X: 0.719641 Y: 0.520438 Z: 9.607182
+Axel data X: 0.755533 Y: 0.465403 Z: 9.600004
+Axel data X: 0.733998 Y: 0.440279 Z: 9.683753
+Axel data X: 0.814756 Y: 0.332004 Z: 9.423533
+Axel data X: 0.844666 Y: 0.359521 Z: 9.677172
+Axel data X: 0.769890 Y: 0.345762 Z: 9.641878
+Axel data X: 0.683749 Y: 0.386440 Z: 9.582656
+Axel data X: 0.647856 Y: 0.467796 Z: 9.630512
+Axel data X: 0.600000 Y: 0.513858 Z: 9.496514
+Axel data X: 0.635294 Y: 0.531804 Z: 9.549156
+Axel data X: 0.630508 Y: 0.379262 Z: 9.566504
+Axel data X: 0.675374 Y: 0.371485 Z: 9.567102
+Axel data X: 0.719641 Y: 0.281156 Z: 9.640682
+Axel data X: 0.799800 Y: 0.281754 Z: 9.588040
+Axel data X: 0.774676 Y: 0.314656 Z: 9.677771
+Axel data X: 0.742373 Y: 0.474975 Z: 9.619146
+Axel data X: 0.702293 Y: 0.451047 Z: 9.552746
+Axel data X: 0.723828 Y: 0.527019 Z: 9.579067
+Axel data X: 0.682552 Y: 0.573081 Z: 9.562915
+Axel data X: 0.580857 Y: 0.415154 Z: 9.604789
+Axel data X: 0.604187 Y: 0.381655 Z: 9.583852
+Axel data X: 0.674775 Y: 0.362512 Z: 9.577272
+Axel data X: 0.796809 Y: 0.370289 Z: 9.552147
+Axel data X: 0.772881 Y: 0.367298 Z: 9.650851
+Axel data X: 0.742373 Y: 0.406181 Z: 9.566504
+Axel data X: 0.788435 Y: 0.387039 Z: 9.507880
+Axel data X: 0.911665 Y: 0.382253 Z: 9.723234
+Axel data X: 0.858425 Y: 0.250049 Z: 9.531210
+Axel data X: 0.736989 Y: 0.385842 Z: 9.520442
+Axel data X: 0.689731 Y: 0.352941 Z: 9.587441
+Axel data X: 0.571286 Y: 0.392422 Z: 9.398408
+Axel data X: 0.572482 Y: 0.517447 Z: 9.544969
+Axel data X: 0.631106 Y: 0.599402 Z: 9.626325
+Axel data X: 0.751944 Y: 0.610767 Z: 9.582656
+Axel data X: 0.791426 Y: 0.495314 Z: 9.577272
+Axel data X: 0.789631 Y: 0.388833 Z: 9.603593
+Axel data X: 0.727418 Y: 0.329013 Z: 9.592825
+Axel data X: 0.740578 Y: 0.258424 Z: 9.559326
+Axel data X: 0.724427 Y: 0.272183 Z: 9.588638
+Axel data X: 0.722034 Y: 0.203988 Z: 9.588040
+Axel data X: 1.080359 Y: 0.102891 Z: 9.728020
+Axel data X: 1.083948 Y: 0.300897 Z: 9.522835
+Axel data X: 0.900897 Y: 0.064008 Z: 9.652048
+Axel data X: 0.819541 Y: 0.135792 Z: 9.617950
+Axel data X: 0.482153 Y: 1.025922 Z: 9.445069
+Axel data X: -0.210568 Y: 2.041077 Z: 9.381659
+Axel data X: -0.300897 Y: 1.774277 Z: 9.346365
+Axel data X: 0.491725 Y: 0.515653 Z: 9.585647
+ASSERTION FAIL @ WEST_TOPDIR/zephyr/inclu
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model window: 450
+Machine learning model framesize: 3
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 0.422931 Y: 0.107078 Z: 9.575477
+Axel data X: 0.464207 Y: 0.006580 Z: 9.498309
+Axel data X: 0.602991 Y: 0.104685 Z: 9.639485
+Axel data X: 0.787238 Y: 0.267996 Z: 9.517451
+Axel data X: 0.930807Axel data X: 0.643669 Y: 0.459421 Z: 9.537790
+Axel data X: 0.639481 Y: 0.439082 Z: 9.614959
+Axel data X: 0.652044 Y: 0.431904 Z: 9.574879
+Axel data X: 0.686141 Y: 0.401994 Z: 9.661021
+Axel data X: 0.698105 Y: 0.457029 Z: 9.557531
+Axel data X: 0.745962 Y: 0.503090 Z: 9.602995
+Axel data X: 0.790229 Y: 0.473180 Z: 9.572486
+Axel data X: 0.774676 Y: 0.441475 Z: 9.638887
+Axel data X: 0.800997 Y: 0.444466 Z: 9.568897
+Axel data X: 0.819541 Y: 0.443868 Z: 9.592227
+Axel data X: 0.828514 Y: 0.413958 Z: 9.588638
+Axel data X: 0.854835 Y: 0.391226 Z: 9.573085
+Axel data X: 0.811765 Y: 0.306281 Z: 9.570093
+Axel data X: 0.823729 Y: 0.291924 Z: 9.595816
+Axel data X: 0.766301 Y: 0.211764 Z: 9.622137
+Axel data X: 0.723828 Y: 0.201595 Z: 9.607182
+Axel data X: 0.690927 Y: 0.252442 Z: 9.629914
+Axel data X: 0.673579 Y: 0.369691 Z: 9.571888
+Axel data X: 0.645463 Y: 0.564107 Z: 9.558129
+Axel data X: 0.629312 Y: 0.642472 Z: 9.545567
+Axel data X: 0.728016 Y: 0.695713 Z: 9.557531
+Axel data X: 0.780658 Y: 0.686141 Z: 9.559326
+Axel data X: 0.842273 Y: 0.655035 Z: 9.578468
+Axel data X: 0.903290 Y: 0.597607 Z: 9.582656
+Axel data X: 0.872782 Y: 0.470189 Z: 9.588638
+Axel data X: 0.768694 Y: 0.283549 Z: 9.580263
+Axel data X: 0.722632 Y: 0.133399 Z: 9.625727
+Axel data X: 0.614357 Y: 0.069990 Z: 9.575477
+Axel data X: 0.640678 Y: 0.087338 Z: 9.598209
+Axel data X: 0.689731 Y: 0.184845 Z: 9.557531
+Axel data X: 0.818345 Y: 0.339780 Z: 9.582058
+Axel data X: 0.881156 Y: 0.470787 Z: 9.563513
+Axel data X: 0.955334 Y: 0.584446 Z: 9.557531
+Axel data X: 0.994815 Y: 0.616151 Z: 9.601798
+Axel data X: 0.902692 Y: 0.588036 Z: 9.576674
+Axel data X: 0.889531 Y: 0.576670 Z: 9.612566
+Axel data X: 0.809970 Y: 0.532403 Z: 9.530014
+Axel data X: 0.716650 Y: 0.397208 Z: 9.658628
+Axel data X: 0.586241 Y: 0.265005 Z: 9.588638
+Axel data X: 0.517447 Y: 0.191425 Z: 9.643673
+Axel data X: 0.556929 Y: 0.201595 Z: 9.540781
+Axel data X: 0.613758 Y: 0.333200 Z: 9.607182
+Axel data X: 0.707079 Y: 0.460618 Z: 9.543772
+Axel data X: 0.763908 Y: 0.534795 Z: 9.624530
+Axel data X: 0.863210 Y: 0.585643 Z: 9.559326
+Axel data X: 0.945164 Y: 0.572482 Z: 9.597611
+Axel data X: 0.993021 Y: 0.572482 Z: 9.594620
+Axel data X: 0.969093 Y: 0.505483 Z: 9.619745
+Axel data X: 0.846460 Y: 0.365503 Z: 9.616155
+Axel data X: 0.785444 Y: 0.236291 Z: 9.626325
+Axel data X: 0.698704 Y: 0.207577 Z: 9.577870
+Axel data X: 0.585045 Y: 0.254237 Z: 9.571290
+Axel data X: 0.515055 Y: 0.318843 Z: 9.550951
+Axel data X: 0.577866 Y: 0.489930 Z: 9.520442
+Axel data X: 0.665802 Y: 0.557527 Z: 9.574281
+Axel data X: 0.778863 Y: 0.569491 Z: 9.540781
+Axel data X: 0.876371 Y: 0.586839 Z: 9.599406
+Axel data X: 0.879960 Y: 0.498305 Z: 9.553942
+Axel data X: 0.876969 Y: 0.389431 Z: 9.614361
+Axel data X: 0.857826 Y: 0.349352 Z: 9.584450
+Axel data X: 0.822532 Y: 0.277567 Z: 9.610173
+Axel data X: 0.785444 Y: 0.246460 Z: 9.549156
+Axel data X: 0.099302 Y: 0.016749 Z: 9.388837
+Axel data X: 0.729810 Y: 0.313459 Z: 9.547960
+Axel data X: 0.641276 Y: 0.233300 Z: 9.623932
+Axel data X: 0.697507 Y: 0.506680 Z: 9.554540
+Axel data X: 1.080957 Y: 0.704088 Z: 9.562915
+Axel data X: 1.018146 Y: 1.281356 Z: 9.567701
+Axel data X: 1.021137 Y: 1.735992 Z: 9.467202
+Axel data X: 0.217746 Y: 1.087537 Z: 9.450452
+Axel data X: 1.363310 Y: -0.089730 Z: 9.589236
+Axel data X: 1.530808 Y: -0.242871 Z: 9.640084
+Axel data X: 1.671386 Y: -1.162313 Z: 9.631709
+Axel data X: -0.288933 Y: 0.765105 Z: 9.419346
+Axel data X: 0.176470 Y: 0.573081 Z: 9.452247
+Axel data X: 2.673381 Y: 0.279960 Z: 9.648458
+Axel data X: 2.297707 Y: -0.794417 Z: 9.497711
+Axel data X: -0.181854 Y: -1.094118 Z: 9.435497
+Axel data X: 1.525424 Y: -0.340977 Z: 9.380462
+Axel data X: 2.065604 Y: 0.266799 Z: 9.428917
+Axel data X: 2.320439 Y: 0.125024 Z: 9.637093
+Axel data X: 1.207179 Y: -1.182054 Z: 9.550353
+Axel data X: 0.777667 Y: -1.117448 Z: 9.425926
+Axel data X: 1.203589 Y: -0.012562 Z: 9.314061
+Axel data X: 1.071386 Y: 0.641874 Z: 9.305088
+Axel data X: 0.500698 Y: -0.341575 Z: 9.863214
+Axel data X: 0.708873 Y: -0.288933 Z: 9.327222
+Axel data X: 0.924227 Y: -0.016151 Z: 9.652646
+Axel data X: 0.716650 Y: -0.014356 Z: 9.480961
+Axel data X: 0.846460 Y: -0.022731 Z: 9.519844
+Axel data X: 1.207777 Y: 0.374476 Z: 9.598807
+Axel data X: 1.750947 Y: 0.165702 Z: 9.610173
+Axel data X: 1.733001 Y: 0.043070 Z: 9.543772
+Axel data X: 0.679561 Y: -0.464805 Z: 9.519844
+Axel data X: 0.392422 Y: -0.690927 Z: 9.505487
+Axel data X: 1.345962 Y: 0.000598 Z: 9.653244
+Axel data X: 0.659222 Y: 0.273379 Z: 9.479166
+Axel data X: 0.821336 Y: 0.769292 Z: 9.576076
+Axel data X: 0.461216 Y: -0.294915 Z: 9.562317
+Axel data X: 0.772881 Y: 0.254237 Z: 9.500702
+Axel data X: 0.878165 Y: 0.299701 Z: 9.587441
+Axel data X: 1.018146 Y: -0.044865 Z: 9.589834
+Axel data X: 0.982851 Y: -0.378065 Z: 9.582656
+Axel data X: 1.083350 Y: -0.333200 Z: 9.595218
+Axel data X: 0.846460 Y: -0.118444 Z: 9.601798
+Axel data X: 0.503090 Y: -0.065802 Z: 9.573085
+Axel data X: 0.090329 Y: -0.409172 Z: 9.549156
+Axel data X: 1.113260 Y: 0.232701 Z: 9.637093
+Axel data X: 0.781854 Y: 0.212363 Z: 9.568299
+ASSERTION FAIL @ WEST_TOPDIR/zephyr/includ
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model window: 450
+Machine learning model framesize: 3
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 1.017547 Y: 1.039681 Z: 9.591629
+Axel data X: 0.936790 Y: 0.915254 Z: 9.614959
+Axel data X: 0.793220 Y: 0.920040 Z: 9.562317
+Axel data X: 0.623928 Y: 0.887138 Z: 9.535996
+Axel data X: 0.556331Axel data X: 1.037288 Y: 0.508474 Z: 9.540183
+Axel data X: 1.152742 Y: 0.561116 Z: 9.515059
+Axel data X: 1.188036 Y: 0.603589 Z: 9.528219
+Axel data X: 1.200000 Y: 0.601794 Z: 9.532407
+Axel data X: 1.170688 Y: 0.548554 Z: 9.526424
+Axel data X: 1.147358 Y: 0.620339 Z: 9.515657
+Axel data X: 1.173679 Y: 0.693918 Z: 9.543174
+Axel data X: 1.144367 Y: 0.653838 Z: 9.515657
+Axel data X: 1.078564 Y: 0.642472 Z: 9.500103
+Axel data X: 1.053440 Y: 0.623928 Z: 9.532407
+Axel data X: 1.117448 Y: 0.602393 Z: 9.509675
+Axel data X: 1.154536 Y: 0.597607 Z: 9.553344
+Axel data X: 1.097707 Y: 0.501894 Z: 9.503693
+Axel data X: 1.103091 Y: 0.505483 Z: 9.567102
+Axel data X: 1.089930 Y: 0.506680 Z: 9.495916
+Axel data X: 1.178465 Y: 0.528813 Z: 9.560522
+Axel data X: 1.228714 Y: 0.533599 Z: 9.497112
+Axel data X: 1.281954 Y: 0.574277 Z: 9.567701
+Axel data X: 1.265803 Y: 0.556929 Z: 9.552746
+Axel data X: 1.220339 Y: 0.534197 Z: 9.517451
+Axel data X: 1.251446 Y: 0.597009 Z: 9.577272
+Axel data X: 1.223928 Y: 0.625124 Z: 9.538389
+Axel data X: 1.124028 Y: 0.640678 Z: 9.583254
+Axel data X: 1.071386 Y: 0.674177 Z: 9.526424
+Axel data X: 1.039083 Y: 0.676570 Z: 9.560522
+Axel data X: 0.997807 Y: 0.696909 Z: 9.492327
+Axel data X: 0.981057 Y: 0.639481 Z: 9.496514
+Axel data X: 0.948754 Y: 0.658026 Z: 9.476773
+Axel data X: 0.991824 Y: 0.710070 Z: 9.503693
+Axel data X: 1.036690 Y: 0.736391 Z: 9.515059
+Axel data X: 1.042672 Y: 0.681954 Z: 9.551549
+Axel data X: 1.054636 Y: 0.588634 Z: 9.528817
+Axel data X: 1.165902 Y: 0.580857 Z: 9.561120
+Axel data X: 1.307677 Y: 0.632901 Z: 9.571888
+Axel data X: 1.292124 Y: 0.559920 Z: 9.597611
+Axel data X: 1.179063 Y: 0.417547 Z: 9.552746
+Axel data X: 1.132403 Y: 0.434297 Z: 9.618548
+Axel data X: 1.170090 Y: 0.425324 Z: 9.522835
+Axel data X: 1.238883 Y: 0.570688 Z: 9.544371
+Axel data X: 1.301097 Y: 0.570688 Z: 9.526424
+Axel data X: 1.202393 Y: 0.540777 Z: 9.514460
+Axel data X: 1.145563 Y: 0.485144 Z: 9.510871
+Axel data X: 1.159920 Y: 0.500099 Z: 9.518648
+Axel data X: 1.192822 Y: 0.547956 Z: 9.530612
+Axel data X: 1.256231 Y: 0.571884 Z: 9.559326
+Axel data X: 1.226321 Y: 0.577866 Z: 9.592825
+Axel data X: 1.081555 Y: 0.536590 Z: 9.577870
+Axel data X: 1.089332 Y: 0.557527 Z: 9.540183
+Axel data X: 1.127617 Y: 0.620937 Z: 9.535996
+Axel data X: 1.119840 Y: 0.736989 Z: 9.527621
+Axel data X: 1.143769 Y: 0.725623 Z: 9.513264
+Axel data X: 1.094716 Y: 0.698105 Z: 9.538389
+Axel data X: 1.046261 Y: 0.630508 Z: 9.533603
+Axel data X: 1.058225 Y: 0.588634 Z: 9.557531
+Axel data X: 1.110867 Y: 0.614955 Z: 9.519844
+Axel data X: 1.139581 Y: 0.647258 Z: 9.561120
+Axel data X: 1.182054 Y: 0.602991 Z: 9.507880
+Axel data X: 1.106082 Y: 0.555134 Z: 9.548558
+Axel data X: 1.112064 Y: 0.482751 Z: 9.501300
+Axel data X: 1.127019 Y: 0.491126 Z: 9.569495
+Axel data X: 1.184447 Y: 0.521635 Z: 9.564710
+Axel data X: 1.238285 Y: 0.537188 Z: 9.562915
+Axel data X: 1.222732 Y: 0.585045 Z: 9.532407
+Axel data X: 1.180857 Y: 0.574277 Z: 9.555138
+Axel data X: 1.156929 Y: 0.632901 Z: 9.524630
+Axel data X: 1.159322 Y: 0.655035 Z: 9.498907
+Axel data X: 1.110867 Y: 0.675374 Z: 9.521041
+Axel data X: 1.103689 Y: 0.608375 Z: 9.532407
+Axel data X: 1.038485 Y: 0.557527 Z: 9.511469
+Axel data X: 1.053440 Y: 0.520438 Z: 9.522835
+Axel data X: 1.063011 Y: 0.558724 Z: 9.528817
+Axel data X: 1.162911 Y: 0.634696 Z: 9.543772
+Axel data X: 1.198804 Y: 0.659820 Z: 9.564111
+Axel data X: 1.198804 Y: 0.635892 Z: 9.517451
+Axel data X: 1.125224 Y: 0.587437 Z: 9.531210
+Axel data X: 1.144965 Y: 0.558724 Z: 9.494121
+Axel data X: 1.160518 Y: 0.595214 Z: 9.561120
+Axel data X: 1.194616 Y: 0.585045 Z: 9.522237
+Axel data X: 1.162313 Y: 0.597607 Z: 9.533603
+Axel data X: 1.137787 Y: 0.576670 Z: 9.525228
+Axel data X: 1.115055 Y: 0.582652 Z: 9.560522
+Axel data X: 1.121635 Y: 0.602991 Z: 9.482755
+Axel data X: 1.097707 Y: 0.640678 Z: 9.535398
+Axel data X: 1.094716 Y: 0.643669 Z: 9.531210
+Axel data X: 1.109073 Y: 0.637687 Z: 9.514460
+Axel data X: 1.078564 Y: 0.552742 Z: 9.540183
+Axel data X: 1.114457 Y: 0.570089 Z: 9.516255
+Axel data X: 1.214357 Y: 0.625723 Z: 9.550951
+Axel data X: 1.230509 Y: 0.617348 Z: 9.521041
+Axel data X: 1.240678 Y: 0.572482 Z: 9.555737
+Axel data X: 1.191625 Y: 0.527019 Z: 9.544969
+Axel data X: 1.153938 Y: 0.537786 Z: 9.611370
+Axel data X: 1.152742 Y: 0.553938 Z: 9.486943
+Axel data X: 1.122832 Y: 0.568295 Z: 9.593424
+Axel data X: 1.102493 Y: 0.595812 Z: 9.494720
+Axel data X: 1.061815 Y: 0.635294 Z: 9.518648
+Axel data X: 1.085743 Y: 0.623330 Z: 9.518648
+Axel data X: 1.154536 Y: 0.641276 Z: 9.530612
+Axel data X: 1.147358 Y: 0.665802 Z: 9.486345
+Axel data X: 1.119242 Y: 0.601196 Z: 9.535996
+Axel data X: 1.119242 Y: 0.561116 Z: 9.500702
+Axel data X: 1.135992 Y: 0.534795 Z: 9.531210
+Axel data X: 1.186241 Y: 0.550349 Z: 9.581459
+Axel data X: 1.198804 Y: 0.580857 Z: 9.555138
+Axel data X: 1.146760 Y: 0.510867 Z: 9.466604
+Axel data X: 1.124626 Y: 0.545563 Z: 9.565308
+Axel data X: 1.174875 Y: 0.642472 Z: 9.514460
+ASSERTION FAIL @ WEST_TOPDIR/zephyr/includ
+*** Booting nRF Connect SDK v3.0.2-89ba1294ac9b ***
+*** Using Zephyr OS v4.0.99-f791c49f492c ***
+D: HF clock started
+I: Maximum SD clock is under 25MHz, using clock of 24000000Hz
+I: Block count 30535680
+I: Sector size 512
+I: Memory Size(MB) 14910
+I: Disk mounted.
+I: 
+Listing dir /SD: ...
+
+I: SD and file configuration was successful.
+I: Initialization complete
+I: Setting up for packet receiption
+I: LMR si ready
+
+I: Audio thread starting...
+I: I2S device is ready
+
+I: I2S MCK frequency: 1391304, actual PCM rate: 43478
+I: Initilize of i2s was succesful
+Machine learning model sampling frequency: 50
+Machine learning model window: 450
+Machine learning model framesize: 3
+Labels assigned by the model:
+- Idle
+- circle1
+- drop
+- noise
+- square
+- straight
+
+I: Prediction started...
+
+Axel data X: 1.648056 Y: 1.176670 Z: 9.643673
+Axel data X: 0.751346 Y: 1.296909 Z: 9.237491
+Axel data X: 1.008574 Y: 1.289731 Z: 9.547960
+Axel data X: 1.227517 Y: 0.747158 Z: 9.531808
+Axel data X: 1.142572Axel data X: 0.384646 Y: 1.022931 Z: 9.579665
+Axel data X: 0.189032 Y: 0.978664 Z: 9.546763
+Axel data X: 0.457627 Y: 0.938584 Z: 9.608977
+Axel data X: 0.352343 Y: 0.276969 Z: 9.641280
+Axel data X: 0.346959 Y: 0.854237 Z: 9.619745
+Axel data X: 0.096909 Y: 1.243669 Z: 9.586843
+Axel data X: 0.306879 Y: 1.101296 Z: 9.525228
+Axel data X: 0.157926 Y: 0.526420 Z: 9.610173
+Axel data X: 0.153140 Y: 0.570688 Z: 9.616155
+Axel data X: 0.381655 Y: 0.908076 Z: 9.608977
+Axel data X: 0.442672 Y: 0.709471 Z: 9.619745
+Axel data X: 0.316450 Y: 0.376869 Z: 9.597013
+Axel data X: 0.206979 Y: 0.543768 Z: 9.620343
+Axel data X: 0.307477 Y: 0.642472 Z: 9.588040
+Axel data X: 0.294317 Y: 0.617946 Z: 9.580263
+Axel data X: 0.329611 Y: 0.420538 Z: 9.611370
+Axel data X: -0.161515 Y: 0.407378 Z: 9.301499
+Axel data X: 0.561715 Y: 0.431904 Z: 9.567102
+Axel data X: 0.212363 Y: 0.546161 Z: 9.605388
+Axel data X: 0.272781 Y: 0.607178 Z: 9.634101
+Axel data X: 0.110668 Y: 0.495314 Z: 9.628718
+Axel data X: -0.187238 Y: 2.194816 Z: 9.064012
+Axel data X: 0.398404 Y: -0.629910 Z: 9.774680
+Axel data X: 0.558724 Y: 0.153140 Z: 9.623932
+Axel data X: 0.510269 Y: 0.992423 Z: 9.586843
+Axel data X: 0.278165 Y: 0.911067 Z: 9.595218
+Axel data X: 0.268594 Y: -0.477966 Z: 9.802795
+Axel data X: -0.446859 Y: -0.252442 Z: 9.562317
+Axel data X: -0.239282 Y: 0.875174 Z: 9.507880
+Axel data X: 0.175872 Y: 0.496510 Z: 9.543174
+Axel data X: 0.432502 Y: 0.243469 Z: 9.634700
+Axel data X: 0.369691 Y: 0.449850 Z: 9.652646
+Axel data X: 0.335593 Y: 0.345164 Z: 9.591629
+Axel data X: 0.260817 Y: 0.417547 Z: 9.652048
+Axel data X: 0.547956 Y: 0.333200 Z: 9.648458
+Axel data X: 0.582054 Y: 0.229710 Z: 9.682556
+Axel data X: 0.480957 Y: 0.436091 Z: 9.604789
+Axel data X: 0.107078 Y: 0.658026 Z: 9.536594
+Axel data X: 0.749551 Y: 0.525822 Z: 9.667003
+Axel data X: 0.719641 Y: 0.412761 Z: 9.664012
+Axel data X: 0.363709 Y: 0.745364 Z: 9.540183
+Axel data X: 0.317647 Y: 0.604785 Z: 9.601200
+Axel data X: 0.302692 Y: 0.429511 Z: 9.564710
+Axel data X: 0.512662 Y: 0.133399 Z: 9.630512
+Axel data X: 0.230907 Y: 0.457627 Z: 9.585647
+Axel data X: 0.509073 Y: 0.284147 Z: 9.683154
+Axel data X: 0.406181 Y: 0.229710 Z: 9.613763
+Axel data X: 0.527019 Y: 0.315254 Z: 9.664610
+Axel data X: 0.443868 Y: 0.267397 Z: 9.649655
+Axel data X: 0.095712 Y: 0.580259 Z: 9.558728
+Axel data X: 0.655633 Y: 0.789631 Z: 9.647262
+Axel data X: 0.319441 Y: 0.072382 Z: 9.620343
+Axel data X: 0.372682 Y: 0.410369 Z: 9.649057
+Axel data X: 0.387637 Y: 0.369092 Z: 9.601798
+Axel data X: 0.370289 Y: 0.311665 Z: 9.598209
+Axel data X: 0.500099 Y: 0.228514 Z: 9.635298
+Axel data X: 0.212363 Y: 0.521037 Z: 9.601200
+Axel data X: 0.117248 Y: 0.634696 Z: 9.564710
+Axel data X: 0.357726 Y: 0.312263 Z: 9.639485
+Axel data X: -0.104087 Y: -0.136390 Z: 9.552147
+Axel data X: 0.502492 Y: 0.442073 Z: 9.684949
+Axel data X: 0.416949 Y: 0.561116 Z: 9.638887
+Axel data X: 0.108873 Y: 0.450448 Z: 9.625128
+Axel data X: 0.303888 Y: 0.192622 Z: 9.633503
+Axel data X: 0.500099 Y: 0.290727 Z: 9.631110
+Axel data X: 0.473778 Y: 0.307477 Z: 9.619745
+Axel data X: 0.323031 Y: 0.407976 Z: 9.610771
+Axel data X: 0.372083 Y: 0.226719 Z: 9.604191
+Axel data X: 0.488734 Y: 0.196211 Z: 9.627521
+Axel data X: 0.447457 Y: 0.486939 Z: 9.640682
+Axel data X: 0.216550 Y: 0.638285 Z: 9.611370
+Axel data X: 0.221934 Y: 0.525224 Z: 9.562915
+Axel data X: 0.484546 Y: 0.162711 Z: 9.690333
+Axel data X: 0.413360 Y: 0.528215 Z: 9.597611
+
+* Connecting to COM15 (3m24s) - Opening COM15: File not found

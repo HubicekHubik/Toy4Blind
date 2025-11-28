@@ -1,0 +1,19 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "nrf-connect",
+			"request": "launch",
+			"name": "Launch build",
+			"config": "${workspaceFolder}/build",
+			"runToEntryPoint": "main"
+		},
+		{
+			"type": "nrf-connect",
+			"request": "launch",
+			"name": "Launch build_debug",
+			"config": "${workspaceFolder}/build_debug",
+			"runToEntryPoint": "main"
+		}
+	]
+}

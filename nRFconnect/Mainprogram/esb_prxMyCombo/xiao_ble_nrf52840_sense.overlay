@@ -1,0 +1,111 @@
+// To get started, press Ctrl+Space to bring up the completion menu and view the available nodes.
+
+// You can also use the buttons in the sidebar to perform actions on nodes.
+// Actions currently available include:
+
+// * Enabling / disabling the node
+// * Adding the bus to a bus
+// * Removing the node
+// * Connecting ADC channels
+
+// For more help, browse the DeviceTree documentation at https://docs.zephyrproject.org/latest/guides/dts/index.html
+// You can also visit the nRF DeviceTree extension documentation at https://docs.nordicsemi.com/bundle/nrf-connect-vscode/page/guides/ncs_configure_app.html#devicetree-support-in-the-extension
+
+&pinctrl {
+    custom_spi: custom_spi {
+            group1 {
+                    psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
+                            <NRF_PSEL(SPIM_MOSI, 1, 14)>,
+                            <NRF_PSEL(SPIM_MISO, 1, 12)>;
+            };
+    };
+};
+
+&spi2 {
+    status = "okay";
+    pinctrl-0 = <&custom_spi>;
+    pinctrl-1 = <&custom_spi>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio1 15 GPIO_ACTIVE_LOW>;
+
+    sdhc0: sdhc@0 {
+        compatible = "zephyr,sdhc-spi-slot";
+        reg = <0>;
+        status = "okay";
+        label = "SDHC_0";
+        mmc {
+                compatible = "zephyr,sdmmc-disk";
+                status = "okay";
+                disk-name = "SD";  // ← sem přidej tento řádek
+        };
+        spi-max-frequency = <4000000>;
+        //spi-max-frequency = <24000000>; //was working changing to 12 Mhz to be more stable
+    };
+};
+
+/ {
+    aliases {
+        i2stx = &i2s0;
+    };
+
+    vbatt {
+    compatible = "voltage-divider";
+    label = "Voltage divider";
+    io-channels = <&adc 7>;
+    output-ohms = <510000>;
+    full-ohms =  <1510000>;
+    power-gpios = <&gpio0 14 GPIO_ACTIVE_LOW>;
+    };
+};
+
+&i2s0 {
+    compatible = "nordic,nrf-i2s";
+    #address-cells = <1>;
+    #size-cells = <0>;
+    reg = <0x40025000 0x1000>;
+
+    pinctrl-0 = <&i2s0_default>;
+    pinctrl-names = "default";
+
+    status = "okay";
+};
+
+&pinctrl {
+    i2s0_default: i2s0_default {
+        group1 {
+            psels = <NRF_PSEL(I2S_SCK_S, 0, 5)>,    /* D8 */
+                    <NRF_PSEL(I2S_LRCK_S, 1, 11)>,   /* D9 */
+                    <NRF_PSEL(I2S_SDOUT, 0, 4)>;    /* D7 */
+        };
+    };
+};
+
+&pwm0_default {
+    group1 {
+        psels = <NRF_PSEL(PWM_OUT0, 0, 29)>, <NRF_PSEL(PWM_OUT1, 0, 3)>;
+        /delete-property/ nordic,invert;
+    };
+};
+
+
+&adc {
+   #address-cells = <1>;
+   #size-cells = <0>;
+ 
+  channel@7 {
+    reg = <7>;
+    zephyr,gain = "ADC_GAIN_1_3";
+    zephyr,reference = "ADC_REF_INTERNAL";
+    zephyr,acquisition-time = <0>;
+    zephyr,input-positive = <NRF_SAADC_AIN7>;
+    zephyr,resolution = <12>;
+    zephyr,oversampling = <8>;
+   };
+};
+
+/delete-node/ &{/pin-controller/pwm0_sleep/group1/};
+/delete-node/ &{/pin-controller/uart0_default/group1/};
+/delete-node/ &{/pin-controller/uart0_default/group2/};
+/delete-node/ &{/pin-controller/uart0_sleep/group1/};
+/delete-node/ &{/pin-controller/i2c1_default/group1/};
+/delete-node/ &{/pin-controller/i2c1_sleep/group1/};

@@ -1,0 +1,6 @@
+west:
+  command: C:\ncs\toolchains\c1a76fddb2\opt\bin\Scripts\west build --build-dir c:/Users/huber/Documents/nRFconnect/ESB_RSSI/esb_prx/build
+    c:/Users/huber/Documents/nRFconnect/ESB_RSSI/esb_prx --pristine --board xiao_ble/nrf52840/sense
+    --no-sysbuild -- -DCONF_FILE=prj.conf
+  topdir: c:\ncs\v3.1.1
+  version: 1.4.0

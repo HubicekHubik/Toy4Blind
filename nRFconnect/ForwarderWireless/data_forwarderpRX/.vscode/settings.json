@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "nrf_clock_control.h": "c"
+    }
+}

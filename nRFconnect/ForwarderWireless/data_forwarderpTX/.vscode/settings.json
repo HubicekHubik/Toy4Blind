@@ -1,0 +1,7 @@
+{
+    "nrf-connect.applications": [],
+    "files.associations": {
+        "sensor.h": "c",
+        "stdio.h": "c"
+    }
+}

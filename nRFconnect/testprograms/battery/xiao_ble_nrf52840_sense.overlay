@@ -1,0 +1,38 @@
+// To get started, press Ctrl+Space to bring up the completion menu and view the available nodes.
+
+// You can also use the buttons in the sidebar to perform actions on nodes.
+// Actions currently available include:
+
+// * Enabling / disabling the node
+// * Adding the bus to a bus
+// * Removing the node
+// * Connecting ADC channels
+
+// For more help, browse the DeviceTree documentation at https://docs.zephyrproject.org/latest/guides/dts/index.html
+// You can also visit the nRF DeviceTree extension documentation at https://docs.nordicsemi.com/bundle/nrf-connect-vscode/page/guides/ncs_configure_app.html#devicetree-support-in-the-extension
+/ {
+    vbatt {
+    compatible = "voltage-divider";
+    label = "Voltage divider";
+    io-channels = <&adc 7>;
+    output-ohms = <510000>;
+    full-ohms =  <1510000>;
+    power-gpios = <&gpio0 14 GPIO_ACTIVE_LOW>;
+    };
+};
+
+/* Konfigurace kanálu 4 na SAADC modulu */
+&adc {
+   #address-cells = <1>;
+   #size-cells = <0>;
+ 
+  channel@7 {
+    reg = <7>;
+    zephyr,gain = "ADC_GAIN_1_3";
+    zephyr,reference = "ADC_REF_INTERNAL";
+    zephyr,acquisition-time = <0>;
+    zephyr,input-positive = <NRF_SAADC_AIN7>;
+    zephyr,resolution = <12>;
+    zephyr,oversampling = <8>;
+   };
+};
