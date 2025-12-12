@@ -142,6 +142,6 @@ static void lsm6dsl_trigger_handler(const struct device *dev,
 	accel_xyz_out[2]=accel_z;
 	int err = k_msgq_put(&imu_msgq, accel_xyz_out, K_NO_WAIT);
 	if(err){
-		printk("Couldn t send packet err:%d\n", err);
+		printk("Couldn't send packet err:%d\n", err);
 	}
 }
