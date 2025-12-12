@@ -123,8 +123,8 @@ static int divider_setup(void)
 	};
 
 	if (cfg->output_ohm != 0) {
-		accp->input_positive = SAADC_CH_PSELP_PSELP_AnalogInput0
-			+ iocp->channel;
+		accp->input_positive = 
+		SAADC_CH_PSELP_PSELP_AnalogInput0 + iocp->channel;
 	} else {
 		accp->input_positive = SAADC_CH_PSELP_PSELP_VDD;
 	}
@@ -135,7 +135,10 @@ static int divider_setup(void)
 #endif /* CONFIG_ADC_var */
 
 	rc = adc_channel_setup(ddp->adc, accp);
+
 	LOG_INF("Setup AIN%u got %d", iocp->channel, rc);
+	/* debug: vytisknout nastavení před setupem */
+
 
 	return rc;
 }
@@ -186,15 +189,16 @@ int battery_sample(void)
 					      ddp->adc_cfg.gain,
 					      sp->resolution,
 					      &val);
+						  
+			/* vypiš kanál */
 
 			if (dcp->output_ohm != 0) {
 				rc = val * (uint64_t)dcp->full_ohm
 					/ dcp->output_ohm;
-				LOG_INF("raw %u ~ %u mV => %d mV\n",
-					ddp->raw, val, rc);
+				//LOG_INF("raw %u ~ %u mV => %d mV\n",ddp->raw, val, rc);
 			} else {
 				rc = val;
-				LOG_INF("raw %u ~ %u mV\n", ddp->raw, val);
+				//LOG_INF("raw %u ~ %u mV\n", ddp->raw, val);
 			}
 		}
 	}

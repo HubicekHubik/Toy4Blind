@@ -1,6 +1,0 @@
-{
-    "nrf-connect.applications": [],
-    "files.associations": {
-        "mpsl_fem_protocol_api.h": "c"
-    }
-}

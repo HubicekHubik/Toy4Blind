@@ -1,5 +1,0 @@
-name: XiaoG2 v18
-build:
-  cmake: .
-  depends:
-    - edge-impulse-sdk-zephyr

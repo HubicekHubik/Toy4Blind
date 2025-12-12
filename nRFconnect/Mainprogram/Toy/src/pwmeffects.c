@@ -114,3 +114,26 @@ void effect_fade_right(const struct device *pwm_dev)
     pwm_set(pwm_dev, 1,  PWM_PERIOD_USEC, 0, 0);
     pwm_set(pwm_dev, 0, PWM_PERIOD_USEC, 0, 0);
 }
+
+void effect_docked(const struct device *pwm_dev) {
+    /* Krátká vibrace obou motorů */
+    pwm_set(pwm_dev, 0, PWM_PERIOD_USEC, PWM_PERIOD_USEC / 2, 0);
+    pwm_set(pwm_dev, 1, PWM_PERIOD_USEC, PWM_PERIOD_USEC / 2, 0);
+    k_sleep(K_MSEC(150));
+
+    /* Vypnout oba motory */
+    pwm_set(pwm_dev, 0, PWM_PERIOD_USEC, 0, 0);
+    pwm_set(pwm_dev, 1, PWM_PERIOD_USEC, 0, 0);
+
+    /* Pauza */
+    k_sleep(K_MSEC(80));
+
+    /* Druhé krátké klepnutí */
+    pwm_set(pwm_dev, 0, PWM_PERIOD_USEC, PWM_PERIOD_USEC / 2, 0);
+    pwm_set(pwm_dev, 1, PWM_PERIOD_USEC, PWM_PERIOD_USEC / 2, 0);
+    k_sleep(K_MSEC(120));
+
+    /* Stop */
+    pwm_set(pwm_dev, 0, PWM_PERIOD_USEC, 0, 0);
+    pwm_set(pwm_dev, 1, PWM_PERIOD_USEC, 0, 0);
+}

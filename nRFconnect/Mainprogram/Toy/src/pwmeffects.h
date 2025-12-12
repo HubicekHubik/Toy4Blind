@@ -31,3 +31,9 @@ void effect_fade_left(const struct device *pwm_dev);
  * @param pwm_dev device reference from a devicetree node identifier.
 */
 void effect_fade_right(const struct device *pwm_dev);
+
+/**Effect both motors are active 
+ * 
+ * @param pwm_dev device reference from a devicetree node identifier.
+*/
+void effect_docked(const struct device *pwm_dev);

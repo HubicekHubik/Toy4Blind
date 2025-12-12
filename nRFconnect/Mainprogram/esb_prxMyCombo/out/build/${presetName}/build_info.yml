@@ -1,7 +1,0 @@
-west:
-  command: C:\ncs\toolchains\0b393f9e1b\opt\bin\Scripts\west build --build-dir c:/Users/huber/Documents/NRFconnect/esb_prxMy/out/build/${presetName}
-    c:/Users/huber/Documents/NRFconnect/esb_prxMy --pristine --board xiao_ble/nrf52840/sense
-    --no-sysbuild -- -DCONF_FILE=prj.conf -DDTC_OVERLAY_FILE=xiao_ble_nrf52840_sense.overlay
-    -DBOARD_ROOT=c:/users/huber/documents/nrfconnect/esb_prxmy
-  topdir: c:\ncs\v3.0.2
-  version: 1.2.0
