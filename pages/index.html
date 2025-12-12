@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toy4Blind – Dokumentace</title>
+
+    <!-- Základní styl -->
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        header {
+            background: #1a73e8;
+            padding: 15px 20px;
+            color: white;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+
+        nav {
+            width: 250px;
+            background: #ffffff;
+            border-right: 1px solid #ddd;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        nav a {
+            display: block;
+            padding: 10px 5px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 6px;
+        }
+
+        nav a:hover {
+            background: #eee;
+        }
+
+        main {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    Toy4Blind – Dokumentace
+</header>
+
+<div class="container">
+    <nav>
+        <h3>Kapitoly</h3>
+        <a href="#uvod">Úvod</a>
+        <a href="#hardware">Hardware</a>
+        <a href="#pcb">PCB návrh</a>
+        <a href="#firmware">Firmware</a>
+        <a href="#esb">ESB komunikace</a>
+        <a href="#audio">Přehrávání audia</a>
+        <a href="#imu">IMU + Edge Impulse</a>
+        <a href="#galerie">Galerie</a>
+    </nav>
+
+    <main>
+        <h1 id="uvod">Úvod</h1>
+        <p>Sem můžeš napsat úvodní text o projektu Toy4Blind.</p>
+
+        <h1 id="hardware">Hardware</h1>
+        <p>Popis použitých komponent, microkontroléru a celkové architektury.</p>
+
+        <h1 id="pcb">PCB návrh</h1>
+        <p>Zde můžeš popsat proces návrhu PCB, vrstvy, součástky a změny mezi verzemi.</p>
+
+        <h1 id="firmware">Firmware</h1>
+        <p>Informace o kódu, vláknech ze Zephyru, I2S, IMU a dalších modulech.</p>
+
+        <h1 id="esb">ESB komunikace</h1>
+        <p>Jak funguje vysílač/přijímač + struktura paketů.</p>
+
+        <h1 id="audio">Přehrávání audia</h1>
+        <p>Nahrávání a přehrávání WAV přes I2S.</p>
+
+        <h1 id="imu">IMU + Edge Impulse</h1>
+        <p>Data, model, detekce gest, optimalizace modelu.</p>
+
+        <h1 id="galerie">Galerie</h1>
+        <p>Zde můžeš vložit fotografie nebo rendery PCB či 3D modelů.</p>
+    </main>
+</div>
+
+</body>
+</html>
