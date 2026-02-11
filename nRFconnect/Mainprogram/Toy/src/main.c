@@ -7,30 +7,49 @@
 #include <zephyr/logging/log.h>
 LOG_MODULE_REGISTER(Toy, CONFIG_LOG_DEFAULT_LEVEL);
 static struct esb_payload rx_payload;
-bool device_running = true;
 
+bool device_running = true;
 #include <zephyr/device.h>
 #include <zephyr/drivers/sensor.h>
 #include <stdio.h>
 #include <zephyr/sys/util.h>
+
+/*modules that uses Toy and Remote together*/
+#include "toy_utils.h"
+
+/*modules for nvs*/
+//#include <zephyr/sys/reboot.h>
+
+#include <zephyr/drivers/flash.h>
+#include <zephyr/storage/flash_map.h>
+#include <zephyr/fs/nvs.h>
+
+static struct nvs_fs fs;
+
+#define NVS_SCHEMA_VERSION   2
+#define NVS_ID_SCHEMA_VERSION 0xFFFE
+#define NVS_ID_POWSTATE 	  0x0001
+#define NVS_ID_VOLUME   	  0x0002
+#define NVS_ID_SOUNDSET  	  0x0003
+//#define NVS_ID_RBTCNT		  0x0004
+
+#define NVS_PARTITION		storage_partition
+#define NVS_PARTITION_DEVICE	FIXED_PARTITION_DEVICE(NVS_PARTITION)
+#define NVS_PARTITION_OFFSET	FIXED_PARTITION_OFFSET(NVS_PARTITION)
 
 /*Power/Battery modules*/
 #include <math.h>
 #include <stdlib.h>
 #include "battery.h"
 #include <zephyr/drivers/adc.h>
+#define LOW_BATTERY_MV 3300
 
 K_SEM_DEFINE(run_sem, 1, 1); // zařízení začíná "zapnuté"
-
-static const struct battery_level_point levels[] = {
-	{10000, 3950},
-	{625, 3550},
-	{0, 3100},
-};
 
 bool charging = false;
 bool charged = false;
 
+#define BAT_MEASURE_MS 60000
 /* ADC node from the devicetree. */
 #define ADC_NODE DT_ALIAS(adc0)
 
@@ -51,16 +70,6 @@ K_THREAD_STACK_DEFINE(syssound_stack_area, SYSSOUND_THREAD_STACK_SIZE);
 static struct k_thread syssound_thread_data;
 
 #define SYSFBQ_LENGTH 16
-
-struct sys_ev {
-	uint8_t identifier;
-	uint8_t device_on;
-	uint8_t device_on_chg;
-	uint8_t device_charged;
-	uint16_t V_bat;
-	uint16_t V_ched;
-	uint16_t V_ching;
-};
 
 K_MSGQ_DEFINE(sysfb_Q, sizeof(struct sys_ev), SYSFBQ_LENGTH, 4);
 
@@ -108,13 +117,15 @@ static struct fs_mount_t mp = {
 #define AUDIO_SD_CHUNK AUDIO_CHUNK_SIZE
 uint8_t audio_buffer[AUDIO_SD_CHUNK];
 
+uint8_t soundset_index = 0;
+
 const char *aduio_horse[] = {
 	"SD:/horse/h1.wav",
 	"SD:/horse/h2.wav",
 	"SD:/horse/h3.wav",
 	"SD:/horse/h4.wav",
-	"SD:/horse/h5.wav",
-	"SD:/horse/h6.wav",
+	//"SD:/horse/h5.wav",
+	//"SD:/horse/h6.wav",
 };
 
 const char *audio_cat[] = {
@@ -129,8 +140,8 @@ const char *audio_dog[] = {
 	"SD:/dog/d1.wav",
 	"SD:/dog/d2.wav",
 	"SD:/dog/d3.wav",
-	"SD:/dog/d4.wav",
-	"SD:/dog/d5.wav",
+	//"SD:/dog/d4.wav",
+	//"SD:/dog/d5.wav",
 };
 
 const char *audio_sheep[] = {
@@ -156,15 +167,39 @@ const char *audio_birds[] = {
 
 const char *audio_pig[] = {
 	"SD:/pig/p1.wav",
-	"SD:/pig/p2.wav",
-	"SD:/pig/p3.wav",
-	"SD:/pig/p4.wav",
+	//"SD:/pig/p2.wav",
+	//"SD:/pig/p3.wav",
+	//"SD:/pig/p4.wav",
 };
 
 const char *audio_cow[] = {
 	"SD:/cow/c1.wav",
 	"SD:/cow/c2.wav",
 	"SD:/cow/c3.wav",
+};
+
+const char *car[] = {
+	"none"
+	"none"
+	"none"
+};
+
+const char *boat[] = {
+	"none"
+	"none"
+	"none"
+};
+
+const char *plane[] = {
+	"none"
+	"none"
+	"none"
+};
+
+const char *train[] = {
+	"none"
+	"none"
+	"none"
 };
 
 #define AUDIO_LIB_HORESE_SIZE ARRAY_SIZE(aduio_horse)
@@ -187,12 +222,46 @@ const char **audio_lib[] = {
 	audio_cow,
 };
 
+const char **audio_lib_things[] = {
+	car,
+	boat,
+	train,
+	plane
+};
+
+const char **audio_lib_own[] = {
+
+};
+
 struct audio_grupe {
 	const uint8_t *dir_indexis;
     size_t dir_count;	
 	const uint8_t *dir_sizes;
 };
 
+struct audio_grupe audio_groups[] = {
+	{.dir_indexis = (const uint8_t[]){0},
+	.dir_count = 1,
+	 .dir_sizes = (const uint8_t[]){AUDIO_LIB_HORESE_SIZE}},
+	{.dir_indexis = (const uint8_t[]){1},
+	 .dir_count = 1,
+	 .dir_sizes = (const uint8_t[]){AUDIO_LIB_CAT_SIZE}},
+	{.dir_indexis = (const uint8_t[]){3},
+	 .dir_count = 1,
+	 .dir_sizes = (const uint8_t[]){AUDIO_LIB_SHEEP_SIZE}},
+	{.dir_indexis = (const uint8_t[]){6},
+	 .dir_count = 1,
+	 .dir_sizes = (const uint8_t[]){AUDIO_LIB_PIG_SIZE}},
+	{.dir_indexis = (const uint8_t[]){7},
+	 .dir_count = 1,
+	 .dir_sizes = (const uint8_t[]){AUDIO_LIB_COW_SIZE}},
+	{.dir_indexis = (const uint8_t[]){5},
+	 .dir_count = 1,
+	 .dir_sizes = (const uint8_t[]){AUDIO_LIB_BIRDS_SIZE}},	
+};
+
+
+/*
 struct audio_grupe audio_groups[] = {
 	{.dir_indexis = (const uint8_t[]){0, 2, 5},
 	.dir_count = 3,
@@ -209,6 +278,8 @@ struct audio_grupe audio_groups[] = {
 	 .dir_count = 2,
 	 .dir_sizes = (const uint8_t[]){AUDIO_LIB_PIG_SIZE, AUDIO_LIB_COW_SIZE}},	
 };
+*/
+
 
 #ifdef CONFIG_NOCACHE_MEMORY
 #define MEM_SLAB_CACHE_ATTR __nocache
@@ -232,30 +303,13 @@ int i2s_initialize(const struct device *dev_i2s); // init of i2s for playing aud
 
 int SD_initialize(void);
 
-struct gest_msg {
-	uint8_t cmd;
-	uint8_t cmd_id;
-	uint8_t pipeprefix;
-	uint8_t rsv;
-};
-
 bool audioEventStart = false;
 bool audioStreamDone = false;
 bool audioStreamPlay = false;
 
-/*Packet ID */
-#define PKT_GEST 0xB1
-#define PKT_PING 0xB2
-#define PKT_STAUDIO 0xAB
-#define PKT_AUDIO 0xAD
-#define PKT_ENDAUDIO 0xAE
-#define PKT_TURNOFF 0x0F
-#define PKT_SYSINF 0x1F
-#define PKT_SYSCHNG 0x8C
-
 #define MSGQ_LENGTH 16
 
-K_MSGQ_DEFINE(msg_queue, sizeof(struct gest_msg), MSGQ_LENGTH, 4);
+K_MSGQ_DEFINE(msg_queue, sizeof(struct sinf_msg), MSGQ_LENGTH, 4);
 
 #define AUDIO_THREAD_STACK_SIZE 10240
 #define AUDIO_THREAD_PRIORITY 3
@@ -276,16 +330,11 @@ static struct k_thread audio_thread_data;
 K_THREAD_STACK_DEFINE(lmrPwm_stack_area, LMRPWM_THREAD_STACK_SIZE);
 static struct k_thread lmrPwm_thread_data;
 
-static struct sensor_value accel_xyz_out[3];
-
-struct lmr_ev {
-	uint8_t effect;	//number to identify effect that should be used
-	uint8_t ms_duration; //not implemented yet
-};
+static struct sensor_value accel_gyro_xyz_out[6];
 
 K_MSGQ_DEFINE(lmr_msq, sizeof(struct lmr_ev), 32, 4);
 
-K_MSGQ_DEFINE(imu_msgq, sizeof(int32_t) * 3 * 2, 150, 4);
+K_MSGQ_DEFINE(imu_msgq, sizeof(struct sensor_value) * 6, 1024, 4);
 
 void lsm6dsl_sleep();
 void lsm6dsl_ei_wake();
@@ -302,6 +351,7 @@ static void imu_ini_data_forw(void *arg1, void *arg2, void *arg3);
 
 #include <ei_wrapper.h>
 
+bool ei_canceled = false;
 #define HISTORY_LEN 14
 #define NUM_CLASSES 5
 #define MIN_DETECTION_COUNT 6
@@ -336,9 +386,19 @@ K_THREAD_STACK_DEFINE(battery_stack_area, BATTERY_THREAD_STACK_SIZE);
 static struct k_thread battery_stack_data;
 static void battery_manager_thread(void *arg1, void *arg2, void *arg3);
 
+int nvs_init_datarec(void);
+
+int nvs_restore(uint16_t nvs_id, void *data, size_t len ,const void * def);
+
 int main(void)
 {
 	int err;
+	/*nvs storage init*/
+	err = nvs_init_datarec();
+	if (err) {
+		LOG_ERR("NVS initialization failed, err %d", err);
+	}
+	/*end of nvs storage init*/
 	err = clocks_start();
 	if (err)
 	{
@@ -419,24 +479,27 @@ static void imu_ini_data_forw(void *arg1, void *arg2, void *arg3) {
 	};
 	lsm6dsl_ei_wake();
 
-	float f_val_buffer[3];
-	struct sensor_value acc_buffer[3];
+	float f_val_buffer[6];
+	struct sensor_value acc_gyro_buffer[6];
 	while (1) {
 		k_sem_take(&run_sem, K_FOREVER); // pokud je OFF, vlákno se zastaví
 		k_sem_give(&run_sem);
 	
-		k_msgq_get(&imu_msgq, acc_buffer, K_FOREVER);
+		k_msgq_get(&imu_msgq, acc_gyro_buffer, K_FOREVER);
 		if (k_msgq_num_used_get(&imu_msgq) > (150 * 3 / 4))
 		{
 			printk("Audio queue > 75%% full!\n");
 		}
-		f_val_buffer[0] = sensor_value_to_float(&acc_buffer[0]);
-		f_val_buffer[1] = sensor_value_to_float(&acc_buffer[1]);
-		f_val_buffer[2] = sensor_value_to_float(&acc_buffer[2]);
-		// printk("This are the walues form sensor Ax:%f Ay:%f Az:%f \n",f_val_buffer[0], f_val_buffer[1], f_val_buffer[2]);
+		f_val_buffer[0] = sensor_value_to_float(&acc_gyro_buffer[0]);
+		f_val_buffer[1] = sensor_value_to_float(&acc_gyro_buffer[1]);
+		f_val_buffer[2] = sensor_value_to_float(&acc_gyro_buffer[2]);
+		f_val_buffer[3] = sensor_value_to_float(&acc_gyro_buffer[3]);
+		f_val_buffer[4] = sensor_value_to_float(&acc_gyro_buffer[4]);
+		f_val_buffer[5] = sensor_value_to_float(&acc_gyro_buffer[5]);
+		//printk("This are the walues form sensor Ax:%f Ay:%f Az:%f Gx:%f Gy:%f  Gz:%f\n",f_val_buffer[0], f_val_buffer[1], f_val_buffer[2], f_val_buffer[3], f_val_buffer[4], f_val_buffer[5]);
 		if (!audioStreamPlay)
 		{
-			err = ei_wrapper_add_data(f_val_buffer, 3);
+			err = ei_wrapper_add_data(f_val_buffer, 6);
 			if (err)
 			{
 				printk("Cannot provide input data (err: %d)\n", err);
@@ -466,12 +529,12 @@ void LMR_control_thread(void *arg1, void *arg2, void *arg3) {
 		LOG_INF("LMR si ready\n");
 	}
 	while (1) {
-		k_sem_take(&run_sem, K_FOREVER); // pokud je OFF, vlákno se zastaví
-    	k_sem_give(&run_sem);
+		//k_sem_take(&run_sem, K_FOREVER); // pokud je OFF, vlákno se zastaví
+    	//k_sem_give(&run_sem);
 
 		if (k_msgq_get(&lmr_msq, &lmr_event, K_FOREVER) == 0) {
 			LOG_INF("LMR effect recieved: %d and time is %d", lmr_event.effect, lmr_event.ms_duration);
-			switch (lmr_event.effect+1) {
+			switch (lmr_event.effect) {
 				case 1:
 					effect_alternate(pwm0_dev);
 					break;
@@ -502,29 +565,37 @@ static void lsm6dsl_trigger_handler(const struct device *dev,
 {
 
 	static struct sensor_value accel_x, accel_y, accel_z;
+	static struct sensor_value gyro_x, gyro_y, gyro_z;
 
 	sensor_sample_fetch_chan(dev, SENSOR_CHAN_ACCEL_XYZ);
 	sensor_channel_get(dev, SENSOR_CHAN_ACCEL_X, &accel_x);
 	sensor_channel_get(dev, SENSOR_CHAN_ACCEL_Y, &accel_y);
 	sensor_channel_get(dev, SENSOR_CHAN_ACCEL_Z, &accel_z);
-	accel_xyz_out[0] = accel_x;
-	accel_xyz_out[1] = accel_y;
-	accel_xyz_out[2] = accel_z;
-	int err = k_msgq_put(&imu_msgq, accel_xyz_out, K_NO_WAIT);
+	accel_gyro_xyz_out[0] = accel_x;
+	accel_gyro_xyz_out[1] = accel_y;
+	accel_gyro_xyz_out[2] = accel_z;
+	sensor_sample_fetch_chan(dev, SENSOR_CHAN_GYRO_XYZ);
+	sensor_channel_get(dev, SENSOR_CHAN_GYRO_X, &gyro_x);
+	sensor_channel_get(dev, SENSOR_CHAN_GYRO_Y, &gyro_y);
+	sensor_channel_get(dev, SENSOR_CHAN_GYRO_Z, &gyro_z);
+	accel_gyro_xyz_out[3]=gyro_x;
+	accel_gyro_xyz_out[4]=gyro_y;
+	accel_gyro_xyz_out[5]=gyro_z;
+	int err = k_msgq_put(&imu_msgq, accel_gyro_xyz_out, K_NO_WAIT);
 	if (err)
 	{
 		printk("IMU queue full dropping packet:%d\n", err);
 	}
 }
 
-void audio_playback_thread(void *arg1, void *arg2, void *arg3)
-{
+void audio_playback_thread(void *arg1, void *arg2, void *arg3) {
 	int ret;
-	struct gest_msg g;
-	g.cmd_id = PKT_GEST;
+	struct sinf_msg g;
+	g.cmd = PKT_GEST;
 	struct esb_payload tx = {
 		.noack = false,
-		.length = sizeof(struct gest_msg)};
+		.length = sizeof(struct sinf_msg)
+	};
 	struct lmr_ev lmr_event = {0};
 
 	LOG_INF("Audio thread starting...");
@@ -532,12 +603,9 @@ void audio_playback_thread(void *arg1, void *arg2, void *arg3)
 	const struct device *dev_i2s = DEVICE_DT_GET(DT_ALIAS(i2stx));
 
 	ret = i2s_initialize(dev_i2s);
-	if (ret)
-	{
+	if (ret) {
 		LOG_ERR("Init failed");
-	}
-	else
-	{
+	} else {
 		LOG_INF("Initilize of i2s was succesful");
 	}
 
@@ -545,23 +613,34 @@ void audio_playback_thread(void *arg1, void *arg2, void *arg3)
 		k_sem_take(&run_sem, K_FOREVER); // pokud je OFF, vlákno se zastaví
     	k_sem_give(&run_sem);
 
-		if (k_msgq_get(&msg_queue, &g, K_FOREVER) == 0)
-		{
-			LOG_INF("Sending Gesture packet with cmd %02X Gesture ID %d with prob %f Device prefix %u", g.cmd, g.cmd_id, g.rsv, g.pipeprefix);
-			memcpy(tx.data, &g, sizeof(g));
-			ret = esb_write_payload(&tx);
-			LOG_INF("esb_write_payload returned %d", ret);
-			lmr_event.effect = g.cmd_id;
-			k_msgq_put(&lmr_msq, &lmr_event, K_NO_WAIT);
-			playaudio(dev_i2s, draw_audio_path(g.cmd_id));
+		if (k_msgq_get(&msg_queue, &g, K_FOREVER) == 0) {
+			if (g.cmd == PKT_GEST) {
+				memcpy(tx.data, &g, sizeof(struct sinf_msg));
+				ret = esb_write_payload(&tx);
+				lmr_event.effect = g.cmd_id;
+				k_msgq_put(&lmr_msq, &lmr_event, K_NO_WAIT);
+				lsm6dsl_sleep();
+				//playaudio(dev_i2s, draw_audio_path(g.cmd_id));
+				if(device_running){
+					lsm6dsl_ei_wake();
+				}
+			}
+			if (g.cmd == PKT_SYSINF) {
+				/*lsm6dsl_sleep();
+				playaudio(dev_i2s, "SD:/system/lowB.wav");
+				if(device_running){
+					lsm6dsl_ei_wake();
+				}*/
+			}
 		}
 		k_sleep(K_MSEC(50));
 	}
 }
 
-int playaudio(const struct device *dev_i2s, const char *path)
-{
+int playaudio(const struct device *dev_i2s, const char *path) {
+
 	audioStreamPlay = true;
+	audioEventStart = true;
 	void *audio_block;
 	int ret;
 
@@ -572,13 +651,10 @@ int playaudio(const struct device *dev_i2s, const char *path)
 
 	FIL wav;
 	fr = f_open(&wav, path, FA_READ);
-	if (fr)
-	{
+	if (fr) {
 		LOG_ERR("open %s failed (%d)", path, fr);
 		return -EIO;
-	}
-	else
-	{
+	} else {
 		LOG_INF("Opened file and skipping header");
 		f_lseek(&wav, 44); // skip WAV header
 	}
@@ -586,8 +662,7 @@ int playaudio(const struct device *dev_i2s, const char *path)
 	LOG_INF("Playaudio function begin");
 
 	// i2s warm up
-	for (int j = 0; j < 1; j++)
-	{
+	for (int j = 0; j < 1; j++) {
 		ret = k_mem_slab_alloc(&tx_0_mem_slab, &audio_block, K_FOREVER);
 		if (ret != 0)
 		{
@@ -598,28 +673,24 @@ int playaudio(const struct device *dev_i2s, const char *path)
 		memset(audio_block, 0, BLOCK_SIZE);
 
 		ret = i2s_write(dev_i2s, audio_block, BLOCK_SIZE);
-		if (ret != 0)
-		{
+		if (ret != 0) {
 			LOG_ERR("Could not write TX buffer: %d", ret);
 			k_mem_slab_free(&tx_0_mem_slab, &audio_block);
 		}
 	}
 
 	ret = i2s_trigger(dev_i2s, I2S_DIR_TX, I2S_TRIGGER_START);
-	if (ret < 0)
-	{
+	if (ret < 0) {
 		LOG_ERR("Could not start I2S TX error: %d", ret);
 		return ret;
 	}
 
 	while ((fr = f_read(&wav, audio_buf, AUDIO_SD_CHUNK, &bytes_read)) == FR_OK && bytes_read > 0)
 	{
-
 		int16_t *samples = (int16_t *)audio_buf;
 		size_t count = bytes_read / 2; // 16bit PCM
 
-		for (size_t i = 0; i < count; i++)
-		{
+		for (size_t i = 0; i < count; i++) {
 			float scaled = samples[i] * volume;
 
 			// přetečení – clamp
@@ -633,8 +704,7 @@ int playaudio(const struct device *dev_i2s, const char *path)
 
 		// Alokace bloku
 		ret = k_mem_slab_alloc(&tx_0_mem_slab, &audio_block, K_FOREVER);
-		if (ret != 0)
-		{
+		if (ret != 0) {
 			LOG_ERR("TX block allocation failed %d", ret);
 			continue;
 		}
@@ -643,8 +713,7 @@ int playaudio(const struct device *dev_i2s, const char *path)
 
 		// Odeslat blok
 		ret = i2s_write(dev_i2s, (uint8_t *)audio_block, BLOCK_SIZE);
-		if (ret != 0)
-		{
+		if (ret != 0) {
 			LOG_ERR("I2S write error: %d", ret);
 			k_mem_slab_free(&tx_0_mem_slab, &audio_block);
 		}
@@ -655,8 +724,7 @@ int playaudio(const struct device *dev_i2s, const char *path)
 	i2s_trigger(dev_i2s, I2S_DIR_TX, I2S_TRIGGER_DROP);
 
 	fr = f_close(&wav);
-	if (fr != FR_OK)
-	{
+	if (fr != FR_OK) {
 		LOG_ERR("f_close failed: %d", fr);
 		return -EIO;
 	}
@@ -666,21 +734,17 @@ int playaudio(const struct device *dev_i2s, const char *path)
 	return 0;
 }
 
-int i2s_initialize(const struct device *dev_i2s)
-{
+int i2s_initialize(const struct device *dev_i2s){
 
 	int ret;
 
 	struct i2s_config i2s_cfg;
 
-	if (!device_is_ready(dev_i2s))
-	{
+	if (!device_is_ready(dev_i2s)) {
 		LOG_ERR("I2S device not ready\n");
 		ret = -ENODEV;
 		return ret;
-	}
-	else
-	{
+	} else {
 		LOG_INF("I2S device is ready\n");
 	}
 
@@ -695,8 +759,7 @@ int i2s_initialize(const struct device *dev_i2s)
 
 	ret = i2s_configure(dev_i2s, I2S_DIR_TX, &i2s_cfg);
 
-	if (ret < 0)
-	{
+	if (ret < 0) {
 		LOG_ERR("Failed to configure I2S stream");
 		return ret;
 	}
@@ -704,8 +767,7 @@ int i2s_initialize(const struct device *dev_i2s)
 	return 0;
 }
 
-int esb_initialize()
-{
+int esb_initialize() {
 	int err;
 	/* These are nonarbitrary default addresses.*/
 	uint8_t base_addr_0[4] = {0xF1, 0xF1, 0xF1, 0xF1};
@@ -732,7 +794,7 @@ int esb_initialize()
 		return err;
 	}
 
-	// Set channel to 80 ( that means 2480 MHz)
+	// Set channel to 79 ( that means 2479 MHz)
 	err = esb_set_rf_channel(79);
 	if (err)
 	{
@@ -770,40 +832,68 @@ void event_handler(struct esb_evt const *event)
 				break;
 			case PKT_TURNOFF:
 				if (device_running) {
+					LOG_INF("Turning off device");
 					device_running = false;
 					k_sem_take(&run_sem, K_NO_WAIT);     // ZASTAVÍ všechna vlákna
 					lsm6dsl_sleep();
 				} else {
+					LOG_INF("Turning on device");
 					device_running = true;
 					k_sem_give(&run_sem);                // PROBUDÍ vlákna
 					lsm6dsl_ei_wake();
 				}
-				break;
-			case PKT_AUDIO:
-				break;
-			case PKT_ENDAUDIO:
+
+				int rc = nvs_write(&fs, NVS_ID_POWSTATE, &device_running, sizeof(device_running));
+				if (rc < 0) {
+					LOG_ERR("Failed to write schema version, rc=%d", rc);
+					return rc;
+				}
+
 				break;
 			case PKT_PING:
 				// LOG_INF("Recieved PING packet with RSSI: %3d dBm", rssi_dbm);
 				break;
 			case PKT_SYSCHNG:
-				if (rx_payload.data[1] && (volume <= 1.5f))
-				{
-					LOG_INF("Volume has increased");
-					volume += 0.1f;
-				}
-				else if (!rx_payload.data[1] && (volume >= 0.0f))
-				{
-					LOG_INF("Volume has decreased");
-					volume -= 0.1f;
+				switch (rx_payload.data[1]) {
+					case PKT_ID_VOL_UP:
+						if(volume <= 1.5f) {
+							LOG_INF("Volume has increased");
+							volume += 0.1f;
+							int rc = nvs_write(&fs, NVS_ID_VOLUME, &volume, sizeof(volume));
+							if (rc < 0) {
+								LOG_ERR("Failed to write schema version, rc=%d", rc);
+								return rc;
+							}
+						} else {
+							LOG_WRN("Volume is at maximum %f", volume);
+						}
+						break;
+					case PKT_ID_VOL_DOWN:
+						if(volume > 0.0f) {
+							LOG_INF("Volume has decreased");
+							volume -= 0.1f;
+							int rc = nvs_write(&fs, NVS_ID_VOLUME, &volume, sizeof(volume));
+							if (rc < 0) {
+								LOG_ERR("Failed to write schema version, rc=%d", rc);
+								return rc;
+							}						
+						} else {
+							LOG_WRN("Volume is at minimum %f", volume);
+						}
+						break;
+					case PKT_ID_SOUNDSET:
+						
+					default:
+						break;
 				}
 				break;
+			case PKT_BT_ONOFF:
+				//Turn on bt for wav file reception
 			default:
 				break;
 			}
 		}
-		else
-		{
+		else {
 			LOG_ERR("Error while reading rx packet");
 		}
 		break;
@@ -818,8 +908,7 @@ void event_handler(struct esb_evt const *event)
 	}
 }
 
-int clocks_start(void)
-{
+int clocks_start(void) {
 	int err;
 	int res;
 	struct onoff_manager *clk_mgr;
@@ -983,10 +1072,8 @@ static int lsdir(const char *path)
 }
 
 #ifdef DEBUG_RESULT_CB
-static void result_ready_cb(int err)
-{
-	if (err)
-	{
+static void result_ready_cb(int err) {
+	if (err) {
 		printk("Result ready callback returned error (err: %d)\n", err);
 		return;
 	}
@@ -999,7 +1086,6 @@ static void result_ready_cb(int err)
 
 	// printk("\nClassification results\n");
 	// printk("======================\n");
-
 	while (true) {    
 		err = ei_wrapper_get_next_classification_result(&label, &temp_value, &idx);
 		values[idx] = temp_value;
@@ -1012,7 +1098,6 @@ static void result_ready_cb(int err)
 			}
 			break;
 		}
-
 		printk("Value: %.2f\tLabel: %s\n", (double)temp_value, label);
 	}
 
@@ -1022,68 +1107,59 @@ static void result_ready_cb(int err)
 	}
 	else
 	{
-		if (ei_wrapper_classifier_has_anomaly())
-		{
+		if (ei_wrapper_classifier_has_anomaly()) {
 			err = ei_wrapper_get_anomaly(&anomaly);
-			if (err)
-			{
+			if (err) {
 				printk("Cannot get anomaly (err: %d)\n", err);
 			}
 			else
 			{
-				printk("Anomaly: %.2f\n", (double)anomaly);
+				printk("Anomaly: %.2f\n", anomaly);
 			}
 		}
 	}
 
-	for (size_t i = 0; i < 4; i++)
-	{
+	for (size_t i = 0; i < 6; i++) {
 
-		if ((values[i] > 0.90) &&
-			((i != 1) || (idlefollowup >= 20)))
-		{
-			printk("Values index %d val: %f\n", i, values[i]);
-			sizeof(struct gest_msg);
-			struct gest_msg g = {
+		if ((values[i] > 0.95) &&
+			((i != 2) || (idlefollowup >= 20))) {
+			//printk("Values index %d val: %f\n", i, values[i]);
+			struct sinf_msg g = {
 				.cmd = PKT_GEST,
 				.cmd_id = i,
 				.pipeprefix = PREFIX,
-				.rsv = (uint8_t)(values[i] * 100.0f)
+				.prob = (uint8_t)(values[i] * 100.0f),
+				.anomaly = (uint16_t)(anomaly *anomaly * 100.0f)
 			};
 
-			if (!audioEventStart)
-			{
-				printk("Gesture detected: %s %d\n",
-					   ei_wrapper_get_classifier_label(i), i);
-				
+			if (!audioEventStart) {
+				printk("Gesture detected: %s %d\n", ei_wrapper_get_classifier_label(i), i);
 				k_msgq_put(&msg_queue, &g, K_NO_WAIT);
 			}
 
 			idlefollowup = 0;
 		}
 
-		if (i == 1)
+		if (i == 2)
 		{
-			if (values[i] >= 0.90)
+			if (values[i] >= 1.0f)
 			{
 				idlefollowup += 1;
-				printk("idlefollowup increased to %d\n", idlefollowup);
+				//printk("idlefollowup increased to %d\n", idlefollowup);
 			}
 			else
 			{
 				idlefollowup = 0;
-				printk("idlefollowup voided se to 0\n");
+				//printk("idlefollowup voided se to 0\n");
 			}
 		}
 	}
 
 	err = ei_wrapper_start_prediction(1, 0);
-	if (err)
-	{
+	if (err) {
 		printk("Cannot restart prediction (err: %d)\n", err);
 	}
-	else
-	{
+	else {
 		printk("Prediction restarted...\n");
 	}
 }
@@ -1179,8 +1255,7 @@ static void result_ready_cb(int err)
 }
 #endif
 
-static void battery_manager_thread(void *arg1, void *arg2, void *arg3)
-{	
+static void battery_manager_thread(void *arg1, void *arg2, void *arg3) {	
 	int err;
 	/*charger state reading setup*/
 	uint16_t sample_buffer;
@@ -1216,39 +1291,56 @@ static void battery_manager_thread(void *arg1, void *arg2, void *arg3)
 	struct sys_ev pow_inf = {
 		.identifier = PKT_SYSINF
 	};
+	int32_t last_vals[2] = {-1, -1};
 
 	while (true) {
-		k_sem_take(&run_sem, K_FOREVER); // pokud je OFF, vlákno se zastaví
-    	k_sem_give(&run_sem);
-
+		//k_sem_take(&run_sem, K_FOREVER); // pokud je OFF, vlákno se zastaví
+    	//k_sem_give(&run_sem);
 		/*charging state reading*/
-		for (size_t i = 0; i < CHANNEL_COUNT - 1; i++) {
-			seq.channels = BIT(channel_cfgs[i].channel_id);
-			ret = adc_read(adc, &seq);
-			if (ret == 0) {
-				int32_t mv0 = sample_buffer;
-				adc_raw_to_millivolts(adc_ref_internal(adc), ADC_GAIN_1_3, 12, &mv0);
-				if(i == 0){
-					pow_inf.V_ched = mv0;
+		if (!device_running) {
+			for (size_t i = 0; i < CHANNEL_COUNT - 1; i++) {
+				seq.channels = BIT(channel_cfgs[i].channel_id);
+				ret = adc_read(adc, &seq);
+				if (ret == 0) {
+					int32_t mv0 = sample_buffer;
+					adc_raw_to_millivolts(adc_ref_internal(adc), ADC_GAIN_1_3, 12, &mv0);
+					if(i == 0){
+						pow_inf.V_ched = mv0;
+					} else {
+						pow_inf.V_ching = mv0;
+					} 
 				} else {
-					pow_inf.V_ching = mv0;
-				} 
-			} else {
-				printk("ADC read failed: %d\n", ret);
+					printk("ADC read failed: %d\n", ret);
+				}
+			}
+			uint16_t ching_diff = fabs(last_vals[0] - pow_inf.V_ching);
+			uint16_t ched_diff = fabs(last_vals[1] - pow_inf.V_ched);
+			if ((ching_diff > 400) || (ched_diff > 400)) {
+				LOG_INF("Voltaage on pins changed sanding msg %d %d", ching_diff, ched_diff);				
+				k_msgq_put(&sysfb_Q, &pow_inf, K_NO_WAIT);
+				last_vals[0] = pow_inf.V_ching;
+				last_vals[1] = pow_inf.V_ched;
 			}
 		}
+		
 		/*battery state reading*/
-		uint16_t batt_mV = battery_sample();
-		pow_inf.V_bat = batt_mV;
-		if (batt_mV < 0) {
-			LOG_INF("Failed to read battery voltage: %d", batt_mV);
-			break;
+		static int64_t last_time = 0;
+		int64_t now = k_uptime_get();
+
+		if (now - last_time >= BAT_MEASURE_MS) {
+			uint16_t batt_mV = battery_sample();
+			pow_inf.V_bat = batt_mV;
+			if (batt_mV < 0) {
+				LOG_INF("Failed to read battery voltage: %d", batt_mV);
+				break;
+			}
+			unsigned int batt_pptt = battery_level_pptt(batt_mV, levels);
+			//LOG_INF("V_bat is:%d mV charge:%u %%", batt_mV, batt_pptt);
+			last_time = now;
+			pow_inf.device_on = device_running;
+			int err = k_msgq_put(&sysfb_Q, &pow_inf, K_NO_WAIT);
 		}
 
-		unsigned int batt_pptt = battery_level_pptt(batt_mV, levels);
-		pow_inf.device_on = device_running;
-		//LOG_INF("V_bat is:%d mV charge:%u %%", batt_mV, batt_pptt);
-		int err = k_msgq_put(&sysfb_Q, &pow_inf, K_NO_WAIT);
 		k_sleep(K_MSEC(10));
 	}
 	printk("Disable: %d\n", battery_measure_enable(false));
@@ -1270,56 +1362,60 @@ void lsm6dsl_sleep() {
     k_msgq_purge(&imu_msgq);
 	bool canceld;
 	err = ei_wrapper_clear_data(&canceld);
-    	printk("tohle je hodnota canceled:%d\n", canceld);
-    	printk("tohle je hodnota err:%d\n", err);
+    	LOG_INF("Value of cnaceled is:%d and err: %d", canceld, err);
 	if(!err && canceld) {
-    	printk("Wrapper data cleared and prediction canceled\n");
+	    LOG_INF("IMU stopped & queue cleared, system ready for sleep\n");
 	}
-    printk("IMU stopped & queue cleared, system ready for sleep\n");
 }
 
 void lsm6dsl_ei_wake() {
 	int err;
-	printk("Machine learning model sampling frequency: %zu\n",
+	
+	LOG_INF("Machine learning model sampling frequency: %zu",
 		   ei_wrapper_get_classifier_frequency());
-	printk("Labels assigned by the model:\n");
+	LOG_INF("Labels assigned by the model:");
 	for (size_t i = 0; i < ei_wrapper_get_classifier_label_count(); i++) {
-		printk("- %s\n", ei_wrapper_get_classifier_label(i));
+		LOG_INF("- %s", ei_wrapper_get_classifier_label(i));
 	}
-	printk("\n");
+	
 
 	err = ei_wrapper_start_prediction(0, 0);
 	if (err) {
-		printk("Cannot start prediction (err: %d)\n", err);
+		LOG_ERR("Cannot start prediction (err: %d)", err);
 	}
 	else {
-		printk("Prediction started...\n");
+		LOG_INF("Prediction started...");
 	}
-	/* set accel/gyro sampling frequency to 52 Hz */
+
 	const struct device *const lsm6dsl_dev = DEVICE_DT_GET_ONE(st_lsm6dsl);
 	
 	if (!device_is_ready(lsm6dsl_dev)) {
-		printk("IMU not ready\n");
+		LOG_ERR("IMU not ready");
 	}	
 
 	struct sensor_value odr_attr;
-	odr_attr.val1 = 52;
+	odr_attr.val1 = 104;
 	odr_attr.val2 = 0;
 
-	if (sensor_attr_set(lsm6dsl_dev,
-						SENSOR_CHAN_ACCEL_XYZ,
-						SENSOR_ATTR_SAMPLING_FREQUENCY,
-						&odr_attr) < 0) {
-		printk("Cannot set sampling frequency for accelerometer.\n");
+	//struct sensor_value has_freq;
+	//sensor_attr_get(lsm6dsl_dev, SENSOR_CHAN_ACCEL_XYZ, SENSOR_ATTR_SAMPLING_FREQUENCY, &has_freq);
+	//if(has_freq.val1 != 0 && has_freq.val2 != 0) {}
+	if (sensor_attr_set(lsm6dsl_dev, SENSOR_CHAN_ACCEL_XYZ,
+						SENSOR_ATTR_SAMPLING_FREQUENCY, &odr_attr) < 0) {
+		LOG_WRN("Cannot set sampling frequency for accelerometer.");
 	}
 
+	if (sensor_attr_set(lsm6dsl_dev, SENSOR_CHAN_GYRO_XYZ,
+			    SENSOR_ATTR_SAMPLING_FREQUENCY, &odr_attr) < 0) {
+		LOG_WRN("Cannot set sampling frequency for gyro.\n");
+	}
 	struct sensor_trigger trig;
 
 	trig.type = SENSOR_TRIG_DATA_READY;
 	trig.chan = SENSOR_CHAN_ACCEL_XYZ;
 
 	if (sensor_trigger_set(lsm6dsl_dev, &trig, lsm6dsl_trigger_handler) != 0) {
-		printk("Could not set sensor type and channel\n");
+		LOG_ERR("Could not set sensor type and channel");
 	}
 }
 
@@ -1334,6 +1430,10 @@ static void system_feedback_thread(void *arg1, void *arg2, void *arg3) {
 	};
 
 	struct sys_ev pow_inf = {0};
+	struct sinf_msg low_bat = {
+		.cmd = PKT_SYSINF,
+		.cmd_id = 0,
+	};
 
 	struct lmr_ev lmr_event = {
 		.effect = 0,
@@ -1343,14 +1443,14 @@ static void system_feedback_thread(void *arg1, void *arg2, void *arg3) {
     while (1) {
         if(k_msgq_get(&sysfb_Q, &pow_inf, K_FOREVER) == 0) {
 			if ((pow_inf.V_ching == 0) && (pow_inf.V_ched == 0)) {
-				//LOG_INF("Device not on the charger");
+				LOG_INF("Device not on the charger");
 				charging = false;
 				pow_inf.device_on_chg = 0;
 				pow_inf.device_charged = 0;
 				charged = false;
 			}
 			if ((pow_inf.V_ching > 500) && !charging) {
-				//LOG_INF("Device was placed on charger");
+				LOG_INF("Device was placed on charger");
 				charging = true;
 				pow_inf.device_on_chg = 1;
 				lmr_event.effect = 101;
@@ -1365,6 +1465,14 @@ static void system_feedback_thread(void *arg1, void *arg2, void *arg3) {
 				}
 			}
 
+			if ((pow_inf.V_bat < LOW_BATTERY_MV) && !charging) {
+				LOG_INF("Battery low warning is device on %d", pow_inf.device_on);
+				if(pow_inf.device_on) {
+					LOG_INF("Battery low sending low battery warning");
+					k_msgq_put(&msg_queue,&low_bat,K_NO_WAIT);
+				}
+			}
+			
 			if(ESBINF) {
 				memcpy(&tx_inf.data, &pow_inf, sizeof(struct sys_ev));
 				ret = esb_write_payload(&tx_inf);
@@ -1382,4 +1490,87 @@ const char *draw_audio_path(int gesture_id){
 	const char *path_for_gesture = audio_lib[rand_dir][select_audio];
 	LOG_INF("Selected audio path: %s", path_for_gesture);
 	return path_for_gesture;
+}
+
+int nvs_init_datarec(void) {
+	int rc = 0;
+	struct flash_pages_info info;
+	uint32_t ver;
+
+	fs.flash_device = NVS_PARTITION_DEVICE;
+	if (!device_is_ready(fs.flash_device)) {
+		LOG_WRN("Flash device %s is not ready", fs.flash_device->name);
+		return EXIT_FAILURE;
+	}
+	fs.offset = NVS_PARTITION_OFFSET;
+	rc = flash_get_page_info_by_offs(fs.flash_device, fs.offset, &info);
+	if (rc) {
+		LOG_WRN("Unable to get page info, rc=%d", rc);
+		return rc;
+	}
+	fs.sector_size = info.size;
+	fs.sector_count = 2U;
+
+	rc = nvs_mount(&fs);
+	if (rc) {
+		LOG_WRN("Flash Init failed, rc=%d", rc);
+		return rc;
+	}
+
+	rc = nvs_read(&fs, NVS_ID_SCHEMA_VERSION, &ver, sizeof(ver));
+
+	if (rc <= 0 || ver != NVS_SCHEMA_VERSION) {
+		LOG_INF("NVS schema mismatch, clearing NVS");
+		nvs_clear(&fs);
+
+		rc = nvs_mount(&fs);  // <--- znovu mount po vymazání
+		if (rc) {
+			LOG_ERR("NVS mount failed after clear, rc=%d", rc);
+			return rc;
+		}
+
+		LOG_INF("is NVS ready: %d", fs.ready);
+
+		ver = NVS_SCHEMA_VERSION;
+		rc = nvs_write(&fs, NVS_ID_SCHEMA_VERSION, &ver, sizeof(ver));
+	    if (rc < 0) {
+			LOG_ERR("Failed to write schema version, rc=%d", rc);
+			return rc;
+    	}
+	}else {
+		LOG_INF("NVS schema match: %u == %u, using same NVS", ver , NVS_SCHEMA_VERSION);
+	}
+
+	uint8_t  def_power   = 1;
+	uint32_t def_sound   = 0;
+	float    def_volume  = 0.5f;
+
+	nvs_restore(NVS_ID_POWSTATE, &device_running, sizeof(device_running), &def_power);
+	LOG_INF("Device power state is %d", device_running);
+	nvs_restore(NVS_ID_SOUNDSET, &soundset_index, sizeof(soundset_index), &def_sound);
+	LOG_INF("Soundset index is %d", soundset_index);
+	nvs_restore(NVS_ID_VOLUME,   &volume,         sizeof(volume),         &def_volume);
+	LOG_INF("Volume is %f", volume);
+
+	return 0;
+}
+
+int nvs_restore(uint16_t nvs_id, void *data, size_t len ,const void * def){
+	int rc = nvs_read(&fs, nvs_id, data, len);
+	if (rc <= 0) {
+		memcpy(data, def, len);
+
+		rc = nvs_write(&fs, nvs_id, data, len);
+		if (rc < 0) {
+			LOG_ERR("NVS write failed id=%d rc=%d", nvs_id, rc);
+			return rc;
+		} else if (rc == 0) {
+			LOG_INF("Tried to write same data to NVS wriet was terminated");
+		}
+
+		LOG_INF("NVS id %d defaulted", nvs_id);
+	} else {
+		LOG_INF("NVS id %d restored", nvs_id);
+	}
+	return 0;
 }
