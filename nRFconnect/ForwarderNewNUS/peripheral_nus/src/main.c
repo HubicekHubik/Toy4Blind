@@ -10,6 +10,7 @@
 #include <zephyr/drivers/sensor.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <zephyr/bluetooth/gatt.h>
 
 #define DEVICE_NAME		CONFIG_BT_DEVICE_NAME
 #define DEVICE_NAME_LEN		(sizeof(DEVICE_NAME) - 1)
@@ -23,12 +24,78 @@ static const struct bt_data sd[] = {
 	BT_DATA_BYTES(BT_DATA_UUID128_ALL, BT_UUID_NUS_SRV_VAL),
 };
 
-static struct sensor_value accel_xyz_out[3];
+static struct bt_conn *nus_conn;
 
-K_MSGQ_DEFINE(imu_msgq, sizeof(int32_t) * 3 * 2, 450, 4);
+static struct sensor_value accel_gyro_xyz_out[6];
+
+K_MSGQ_DEFINE(imu_msgq, sizeof(struct sensor_value) * 6, 450, 4);
 
 static void lsm6dsl_trigger_handler(const struct device *dev,
 				    const struct sensor_trigger *trig);
+
+static void update_data_length(struct bt_conn *conn)
+{
+    int err;
+    struct bt_conn_le_data_len_param my_data_len = {
+        .tx_max_len = BT_GAP_DATA_LEN_MAX,
+        .tx_max_time = BT_GAP_DATA_TIME_MAX,
+    };
+    err = bt_conn_le_data_len_update(conn, &my_data_len);
+    if (err) {
+        printk("data_len_update failed (err %d)", err);
+    }
+}
+
+static struct bt_gatt_exchange_params exchange_params;
+
+static void exchange_func(struct bt_conn *conn, uint8_t err,
+                          struct bt_gatt_exchange_params *params)
+{
+    if (err) {
+        printk("MTU exchange failed (err %u)\n", err);
+    } else {
+        printk("MTU updated: %u\n", bt_gatt_get_mtu(conn));
+    }
+}
+
+static void update_mtu(struct bt_conn *conn)
+{
+    int err;
+    exchange_params.func = exchange_func;
+
+    err = bt_gatt_exchange_mtu(conn, &exchange_params);
+    if (err) {
+        printk("bt_gatt_exchange_mtu failed (err %d)", err);
+    }
+}
+
+static void connected(struct bt_conn *conn, uint8_t err)
+{
+    if (err) {
+        printk("Connection failed (err %u)\n", err);
+        return;
+    }
+
+    printk("Connected");
+
+    update_data_length(conn);
+    update_mtu(conn);
+}
+
+static void disconnected(struct bt_conn *conn, uint8_t reason)
+{
+    printk("Disconnected (reason 0x%02x)\n", reason);
+
+    if (nus_conn) {
+        bt_conn_unref(nus_conn);
+        nus_conn = NULL;
+    }
+}
+
+static struct bt_conn_cb conn_callbacks = {
+    .connected = connected,
+    .disconnected = disconnected,
+};
 
 static void notif_enabled(bool enabled, void *ctx)
 {
@@ -39,7 +106,7 @@ static void notif_enabled(bool enabled, void *ctx)
 
 static void received(struct bt_conn *conn, const void *data, uint16_t len, void *ctx)
 {
-	ARG_UNUSED(conn);
+    nus_conn = bt_conn_ref(conn);
 	ARG_UNUSED(ctx);
 
 	printk("%s() - Len: %d, Message: %.*s\n", __func__, len, len, (char *)data);
@@ -61,6 +128,11 @@ int main(void)
 		printk("Failed to enable bluetooth: %d\n", err);
 		return err;
 	}
+	err = bt_conn_cb_register(&conn_callbacks);
+	if (err) {
+		printk("Failed to register CONN callback: %d\n", err);
+		return err;
+	}
 
 	err = bt_nus_cb_register(&nus_listener, NULL);
 	if (err) {
@@ -74,6 +146,15 @@ int main(void)
 		return err;
 	}
 
+    /*struct bt_conn_le_data_len_param my_data_len = {
+        .tx_max_len = BT_GAP_DATA_LEN_DEFAULT,
+        .tx_max_time = BT_GAP_DATA_TIME_DEFAULT,
+    };
+    err = bt_conn_le_data_len_update(my_conn, &my_data_len);
+    if (err) {
+        LOG_ERR("data_len_update failed (err %d)", err);
+    }*/
+
 	printk("Initialization complete\n");
 
 	    // get driver for the accelerometer
@@ -85,7 +166,7 @@ int main(void)
     }
 
 	/* set accel/gyro sampling frequency to 104 Hz */
-	odr_attr.val1 = 52;
+	odr_attr.val1 = 104;
 	odr_attr.val2 = 0;
 
 	if (sensor_attr_set(lsm6dsl_dev, SENSOR_CHAN_ACCEL_XYZ,
@@ -94,6 +175,12 @@ int main(void)
 		return EXIT_FAILURE;
 	}
 
+	if (sensor_attr_set(lsm6dsl_dev, SENSOR_CHAN_GYRO_XYZ,
+			    SENSOR_ATTR_SAMPLING_FREQUENCY, &odr_attr) < 0) {
+		printk("Cannot set sampling frequency for gyro.\n");
+		return 0;
+	}
+	
 	struct sensor_trigger trig;
 
 	trig.type = SENSOR_TRIG_DATA_READY;
@@ -103,20 +190,23 @@ int main(void)
 		printk("Could not set sensor type and channel\n");
 	}
 
-	float f_val_buffer[3];
-	struct sensor_value acc_buffer[3];
+	float f_val_buffer[6];
+	struct sensor_value acc_gyro_buffer[6];
 
 	while (true) {
-		k_msgq_get(&imu_msgq, acc_buffer, K_FOREVER);
+		k_msgq_get(&imu_msgq, acc_gyro_buffer, K_FOREVER);
 		if (k_msgq_num_used_get(&imu_msgq) > (150 * 3 / 4)) {
 								printk("IMU queue > 75%% full!\n");
 		}
-		f_val_buffer[0]= sensor_value_to_float(&acc_buffer[0]);
-		f_val_buffer[1]= sensor_value_to_float(&acc_buffer[1]);
-		f_val_buffer[2]= sensor_value_to_float(&acc_buffer[2]);
-		//printk("This are the walues form sensor Ax:%f Ay:%f Az:%f \n",f_val_buffer[0], f_val_buffer[1], f_val_buffer[2]);
+		f_val_buffer[0]= sensor_value_to_float(&acc_gyro_buffer[0]);
+		f_val_buffer[1]= sensor_value_to_float(&acc_gyro_buffer[1]);
+		f_val_buffer[2]= sensor_value_to_float(&acc_gyro_buffer[2]);
+		f_val_buffer[3]= sensor_value_to_float(&acc_gyro_buffer[3]);
+		f_val_buffer[4]= sensor_value_to_float(&acc_gyro_buffer[4]);
+		f_val_buffer[5]= sensor_value_to_float(&acc_gyro_buffer[5]);
+		printk("This are the walues form sensor Ax:%f Ay:%f Az:%f Gx:%f Gy:%f  Gz:%f\n",f_val_buffer[0], f_val_buffer[1], f_val_buffer[2], f_val_buffer[3], f_val_buffer[4], f_val_buffer[5]);
 		
-		err = bt_nus_send(NULL, f_val_buffer, sizeof(f_val_buffer));
+		err = bt_nus_send(NULL, f_val_buffer, 24U);
 		
 		printk("Data seAnd - Result: %d\n", err);
 
@@ -132,15 +222,23 @@ static void lsm6dsl_trigger_handler(const struct device *dev,
 				    const struct sensor_trigger *trig) {
 
 	static struct sensor_value accel_x, accel_y, accel_z;
+	static struct sensor_value gyro_x, gyro_y, gyro_z;
 
 	sensor_sample_fetch_chan(dev, SENSOR_CHAN_ACCEL_XYZ);
 	sensor_channel_get(dev, SENSOR_CHAN_ACCEL_X, &accel_x);
 	sensor_channel_get(dev, SENSOR_CHAN_ACCEL_Y, &accel_y);
 	sensor_channel_get(dev, SENSOR_CHAN_ACCEL_Z, &accel_z);
-	accel_xyz_out[0]=accel_x;
-	accel_xyz_out[1]=accel_y;
-	accel_xyz_out[2]=accel_z;
-	int err = k_msgq_put(&imu_msgq, accel_xyz_out, K_NO_WAIT);
+	accel_gyro_xyz_out[0]=accel_x;
+	accel_gyro_xyz_out[1]=accel_y;
+	accel_gyro_xyz_out[2]=accel_z;
+	sensor_sample_fetch_chan(dev, SENSOR_CHAN_GYRO_XYZ);
+	sensor_channel_get(dev, SENSOR_CHAN_GYRO_X, &gyro_x);
+	sensor_channel_get(dev, SENSOR_CHAN_GYRO_Y, &gyro_y);
+	sensor_channel_get(dev, SENSOR_CHAN_GYRO_Z, &gyro_z);
+	accel_gyro_xyz_out[3]=gyro_x;
+	accel_gyro_xyz_out[4]=gyro_y;
+	accel_gyro_xyz_out[5]=gyro_z;
+	int err = k_msgq_put(&imu_msgq, accel_gyro_xyz_out, K_NO_WAIT);
 	if(err){
 		printk("Couldn't send packet err:%d\n", err);
 	}

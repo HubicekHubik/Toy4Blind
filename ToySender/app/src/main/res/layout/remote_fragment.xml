@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C72E55A2"
+    android:padding="20dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/onoffButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        app:backgroundTint="#4CAF50"
+        app:icon="@drawable/power_settings_new_24px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/volumeGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/debugScroll"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onoffButton">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/volumeUpButton"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/add_24px" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/volumeMuteButton"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:icon="@drawable/volume_off_24px" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/volumeDownButton"
+            style="@style/Widget.Material3.Button.ElevatedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:icon="@drawable/remove_24px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/changeGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="97dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/debugScroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/onoffButton">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/changeCategoryButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            app:icon="@drawable/library_music_24px" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/changeGameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game"
+            app:icon="@drawable/toys_and_games_24px" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/debugScroll"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="16dp"
+        android:background="#121212"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/debugTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:padding="8dp"
+            android:text="Debug log:"
+            android:textColor="#00FF00"
+            android:textSize="10sp" />
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

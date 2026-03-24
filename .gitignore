@@ -1,0 +1,37 @@
+# --- nRF Connect / Zephyr / C++ ---
+build/
+modules/
+zephyr/
+nrf/
+.cache/
+*.pyc
+
+# --- IDEs (VS Code) ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Kompilace a binárky ---
+*.o
+*.obj
+*.elf
+*.bin
+*.hex
+*.exe
+*.map
+*.lst
+*.d
+
+# --- KiCad ---
+*.bak
+*.bck
+*.kicad_pcb-bak
+*.kicad_sch-bak
+*-backups/
+_autosave-*
+*.tmp
+fp-info-cache
+
+# --- Ei Old clas ---
+OLD_EI_CLAS/

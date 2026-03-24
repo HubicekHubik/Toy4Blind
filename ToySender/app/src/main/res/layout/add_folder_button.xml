@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.button.MaterialButton
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/btnAddFolder"
+    style="@style/Widget.Material3.Button.TextButton.Icon"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="8dp"
+    android:text="Přidat novou složku..."
+    android:textColor="#2196F3"
+    android:gravity="start|center_vertical"
+    app:icon="@drawable/attach_file_add_24px"
+    app:iconTint="#2196F3"
+    app:rippleColor="#2196F3" />

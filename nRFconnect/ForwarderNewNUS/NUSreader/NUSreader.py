@@ -30,10 +30,10 @@ async def notification_handler(sender, data):
         last_time = now
 
     # rozbal floaty z binárního paketu
-    if len(data) == 12:  # 3 floaty x 4B
-        ax, ay, az = struct.unpack('<fff', data)
+    if len(data) == 24:  # 6 floats x 4B
+        ax, ay, az, gx, gy, gz = struct.unpack('<ffffff', data)
         # poslat do EI data forwarderu
-        line = f"{ax}\t{ay}\t{az}\r\n"
+        line = f"{ax}\t{ay}\t{az}\t{gx}\t{gy}\t{gz}\r\n"
         ser.write(line.encode('utf-8'))
 
 async def main():

@@ -6,9 +6,18 @@
 cmake_minimum_required(VERSION 3.20.0)
 
 find_package(Zephyr REQUIRED HINTS $ENV{ZEPHYR_BASE})
-project(esb_ptxMy)
+project(ToyRemote)
 
-FILE(GLOB app_sources src/*.c)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../common)
+
 # NORDIC SDK APP START
-target_sources(app PRIVATE ${app_sources})
+target_sources(app PRIVATE src/main.c
+                           ../common/app_state.c
+                           src/ble_modul.c
+                           src/but_modul.c
+                           ../common/haptic_modul.c
+                           ../common/bat_measures_modul.c
+                           ../common/battery.c
+                           ../common/pwm_effects.c
+                           )
 # NORDIC SDK APP END

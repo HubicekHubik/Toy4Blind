@@ -1,0 +1,12 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/nav_library"> <fragment
+    android:id="@+id/nav_library" android:name="com.example.toysender.nav_fragment"
+    android:label="Knihovna" />
+
+    <fragment
+        android:id="@+id/nav_remote" android:name="com.example.toysender.RemoteFragment"
+        android:label="Ovladač" />
+
+</navigation>

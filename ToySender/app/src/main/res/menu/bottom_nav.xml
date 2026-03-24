@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_library"
+        android:icon="@drawable/radar_24px"
+        android:title="Knihovna" />
+    <item
+        android:id="@+id/nav_remote"
+        android:icon="@drawable/sports_esports_24px"
+        android:enabled="true"
+        android:title="Ovladač" />
+</menu>

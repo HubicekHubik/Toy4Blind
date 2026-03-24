@@ -37,7 +37,7 @@
                 status = "okay";
                 disk-name = "SD";  // ← sem přidej tento řádek
         };
-        spi-max-frequency = <4000000>;
+        spi-max-frequency = <24000000>;
         //spi-max-frequency = <24000000>; //was working changing to 12 Mhz to be more stable
     };
 };

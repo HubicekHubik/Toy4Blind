@@ -13,58 +13,47 @@
 
 / {
     aliases {
-        sw0 = &button0;
-        sw1 = &button1;
-        sw2 = &button2;
+        adc0 = &adc;
+    };
+
+    vbatt {
+    compatible = "voltage-divider";
+    label = "Voltage divider";
+    io-channels = <&adc 7>;
+    output-ohms = <510000>;
+    full-ohms =  <1510000>;
+    power-gpios = <&gpio0 14 GPIO_ACTIVE_LOW>;
     };
 
     buttons {
              compatible = "gpio-keys";
              button0: button_0 {
-                gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;
-                label = "Button 0";
-             };
-             button1: button_1 {
-                gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;
+                gpios = <&gpio0 29 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
                 label = "Button 1";
              };
+             button1: button_1 {
+                gpios = <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+                label = "Button 2";
+             };
              button2: button_2 {
-                gpios = <&gpio0 28 GPIO_ACTIVE_LOW>;
+                gpios = <&gpio0 28 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
                 label = "Button 3";
-             };  
+             };
+             button3: button_3 {
+                gpios = <&gpio1 12 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+                label = "Button 4";
+             };
+             button4: button_4 {
+                gpios = <&gpio1 13 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+                label = "Button 5";
+             };
     };
 };
 
-
-&pinctrl {
-    custom_spi: custom_spi {
-            group1 {
-                    psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
-                            <NRF_PSEL(SPIM_MOSI, 1, 14)>,
-                            <NRF_PSEL(SPIM_MISO, 1, 15)>;
-            };
-    };
-};
-
-&spi1 {
-    status = "okay";
-    pinctrl-0 = <&custom_spi>;
-    pinctrl-1 = <&custom_spi>;
-    pinctrl-names = "default", "sleep";
-    cs-gpios = <&gpio1 12 GPIO_ACTIVE_LOW>;
-
-    sdhc0: sdhc@0 {
-        compatible = "zephyr,sdhc-spi-slot";
-        reg = <0>;
-        status = "okay";
-        label = "SDHC_0";
-        mmc {
-                compatible = "zephyr,sdmmc-disk";
-                status = "okay";
-                disk-name = "SD";  // ← sem přidej tento řádek
-        };
-        spi-max-frequency = <2000000>;
-        //spi-max-frequency = <24000000>; //was working changing to 12 Mhz to be more stable
+&pwm0_default {
+    group1 {
+        psels = <NRF_PSEL(PWM_OUT0, 0, 2)>;
+        /delete-property/ nordic,invert;
     };
 };
 
@@ -103,4 +92,30 @@
                <8 0 &gpio1 13 0>,
                <9 0 &gpio1 14 0>,
                <10 0 &gpio1 15 0>;
+};
+
+&adc {
+   #address-cells = <1>;
+   #size-cells = <0>;
+
+  channel@5 {
+    reg = <5>;
+    zephyr,gain = "ADC_GAIN_1_3";
+    zephyr,reference = "ADC_REF_INTERNAL";
+    zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+    zephyr,input-positive = <NRF_SAADC_AIN3>;
+    zephyr,resolution = <12>;
+    zephyr,oversampling = <8>;
+   };
+
+  channel@4 {
+    reg = <4>;
+    zephyr,gain = "ADC_GAIN_1_3";
+    zephyr,reference = "ADC_REF_INTERNAL";
+    zephyr,acquisition-time = <ADC_ACQ_TIME(ADC_ACQ_TIME_MICROSECONDS, 40)>;
+    zephyr,input-positive = <NRF_SAADC_AIN2>;
+    zephyr,resolution = <12>;
+    zephyr,oversampling = <8>;
+   };
+
 };
