@@ -1,0 +1,67 @@
+/* Hlavní kontejner */
+.container {
+    display: flex;
+    min-height: calc(100vh - 80px); /* Odečti výšku headeru */
+}
+
+/* Boční panel */
+.side-panel {
+    width: 40px;
+    background-color: #0b0b0b;
+    border-right: 1px solid #222;
+    transition: width 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column; /* Nadpis a pak sub-nav pod ním */
+    position: sticky;
+    top: 80px;
+    height: calc(100vh - 80px);
+    overflow: hidden;
+    z-index: 999;
+}
+
+.side-panel:hover {
+    width: 10vw;
+}
+
+.side-panel .sub-nav {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Toto vynutí roztažení až dolů k footeru */
+    gap: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.side-panel:hover .sub-nav {
+    opacity: 1;
+}
+
+/* Odkazy v side-panelu */
+.side-panel .sub-nav a {
+    display: block;
+    color: #888;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.side-panel .sub-nav a:hover {
+    background-color: #1a1a1a;
+    color: #159dcb;
+    padding-left: 25px; /* Efekt posunutí textu při najetí */
+}
+
+.side-panel h3 {
+    color: #444;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 25px 15px 10px 15px;
+    margin: 0;
+    white-space: nowrap;
+}
