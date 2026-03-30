@@ -1,0 +1,71 @@
+/* Kontejner pro celý blok kódu */
+.code-block {
+    position: relative;
+    background-color: #282c34; /* Tmavé "Atom" pozadí */
+    border-radius: 12px;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 90%; /* Aby ladilo s tvými 80% u parent-block */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    border: 1px solid #3e4451;
+}
+
+/* Styl pro samotný text kódu */
+.code-block pre {
+    margin: 0;
+    padding: 20px;
+    overflow-x: auto; /* Horizontální scrollbar pro dlouhé řádky */
+}
+
+.code-block code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.95rem;
+    color: #abb2bf; /* Světle šedý text */
+    line-height: 1.5;
+    white-space: pre;
+}
+
+/* Tlačítko Copy */
+.copy-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    padding: 5px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.copy-button:hover {
+    background-color: #3fa5b3; /* Tvá barva z .top */
+    border-color: #3fa5b3;
+    color: white;
+}
+
+.copy-button:active {
+    transform: scale(0.95);
+}
+
+/* Úprava scrollbaru pro moderní vzhled */
+.code-block pre::-webkit-scrollbar {
+    height: 8px;
+}
+
+.code-block pre::-webkit-scrollbar-track {
+    background: #21252b;
+}
+
+.code-block pre::-webkit-scrollbar-thumb {
+    background: #3e4451;
+    border-radius: 4px;
+}
+
+.code-block pre::-webkit-scrollbar-thumb:hover {
+    background: #4b5263;
+}

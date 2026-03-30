@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toy4Blind – Dokumentace</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header>
+    <div id="header-placeholder"></div>
+</header>
+
+    <div class="container">
+        <div class="side-panel">
+            <div class="sub-nav">
+                <a href="#MCU">Prostředí</a>
+                <a href="#charger">EdgeImpulse</a>
+                <a href="#AMP">Moduly</a>
+                <a href="#LMR">Aplikace</a>
+            </div>
+        </div>
+        <main>
+            <div class="parent-block top">
+                <div class="left-column">
+                    <div class="child-block heading small">
+                        <h1>
+                            Firmware
+                        </h1>
+                        <h2>
+                            Podstata kódu
+                        </h2>
+                    </div>
+                    <div class="child-block small">
+                        <p>
+                            V této části si popíšeme strukturu kódu, změny od minulé verze a jejich důvody
+                        </p>
+                        <p>
+                            Přesně se budeme věnovat přechodu z ESB na BLE a také z audiostreamingu na čtení z SD karty.
+                        </p>
+                        <p>
+                            Podíváme se také na psaní android aplikace
+                        </p>
+                        <p>
+
+                        </p>
+                    </div>
+                </div>
+    
+                <div class="right-column">
+                    <div class="child-block tall">
+                        <img src="index_images/allin1.jpg" alt="prezenteace obsahu">
+                    </div>
+                </div>
+            </div>
+
+            <div class="parent-block col" id="LMR">
+                <div class="child-block heading small">
+                        <h1>
+                            Myšlenka kódu
+                        </h1>
+                    <h2>
+                        Co se uvnitř děje
+                    </h2>
+                </div>
+                <div class="parent-block">
+                    <div class="left-column">
+                        <div class="child-block small">
+                            <h1>
+                                Hračka
+                            </h1>
+                            <p>
+                                Kód hračky stojí na natrénovaném klasifikátoru ten pomoci EI wrapperu pozná gesto, které je odesláno do modulů pro haptiku a audio. Audio modul na základě gesta vybere zvuk který přehraje ze struktury audioknihovny. Na pozadí dochází k měření baterie, stavu nabíjení a bluetooth dvertisingu.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="child-block small">
+                            <h1>
+                                Ovladač
+                            </h1>
+                            <p>
+                                Kód Ovladače není nic zvláštního pouze rozpoznává zmáčkuntí nebo podržení tlačítek a tyto akce posílá hračce. Systémové eventy jako stlačení talčítka nebo položení na nabíječku jsou signalizovány hapticky
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="child-block small">
+                            <h1>
+                                Aplikace
+                            </h1>
+                            <p>
+                                Aplikace má na starosti připojení se k hračce a stejnou komunikaci jako ovladač. Přidaným elementem je zobrazení knihovny zvuků možnost jejich editace mazání a nahrávání
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="parent-block ">
+                <div class="left-column">
+                    <div class="child-block heading small">
+                        <h1>
+                            Zrušení streamingu
+                        </h1>
+                        <h2>
+                        </h2>
+                    </div>
+                    <div class="child-block small">
+                        <p>
+                            Jeden z největších zásahů do mého projektu bylo právě přechod na sd kartu místo aduio streamingu
+                        </p>
+                        <p>
+                            Důvodem byla maximální kvalita a konzistence zvuku jelikož používám 16-bit/44,1kHz audio tak bylo nutné zajistit stabilní tok 705,6 kb/s. Aby nevznikala velká latence od akce a přehrání audia byl jsem nucen použít protocol ESB. Moje snaha signál vylepšit byla pomocí <a href="https://www.nordicsemi.com/Products/Development-hardware/nRF21540-DB">nRF21540 DB</a>
+                        </p>
+                        <p>
+                            Jelikož v té doběj jsem měl v hlavě vizi vlastní development boardy chtěl jsem zkusit zadlai přidáním nRF21540 se můj problém vyřeší, i když k navýšení síli signálu došlo tak audio straming prostě nefungoval výpadky a poškození audia setrvávali v připadě že se hračka hýblala nebo se nacházela za osobou což je pro tuto aplikaci nezbytné.
+                        </p>
+                        <p>
+                            Tou dobou se nabízelo několik řešení přejít na <a href="https://www.nordicsemi.com/Products/nRF5340">nRF5340</a> který má podporu BLE Audio nebo počkat na blížící se vydání <a href="https://www.seeedstudio.com/XIAO-nRF54L15-Sense-p-6494.html">Xiao nRF54L15 Sense</a>. Vedoucí práce mě však podpořil v zachování původní dev board a přidání SD karty
+                        </p>
+                        <p>
+                            Přidání sd karty v nRF connect je nutné udělat nejen pomocí prj.conf ale také v device_tree.overlay (kód vpravo) já jsem si ještě předefinoval piny kvůli I2S.
+                        </p>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="child-block tall">
+                        <div class="code-block">
+                            <button class="copy-button" onclick="copyCode(this)">Copy</button>
+                            <pre><code>    
+&pinctrl {
+    custom_spi: custom_spi {
+            group1 {
+                    psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
+                            <NRF_PSEL(SPIM_MOSI, 1, 14)>,
+                            <NRF_PSEL(SPIM_MISO, 1, 12)>;
+            };
+    };
+};
+
+&spi2 {
+    status = "okay";
+    pinctrl-0 = <&custom_spi>;
+    pinctrl-1 = <&custom_spi>;
+    pinctrl-names = "default", "sleep";
+    cs-gpios = <&gpio1 15 GPIO_ACTIVE_LOW>;
+
+    sdhc0: sdhc@0 {
+        compatible = "zephyr,sdhc-spi-slot";
+        reg = <0>;
+        status = "okay";
+        label = "SDHC_0";
+        mmc {
+                compatible = "zephyr,sdmmc-disk";
+                status = "okay";
+                disk-name = "SD";
+        };
+        spi-max-frequency = <24000000>;
+    };
+};
+
+/ {
+    aliases {
+        i2stx = &i2s0;
+    };
+    }
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parent-block ">
+                <div class="left-column">
+                    <div class="child-block tall">
+                        <img src="index_images/remote.jpg" alt="prezenteace obsahu">
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="child-block heading small">
+                        <h1>
+                            Přechod na BLE
+                        </h1>
+                        <h2>
+                            Bluetooth Low Engergy
+                        </h2>
+                    </div>
+                    <div class="child-block small">
+                        <p>
+                            Přechod na BLE nebyl úplně v plánu, 
+                            ale s příchodem myšlenky mobilní aplikace byl nutný jelkož telefony nativně s ESB komunikovat neumí.
+                        </p>
+                        <p>     
+                            Moje prvotní snaha byla nastavit MPSL aby hračka s ovladačem komunikovla přes ESB a telefon s hračkou přes BLE. 
+                            Nakonec jsem rád že se mi toto nepovedlo a je vše sjednocené na BLE i když to zanmenalo předělat celou komunikaci
+                        </p>
+                        <p>
+                            Jednou ze záludností co jsme řešil bylo nastavení GTA ATTA 
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    
+    <div id="footer-placeholder"></div>
+    
+    <script src="script_copy.js"></script>
+    <script src="import_footer.js"></script>
+    <script src="import_header.js"></script>
+</body>
+
+
+</html>

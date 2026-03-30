@@ -1,0 +1,88 @@
+.site-footer {
+    background-color: #0b0b0b;
+    color: #888;
+    padding: 60px 10% 20px 10%;
+    border-top: 1px solid #222;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+}
+
+/* Styl pro logo v patičce */
+.footer-section.about h3 {
+    color: #666;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.footer-section h4 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-section p {
+    font-size: 0.85rem;
+    line-height: 1.6;
+}
+
+/* Seznam odkazů v patičce */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #888;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+}
+
+.footer-section ul li a:hover {
+    color: #159dcb; /* Tvoje modrá */
+}
+
+/* Status dot (zelené světýlko) */
+.footer-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    margin-top: 15px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #2ecc71;
+}
+
+/* Spodní řádek */
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #1a1a1a;
+    font-size: 0.75rem;
+    color: #444;
+}

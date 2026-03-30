@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toy4Blind – Dokumentace</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <div id="header-placeholder"></div>
+    </header>
+
+        <div class="container">
+            <div class="side-panel">
+                <div class="sub-nav">
+                    <a href="#MCU">MCU</a>
+                    <a href="#charger">Nabíječka</a>
+                    <a href="#AMP">Audio</a>
+                    <a href="#LMR">Haptika</a>
+                </div>
+            </div>
+            <main>
+                <div class="parent-block top" id="MCU">
+                    <div class="left-column">
+                        <div class="child-block heading small">
+                            <h1>
+                                Hardware
+                            </h1>
+                            <h2>
+                                Od MCU k reproduktoru
+                            </h2>
+                        </div>
+                        <div class="child-block small">
+                            <p>
+                                V této sekci se zaměříme na vše co se hardwaru týká.
+                            </p>
+                            <p>
+                                Osvětlím vlastnosti vývojové desky Xiao, od které se projekt odvíjí, její pusly a mínusy 
+                            </p>
+                            <p>
+                                Vysvětlím jednotlivé moduly. Zmíním se jak o starých tak nových proč jsem je používal proč už je nepoužívám.
+                            </p>
+                            <p>
+                                Něco málo také řeknu ohledně baterie reproduktoru a vybračních motuůrcích.
+                            </p>
+                            <p>
+                                Dále se pověnujeme návrhu a výrobě PCB a to vlastní cestou a i cestou přes specializovanou firmu.
+                            </p>
+                            <p>
+                                V neposlední řadě si proberem některé mé návrhové chybi ale i úspěchy
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="child-block tall">
+                            <img src="index_images/allin1.jpg" alt="prezenteace obsahu">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="parent-block " id="MCU">
+                    <div class="left-column">
+                        <div class="child-block heading small">
+                            <h1>
+                                Mikroprocessor
+                            </h1>
+                            <h2>
+                                ATmega, ESP, Rpi, nRF?
+                            </h2>
+                        </div>
+                        <div class="child-block small">
+                            <p>
+                                Mikroprocesorů je momentálně na truhu dost každý se hodí na něco jiného mně s výběrem pomohl vedoucí práce který mi doporučil <a href="https://www.seeedstudio.com/Seeed-XIAO-BLE-Sense-nRF52840-p-5253.html">Xiao nRF52840 Sense</a>
+                            </p>
+                            <p>
+                                Se všemi ostatními processory krom nRF jsem se setkal Arduino, ESP a RaspberryPi boardy jsou přeci jen velice rozšířené.
+                            </p>
+                            <p>
+                                Čipy od Nordic Semi Conductors jsou vemli energeticky nenáročné proto jsou ideální pro bateriově napájená zařízení.
+                            </p>
+                            <p>
+                                Jedna z nevýhod však je složitost programování, pro využití plného potenciálu je ideální využít nRF Connect for VS který trocu usnadňuje práci se složitým Zephyrem.
+                            </p>
+                            <p>
+                                Zajímavostí pro Nordic Semi je také vydávání IC které rozšiřují vlastnosti jejch procesorů jako napřikald nRF21540 nebo nRF7002 ovšem na malých vývojových deskách je nečekejte
+                            </p>
+                            <p>
+                                 Zpětně mohu hodnotit že bych nRF neměnil což se zrovna o modelu vývojové desky Xiao nRF52840 Sense říct nedá.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="child-block tall">
+                            <img src="index_images/toy.jpg" alt="prezenteace obsahu">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="parent-block" id="charger">
+                    <div class="left-column">
+                        <div class="child-block tall">
+                            <img src="index_images/remote.jpg" alt="prezenteace obsahu">
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="child-block heading small">
+                            <h1>
+                                Xiao nRF52840 Sense
+                            </h1>
+                            <h2>
+                                Co mi na něm vadí?
+                            </h2>
+                        </div>
+                        <div class="child-block small">
+                            <p>
+                                Zprvu bych chtěl říci že nemám v plánu tuto vývojovou desku nějak moc hanit každopádně, se u ní vysktují některá neštastná rozhodnutí která mi vývoj s ní úplně neusnadnila, každopádně s momentální cenou 12€ nabízí slušné parametry
+                            </p>
+                            <p>
+                                Velikost 21 x 17.8mm <br>
+                                BLE 5.4 <br>
+                                1 MB flash a 256 kB RAM <br>
+                                Standby spotřeba <5μA <br>
+                                Zabudovaný mikrofon a IMU
+                            </p>
+                            <p>
+                                Abych věci také uvedl na pravou míru bylo by odemně fér říci že většinu neduh, které tato deska má řeší její verze <a href="https://www.seeedstudio.com/Seeed-Studio-XIAO-nRF52840-Sense-Plus-p-6360.html">Plus</a> a z uvedených informací výrobcem úplně vše nová generace <a href="https://www.seeedstudio.com/XIAO-nRF54L15-Sense-p-6494.html">XIAO nRF54L15</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="parent-block">
+                    <div class="child-block small top">
+                        <h1>Tlačítko</h1>
+                        <p>
+                            Sice se to může zdát jako drobnost avšak tlačítko je nutné k restartu a také dovjklikem k otevření u2f bootloaderu. 
+                            Typ zvoleného tlačítka dělá z těhle operací vlemi nepříjemný zážitek jelikož je složité na zmáčkntí proto je potřeba mít u sebe nějaký špičatější předmět a nejlépe nevodivý
+                        </p>
+                        <img class="basic-img" src="hardware_images/xiao_but.png" alt="Xiao button">
+                    </div>
+                    <div class="child-block small top">
+                        <h1>Bat pady</h1>
+                        <p>
+                            Další má stížnost stměřuje k ploškám k připojení (připájení) baterie plošky jsou na spodku desky dost blízko pinům a řekl bych že je poměrně snadné je utrhnout nevím jeslti to je jen mnou ale toto umístění opět velice znepříjemňovalo vývoj zařízení. U verze Xiao nRF52840 Sene Plus již toto umístění bylo změňeno
+                        </p>
+                        <img class="basic-img" src="hardware_images/xiao_pads.png" alt="Xiao baterry pads">
+                    </div>
+                    <div class="child-block small top">
+                        <h1>Nabíjecí obvod</h1>
+                        <p>
+                            Pro někoho výhoda pro mně utrpení tak bych nazval nabíjecí obvod který je součástí Xiao jelikož používám 1800mA baterii nechtěl jsem ji nabíjet pouze 100mA který tent oobvod umožňuje. Avšak pozastavení tohoto obvodu není možné proto jsem byl nucen přidat mezi xiao a baterii diodu která nabíjení brání.
+                        </p>
+                        <img src="hardware_images/charge_circ.png" alt="Xiao charging circ">
+                    </div>
+                </div>
+
+                <div class="parent-block" id="AMP">
+                    <div class="left-column">
+                        <div class="child-block heading small">
+                            <h1>
+                                Moduly
+                            </h1>
+                            <h2>
+                                Proč zrovna tyto?
+                            </h2>
+                        </div>
+                        <div class="child-block small">
+                            <p>
+                                Slovem "Moduly" jsou myšleny předpřipravené elektrické obvody / součástky sloužící k nějakému specifickému účelu. V mém případě je to například Modul bezdrátového nabíjení nabíjení Li-pol baterie, I2S audio zesilovač k přehrávání zvuku, modul sd karty
+                            </p>
+                            <p>
+                                Moduly jsem zvolil jelikož jsem neměl moc zkušeností s návrhem vlastních plošných spojů.
+                            </p>
+                            <p>
+                                Můj osobní názor na moduly je smíšený na jednu stranu je veš hotovo stačí zkontorlovat jestli je vše jak výrobce uvádí a je to skoro bez práce. Úspora času při pájení nebo absence označování všeho pro výrobce PCB je také značné zpříjemnění a v případě závady jde modul za modul a vývoj pokračuje.
+                            </p>
+                            <p>
+                                Každopádně tyto "levné" moduly občas klamou a nadělají víc škody než užitku. Také zbytečně zabírají místo to co by na vlastním PCB zabralo pár milimetrů je někdy v centimetrech.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="right-column">
+                        <div class="child-block tall">
+                            <img class="basic-img" src="hardware_images/moduls.png" alt="prezenteace obsahu">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="parent-block">
+                    <div class="child-block small top">
+                        <h1><a href="https://botland.cz/napajeci-moduly/5495-bezdratovy-napajeci-modul-5v-1a-6959420902941.html">DFR-05495</a></h1>
+                        <p>
+                            Tento modul bezdrátového nabíjení 5V/1A považuji za nejhorší věc co jsem mohl zvolit příšerně se zahříval. Vysílač až tavil vytisknutý obal obal z PETG. Rozměry oproti jiný jsou zarážejcí kdy cívky mají 2,5mm. Absence stínícího prvku a srozumitelného datasheetu také nepotěší. Chápu že je to moje špatné rozhodnutí každopádně za cenu okolo 200 Kč je to opravdu smutné nabízet takovou kvalitu.
+                        </p>
+                    </div>
+                    <div class="child-block small top">
+                        <h1><a href="https://www.aliexpress.com/item/1005006741966938.html?spm=a2g0o.order_list.order_list_main.130.e6de1802pleEAH#nav-specification">Qi Reciever</a></h1>
+                        <p>
+                            Tento modul má 5x nižší cenu sice zvládne pouze 0.6A, ale rozměry jeho cívek jsou 0,7mm (s ferit folií). 
+                            K mírnému zahřívání tu také dochází, avšak jsem nebyl schopný určit zdali se jedná o desku přijímače, 
+                            cívku nebo bezdrátovou nabíječku co jsem používal. Modul je dodávaný s feritovou fólií kteráfunguje jako stínění ostatní elektroniky. 
+                            Jedne z velkých neduhů tohhoto modulu byl ten že jsem vše pečlivě nezkontroloval, 
+                            výrobce prohodil barvy drátů tedy červený GND zelený 5V a takto jsem přišel o 2. Xiao
+                        </p>
+                    </div>
+                    <div class="child-block small top">
+                        <h1> <a href="https://dratek.cz/arduino-platforma/34679-nabijeci-deska-li-ion-baterii-usb-c.html?gad_source=1&gad_campaignid=21656222776&gbraid=0AAAAACVG_WftWhCsmCWDM31mz-MyaCmWO&gclid=Cj0KCQjw1ZjOBhCmARIsADDuFTC1qjf3n95b7-D2kBcvwwnCR8pmkvJA8TDS1nbW7-nwf6E-ZU2vq_caAlHREALw_wcB">Nabíječ TP4056</a></h1>
+                        <p>
+                            Tento modul ve své podstatě nedělá nic špatně indikuje nabíjení nabitý stav a disipuje přebytečnou eknergii jako teplo k nabíjení li-pol. 
+                            Jeho nabíjecí proud je až 3A pro úpravu je třeba přepájet Rprog. Výrobce a obchody často uvádějí že defalulteně je nastaven 1A avšak po mněření pár odporů a kontorle s datasheetem se spíš jenalo o 1,3A. 
+                            Kvůli tomuto modulu byo také nutné přidat zpětnou diodu mezi xiao a baterii, jelikož zpětný proud který nabíjecí modul po připojení k debugování vytvářel modul spálil.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="parent-block">
+                    <div class="child-block small top">
+                        <h1><a href="https://www.aliexpress.com/item/1005007431887843.html?spm=a2g0o.order_list.order_list_main.170.e6de1802pleEAH">IP2312 </a></h1>
+                        <p>
+                            Na tento nabíjecí modul jsem přešel z důvodu rozměrů a technologie fast switching, která přebitečnou energii nedisipuje jako teplo ale aktivně ji potlačuje pomocí fast switchingu. Také zde narazíme na ochranu před zpětým proudem takže ani Xaio připojené k PC mu neublíží
+                        </p>
+                    </div>
+                    <div class="child-block small top">
+                        <h1><a href="https://www.laskakit.cz/en/max98357-i2s-mono-zesilovac-3w/">I2S zesilovač</a></h1>
+                        <p>
+                            Tento modul je jeden ze těch, který by na PCB zabral jen pár milimetrů zatímco takto má 19x18mm jeho cena v ČR je také překvapivě visoká v nesposlední řadě zde chybí ochrana proti přepólování a takto jsem přišel o 3 tyto moduly.
+                        </p>
+                    </div>
+                    <div class="child-block small top">
+                        <h1> <a href="https://www.laskakit.cz/en/microsd-card-modul-spi/">Micro SD SPI</a></h1>
+                        <p>
+                            Tento modul byl projevem spíše mé neznalosti a to jak připojit SD kartu přímo k mcu, jak v zephyru správně nastavit a přetypovat piny pro SPI. Každopádně jsem si tímto modulem velice zavařil jekož potřebuje stabilních 5V (kvůli level shifteru který vlasntě ani nebyl třeba) nicméně Li-pol má při úplněm nabití 4,2V v tomto stavu však nestráví moc dlouho a její napětí dále klesá z toho to důvodu se mi čato stávalo že program kartu nemohl otevřít pro čtění. Tento modul už nepoužívám a karta je napojena k Xiao přímo přes SPI
+                        </p>
+                    </div>
+                </div>
+
+                <div class="parent-block col" id="LMR">
+                    <div class="child-block heading small">
+                            <h1>
+                                Obvody
+                            </h1>
+
+                    </div>
+                    <div class="parent-block">
+                        <div class="left-column">
+                            <div class="child-block small">
+                                <p>
+                                    Jednocduchá cesta jak ovládat a měnit intenzitu motorků je pomocí PWM, pro to jsem využil tranzistorové zapojení řízení indukční zátěže. 
+                                </p>
+                            </div>
+                            <div class="child-block tall">
+                                <img src="hardware_images/PWM.png" alt="prezenteace obsahu">
+                            </div>
+                        </div>
+                        <div class="right-column">
+                            <div class="child-block small">
+                                <p>
+                                    U sd karty jsem řešil stabilitu proto jsem přidal pull up resistor na CS a kondenzátory k redukci proudových špiček.
+                                </p>
+                            </div>
+                            <div class="child-block tall">
+                                <img src="hardware_images/SD.png" alt="prezenteace obsahu">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="parent-block " id="MCU">
+                    <div class="left-column">
+                        <div class="child-block heading small">
+                            <h1>
+                                PCB
+                            </h1>
+                            <h2>
+                                a jak na to
+                            </h2>
+                        </div>
+                        <div class="child-block small">
+                            <p>
+                                V prvních verzích jsem zkoušel vše zbastlit a vastně jse více přemýšlel kudy vést kabílek jak co připojit a jestli někde nevznikl studený spoj než abych řešil praktičtější otázky.
+                            </p>
+                            <p>
+                                K téhle metodě bych se už nevrátil po tom co jsem se naučil si spoj vyrobit podomácku.
+                            </p>
+                            <p>
+                                Jako první jsem zkoušel fusion 360 který má v sobě PCB designer EAGLE v prgramu bylo clekem složité se vyznat a proto jsem rychle zkusil kiCad, který je o dost intuitivnější.
+                            </p>
+                            <p>
+                                Následoval jsem výuková videa které naleznete vpravo, podle nich jsem byl schopný sestavit můj první návrh
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="child-block tall">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/vLnu21fS22s?si=ypN2Id4uvMVn137y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="parent-block " id="MCU">
+                    <div class="left-column">
+                        <div class="child-block tall">
+                            <img src="hardware_images/my_pcb.png" alt="my PCB">
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="child-block heading small">
+                            <h1>
+                                PCB - výroba
+                            </h1>
+                            <h2>
+                                a jak na to doma
+                            </h2>
+                        </div>
+                        <div class="child-block small">
+                            <p>
+                                Jelikož jsem hned nechtěl spoj objednávat abych po týdnu zjistil co je šptně. Rozhodl jsem se pro domácí výrobu
+                            </p>
+                            <p>
+                                V základu jsou dvě metody jak spoj vyrobit gravírování / leptání. K gravírování je třeba CNC frezka zatím co k leptání stačí tonerová tiskárna. 
+                            </p>
+                            <p>
+                                Osvojit si metodu toner transferu a leptání mi chyvíli zabralo proto se pokusím na mé chybi upozornit
+                            </p>
+                            <p>
+                                Potřebné věci k této metodě jsou Cuprexit, tonerová tiskárna / lihová fixa, fotopapír / toner transfer papír, kyslina solná a peroxid vodíku / chlorid železitý 
+                            </p>
+                            <p>
+                                Princip toner transfer - nanášíme vrstvičku toneru / lihového fixu na cuprexitovou destičku ta následně funguje jako ochraný film zabraňující kyselině ve vyleptání mědi pod ním. <br>
+                                výroba šablony
+                                fix <br>
+                                jeli váš design většího formátu a máteli pevnou ruku tak stačí na cuprexit návrh namalovat a přejít k leptání 
+                                toner transfer <br>
+                                Jeli váš design složitější / jemněšjí je třeba ho vytisknout na speciální toner transfer papír. (já tento papír neměl takže jsem zkoušle plno alternativ pečící, samolepkový, časopisový lesklý jedna z nich fungovala a to druhá strana fotopapíru HP, tento papír je ale náchylný na nanášení proto velice dopručuji pořídti si ten specializovaný papír ušetří vám to trápení).
+                                poté co máte návrh zrcadlově! vytisklý na papířeje třebaho přichitit na cuprexit k tomu může te použít heat press nebo žehličku a hladkou látku bez vzoru (nepoužívejte papírové kapesníky nebo kuchynské utěrky vzory a tečky způsobý nerovnoměrný tlak a špatné přilnutí toneru k destičce). Před nažehlením návrhu na destičku je třeba ji obrousit jelikož se nan í nachází proti oxidační vrstva. Já používal nejprve brusný papír 800 a 1000 následně jsem desku očistil isopropanolem (při mém zkoušení mi přišlo že čím je deska lépe obroušená a očistěná tak je finální vyýseldek bez defektů).
+                                <br>Na žehličku natlačtě moc mohlo by dojít k rozpití návrhu je třeba držet mírný přítlak žehlička by měla být nastavena na nejvišší teplotu a pára musí být vypnuta. Po cca 2 - 4 min máme hotovo desku necháme schladnout tak aby na ni bylo bezpečně sahat a můžeme papír odejmout a přejít k leptání.
+                                <br>
+                                Leptání
+                                <br>V případě chloridu železitého ho jen nalijeme do nějaké plastové misky vložíme destičku s návrhem a provádíme mýchavé pohyby.
+                                <br>Pokud používáte kyselinu solnou (30% HCL) a 3% preoxid vodíku je třeba vytvořit roztok 3 : 1 kyselniny solné a peroxidu. pak už jen vložíme pcb a provádníme mýchavé pohyby.
+                                <br>Další krok je vyvrtat díry pro THT součástky nejjednodušší bylo si středy namáčkout něčím špičatím (jehla/šídlo/raznice) následně jsem použil rták 0,8mm pro dírky a spoj byl hotov.
+                                <br>Většinou se používá ještě nějaké Tining solution a solder mask nicméně pro účely proto typu mi to bohatě stačilo
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+            </main>
+        </div>
+        
+    <div id="footer-placeholder"></div>
+
+    <script src="import_footer.js"></script>
+    <script src="import_header.js"></script>
+</body>
+
+</html>
