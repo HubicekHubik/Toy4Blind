@@ -17,14 +17,16 @@ main {
 .parent-block {
     display: flex;
     gap: 20px;
-    max-width: 80%;
+    max-width: 1200px;
+    width: 90%;
     margin: 20px auto;
 }
 
 .parent-block.col {
     display: flex;
     gap: 20px;
-    max-width: 80%;
+    max-width: 1200px;
+    width: 90%;
     margin: 20px auto;
     flex-direction: column;
 }
@@ -83,9 +85,9 @@ main {
 }
 
 .child-block img {
-    max-width: 85%;
-    width: 500px;
-    max-height: 85%;
+    max-width: 500px;
+    min-width: 100px;
+    width: 85%;
     height: auto;
     display: block;
     border-radius: 10px;

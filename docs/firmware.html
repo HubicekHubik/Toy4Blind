@@ -16,6 +16,7 @@
 
     <div class="container">
         <div class="side-panel">
+            <img src="icones/keyboard_double_arrow_right_34dp_E3E3E3_FILL0_wght400_GRAD0_opsz40.svg" alt="">
             <div class="sub-nav">
                 <a href="#MCU">Prostředí</a>
                 <a href="#charger">EdgeImpulse</a>
@@ -42,17 +43,23 @@
                             Přesně se budeme věnovat přechodu z ESB na BLE a také z audiostreamingu na čtení z SD karty.
                         </p>
                         <p>
-                            Podíváme se také na psaní android aplikace
+                            Podíváme se také na psaní android aplikace v Android Studio a jazyce Kotlin
                         </p>
                         <p>
-
+                            Také si něco povíme o mém file systému a na to navážeme file transfarem přes BLE
+                        </p>
+                        <p>
+                            Ukážeme si python script, C kód a aplikaci které umožňují wireless vzorkování pro EdgeImpulse
+                        </p>
+                        <p>
+                            Nakonec upozorním na některé mé chyby
                         </p>
                     </div>
                 </div>
     
                 <div class="right-column">
                     <div class="child-block tall">
-                        <img src="index_images/allin1.jpg" alt="prezenteace obsahu">
+                        <img class="basic-img" src="firmware_images/int_firm.svg" alt="prezenteace obsahu">
                     </div>
                 </div>
             </div>
@@ -73,7 +80,7 @@
                                 Hračka
                             </h1>
                             <p>
-                                Kód hračky stojí na natrénovaném klasifikátoru ten pomoci EI wrapperu pozná gesto, které je odesláno do modulů pro haptiku a audio. Audio modul na základě gesta vybere zvuk který přehraje ze struktury audioknihovny. Na pozadí dochází k měření baterie, stavu nabíjení a bluetooth dvertisingu.
+                                Kód hračky stojí na natrénovaném klasifikátoru ten pomoci EI wrapperu pozná gesto, které je odesláno do modulů pro haptiku a audio. Audio modul na základě gesta vybere zvuk ze struktury audioknihovny který přehraje. Na pozadí dochází k měření baterie, stavu nabíjení a bluetooth advertisingu pro případné připojení telefonu nebo hračky.
                             </p>
                         </div>
                     </div>
@@ -83,7 +90,7 @@
                                 Ovladač
                             </h1>
                             <p>
-                                Kód Ovladače není nic zvláštního pouze rozpoznává zmáčkuntí nebo podržení tlačítek a tyto akce posílá hračce. Systémové eventy jako stlačení talčítka nebo položení na nabíječku jsou signalizovány hapticky
+                                Kód Ovladače není nic zvláštního pouze rozpoznává zmáčkuntí nebo podržení tlačítek a tyto akce posílá hračce. Systémové eventy jako stlačení talčítka nebo položení na nabíječku jsou signalizovány hapticky. Na pozadí také běží měření baterie a stavu nabíjení.
                             </p>
                         </div>
                     </div>
@@ -93,7 +100,8 @@
                                 Aplikace
                             </h1>
                             <p>
-                                Aplikace má na starosti připojení se k hračce a stejnou komunikaci jako ovladač. Přidaným elementem je zobrazení knihovny zvuků možnost jejich editace mazání a nahrávání
+                                Aplikace má na starosti připojení se k hračce a stejnou komunikaci jako ovladač. 
+                                Navíc je zde zobrazení knihovny zvuků možnost jejich editace mazání a nahrávání
                             </p>
                         </div>
                     </div>
@@ -111,19 +119,19 @@
                     </div>
                     <div class="child-block small">
                         <p>
-                            Jeden z největších zásahů do mého projektu bylo právě přechod na sd kartu místo aduio streamingu
+                            Jedním z největších zásahů do mého projektu byl právě přechod na SD kartu místo audio streamování.
                         </p>
                         <p>
-                            Důvodem byla maximální kvalita a konzistence zvuku jelikož používám 16-bit/44,1kHz audio tak bylo nutné zajistit stabilní tok 705,6 kb/s. Aby nevznikala velká latence od akce a přehrání audia byl jsem nucen použít protocol ESB. Moje snaha signál vylepšit byla pomocí <a href="https://www.nordicsemi.com/Products/Development-hardware/nRF21540-DB">nRF21540 DB</a>
+                            Důvodem byla snaha o maximální kvalitu a konzistenci zvuku. Jelikož používám 16bit/44,1kHz audio, bylo nutné zajistit stabilní tok 705,6 kb/s. Aby nevznikala velká latence mezi akcí a přehráním audia, byl jsem nucen použít protokol ESB. Moje snaha vylepšit signál vedla k použití <a href="https://www.nordicsemi.com/Products/Development-hardware/nRF21540-DB">nRF21540 DB</a>.
                         </p>
                         <p>
-                            Jelikož v té doběj jsem měl v hlavě vizi vlastní development boardy chtěl jsem zkusit zadlai přidáním nRF21540 se můj problém vyřeší, i když k navýšení síli signálu došlo tak audio straming prostě nefungoval výpadky a poškození audia setrvávali v připadě že se hračka hýblala nebo se nacházela za osobou což je pro tuto aplikaci nezbytné.
+                            Jelikož jsem měl v té době vizi vlastní development boardy, chtěl jsem zkusit, zda se přidáním nRF21540 můj problém vyřeší. I když k navýšení síly signálu došlo, audio streaming prostě nefungoval spolehlivě – výpadky a poškození audia přetrvávaly v případě, že se hračka hýbala nebo se nacházela za osobou, což je pro tuto aplikaci nepřípustné.
                         </p>
                         <p>
-                            Tou dobou se nabízelo několik řešení přejít na <a href="https://www.nordicsemi.com/Products/nRF5340">nRF5340</a> který má podporu BLE Audio nebo počkat na blížící se vydání <a href="https://www.seeedstudio.com/XIAO-nRF54L15-Sense-p-6494.html">Xiao nRF54L15 Sense</a>. Vedoucí práce mě však podpořil v zachování původní dev board a přidání SD karty
+                            Tou dobou se nabízelo několik řešení: přejít na <a href="https://www.nordicsemi.com/Products/nRF5340">nRF5340</a>, který má podporu BLE Audio, nebo počkat na blížící se vydání <a href="https://www.seeedstudio.com/XIAO-nRF54L15-Sense-p-6494.html">Xiao nRF54L15 Sense</a>. Vedoucí práce mě však podpořil v zachování původní dev board a přidání SD karty.
                         </p>
                         <p>
-                            Přidání sd karty v nRF connect je nutné udělat nejen pomocí prj.conf ale také v device_tree.overlay (kód vpravo) já jsem si ještě předefinoval piny kvůli I2S.
+                            Přidání SD karty v nRF Connect SDK je nutné provést nejen pomocí prj.conf, ale také v devicetree.overlay (kód vpravo). Já jsem si navíc musel předefinovat piny kvůli kolizi s I2S.
                         </p>
                     </div>
                 </div>
@@ -135,9 +143,9 @@
 &pinctrl {
     custom_spi: custom_spi {
             group1 {
-                    psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
-                            <NRF_PSEL(SPIM_MOSI, 1, 14)>,
-                            <NRF_PSEL(SPIM_MISO, 1, 12)>;
+                    psels = &lt;NRF_PSEL(SPIM_SCK, 1, 13)&gt;,
+                            &lt;NRF_PSEL(SPIM_MOSI, 1, 14)&gt;,
+                            &lt;NRF_PSEL(SPIM_MISO, 1, 12)&gt;;
             };
     };
 };
@@ -175,12 +183,6 @@
             </div>
 
             <div class="parent-block ">
-                <div class="left-column">
-                    <div class="child-block tall">
-                        <img src="index_images/remote.jpg" alt="prezenteace obsahu">
-                    </div>
-                </div>
-                <div class="right-column">
                     <div class="child-block heading small">
                         <h1>
                             Přechod na BLE
@@ -191,16 +193,109 @@
                     </div>
                     <div class="child-block small">
                         <p>
-                            Přechod na BLE nebyl úplně v plánu, 
-                            ale s příchodem myšlenky mobilní aplikace byl nutný jelkož telefony nativně s ESB komunikovat neumí.
+                            Přechod na BLE nebyl úplně v plánu, ale s příchodem myšlenky mobilní aplikace byl nutný, jelikož telefony nativně s ESB komunikovat neumí.
                         </p>
                         <p>     
-                            Moje prvotní snaha byla nastavit MPSL aby hračka s ovladačem komunikovla přes ESB a telefon s hračkou přes BLE. 
-                            Nakonec jsem rád že se mi toto nepovedlo a je vše sjednocené na BLE i když to zanmenalo předělat celou komunikaci
+                            Moje prvotní snaha byla nastavit MPSL tak, aby hračka s ovladačem komunikovala přes ESB a telefon s hračkou přes BLE. 
+                            Nakonec jsem rád, že se mi toto nepovedlo a vše je sjednocené na BLE, i když to znamenalo předělat celou komunikaci.
                         </p>
                         <p>
-                            Jednou ze záludností co jsme řešil bylo nastavení GTA ATTA 
+                            Jedna ze záludností, které jsem řešil, bylo nastavení MTU (Maximum Transmission Unit). To bylo důležité, jelikož základ je 23 B. Pro ovládací zprávy to bohatě stačilo, avšak pro eventy a data to bylo málo. O tom, jak MTU navýšit, se dozvíte <a href="https://docs.nordicsemi.com/bundle/ncs-3.0.2/page/zephyr/samples/bluetooth/mtu_update/README.html#id1">zde</a>.
                         </p>
+                    </div>
+            </div>
+
+            <div class="parent-block ">
+                <div class="left-column">
+                    <div class="child-block heading small">
+                        <h1>
+                            Tvorba aplikace
+                        </h1>
+                        <h2>
+                            BeeWare, Flet, Android Studio & Kotlin
+                        </h2>
+                    </div>
+                    <div class="child-block small">
+                        <p>
+                            Jelikož jsem měl před tvorbou aplikace již hotový Python skript na BLE přijímání dat, chtěl jsem ho zužitkovat a aplikaci psát v Pythonu. Pomocí cross-platform GUI frameworků jsem ji chtěl distribuovat jako aplikaci na Windows, macOS, Linux, Android i iOS.
+                        </p>
+                        <p>
+                            Zkoušel jsem tedy <a href="https://beeware.org/cs/">BeeWare</a> a <a href="https://flet.dev/">Flet</a>. U obou jsem však narazil na problémy s připojením k hračce kvůli BLE. V Pythonu se pro BLE využívá knihovna <a href="https://github.com/hbldh/bleak">Bleak</a>, ta ale na Androidu ani iOS nefunguje.
+                        </p>
+                        <p>
+                            Proto jsem se rozhodl udělat vše od začátku a aplikaci vytvořit jen pro Android v Android Studiu, kde se využívá jazyk podobný Javě, a to Kotlin. Syntaxe mi byla úplně cizí, proto jsem dost využíval Gemini, která je přímo zabudovaná v Android Studiu.
+                        </p>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="child-block tall">
+                        <img src="firmware_images/android_studio.png" alt="prezenteace obsahu">
+                    </div>
+                </div>
+            </div>
+            <div class="parent-block">
+                <div class="left-column">
+                    <div class="child-block tall">
+                        <img src="firmware_images/file_sys.jpg" alt="">
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="child-block heading small">
+                        <h1>
+                            File system
+                        </h1>
+                        <h2>
+                            Přístup k datům hračky
+                        </h2>
+                    </div>
+                    <p>
+                        Z důvodu šetření paměti, čistoty a rychlosti jsem nechtěl ukládat všechny cesty k souborům jako dlouhé řetězce (stringy), ani složitě prohledávat celou SD kartu. Pro zvuky jsem si tedy vytvořil strukturu knihovny a zvolil pevný formát pojmenovávání ve tvaru <strong>"[Velké písmeno]_[jméno složky]/[název souboru].wav"</strong>. V praxi to vypadá například takto: <code>A_prase/chrocht.wav</code>.
+                    </p>
+                    <p>
+                        Díky tomuto systému si procesor pamatuje pouze názvy adresářů namísto dlouhých cest. Zvuk se vybírá na základě prohledávání konkrétního adresáře pomocí indexu, takže nedochází k náročnému porovnávání řetězců. Navíc uživatel není nucen zadávat správný formát ručně – ten je doplňován automaticky, jelikož se GUI aplikace tváří jako struktura adresářů a koncových .wav souborů.
+                    </p>
+                    <p>
+                        Při jakékoliv úpravě ze strany uživatele je seznam souborového systému přegenerován a znovu odeslán do aplikace, čímž je dodržen princip <strong>single source of truth</strong> (jediný zdroj pravdy).
+                    </p>
+                </div>
+            </div>
+
+            <div class="parent-block ">
+                <div class="left-column">
+                    <div class="child-block heading small">
+                        <h1>
+                            Bezdrátové vzorkování
+                        </h1>
+                        <h2>
+                            EI forwarder, python, com0com a BLE
+                        </h2>
+                    </div>
+                    <div class="child-block small">
+                        <p>
+                            Vzorkovat bezdrátově pro mě bylo důležité kvůli plynulosti, rychlosti a pohodlí. Mít totiž hračku neustále připojenou přes kabel není zrovna efektivní způsob, jak provádět například gesto kutálení.
+                        </p>
+                        <p>
+                            Proces funguje následovně: nejprve je nutné do Xiao nahrát kód pro vzorkování. Poté se na PC spustí Python skript, 
+                            který se připojí k hračce a čte data přijímaná přes BLE. Jelikož skript potřebuje COM port, 
+                            který otevře a začne do něj data zapisovat, je nutné jej nejprve vytvořit pomocí nástroje <a href="https://com0com.sourceforge.net/">com0com</a>. 
+                            Při vytváření je také třeba zaškrtnout "use Port class", aby jej EI data forwarder viděl.
+                        </p>
+                        <p>
+                            Nakonec se stačí standardně připojit do projektu a vybrat druhý port, kde končí data z Pythonu. Návod, jak se připojit k projektu, naleznete v sekci Software/Edge Impulse na <a href="https://toy4blind-22ca6f.pages.fel.cvut.cz/">Staré stránce</a>
+                        </p>
+                        <p>
+                            Na GIFu můžete vidět demonstraci tohoto přístupu. Problémů s nestabilní vzorkovací frekvencí při následném učením jsem si nevšiml, koneckonců si "Impuls" (projekt) data přesempluje na vámi zvolenou frekvenci. 
+                        </p>
+                        <p>    
+                            Na Xiao fungují frekvence 52 a 104 Hz. Já používám 104 Hz, přičemž přes bezdrátovou variantu se studio dmnívá, že je frekvence od 106-110 Hz. 
+                            Další všc, kterou je třeba brát v úvahu, je mírné zpoždení dat. Proto je nutné pohyb (například pád) vykonat s mírným předstihem před započetím vzorkování. 
+                            Myslím si však, že se na to dá adaptovat a tanto způsbo má více výhod než připojení kabelem.
+                        </p>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="child-block tall">
+                        <img src="firmware_images/wireless.gif" alt="prezenteace obsahu">
                     </div>
                 </div>
             </div>
