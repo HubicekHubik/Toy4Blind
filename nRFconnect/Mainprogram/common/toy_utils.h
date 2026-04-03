@@ -48,6 +48,11 @@ struct but_ev{
 	uint8_t cmd;
 };
 
+struct ei_ev{
+	float values[5];
+	float anomaly;
+};
+
 struct audio_ev {
 	uint8_t type;
 	uint8_t prob;
