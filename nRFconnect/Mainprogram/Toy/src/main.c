@@ -118,16 +118,18 @@ static void system_feedback_thread(void *arg1, void *arg2, void *arg3) {
 					k_msgq_put(&aud_dataq, &data_req, K_NO_WAIT); // Pošlu do vlákna pro přenos souborů
 					break;
 				case MT_LSM6DSL_ON:
-					device_running = true;
-					nvs_save_power_state(device_running);
-					lsm6dsl_ei_wake();
-					LOG_INF("Toy turned ON");
-					break;
 				case MT_LSM6DSL_OFF:
-					lsm6dsl_sleep();
-					device_running = false;
-					LOG_INF("Toy turned OFF");
-					nvs_save_power_state(device_running);
+					if(!device_running){
+						device_running = true;
+						nvs_save_power_state(device_running);
+						lsm6dsl_ei_wake();
+						LOG_INF("Toy turned ON");
+					} else {
+						lsm6dsl_sleep();
+						device_running = false;
+						LOG_INF("Toy turned OFF");
+						nvs_save_power_state(device_running);
+					}
 					break;
 				case MT_VOL_UP:
 					if(volume <= MAX_VOLUME) {
