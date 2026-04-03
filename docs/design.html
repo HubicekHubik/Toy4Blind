@@ -18,49 +18,50 @@
         <div class="side-panel">
             <div class="sub-nav">
                 <img src="icones/keyboard_double_arrow_right_34dp_E3E3E3_FILL0_wght400_GRAD0_opsz40.svg" alt="">
-                <a href="#MCU">Kulička</a>
-                <a href="#charger">Obaly</a>
-                <a href="#AMP">3D tisk</a>
-                <a href="#LMR">Nabíjení</a>
+                <a href="#rm">Ovladač</a>
+                <a href="#skel">Kostra</a>
+                <a href="#brid">Přemostění</a>
+                <a href="#mmsup">MM podpěry</a>
+                <a href="#charg">Nabíječka</a>
             </div>
         </div>
         <main>
-                <div class="parent-block top">
-                    <div class="left-column">
-                        <div class="child-block heading small">
-                            <h1>
-                                Design
-                            </h1>
-                            <h2>
-                                Všude samá kulička
-                            </h2>
-                        </div>
-                        <div class="child-block small">
-                            <p>
-                                V této kapitole si povíme něco o vzhledu hračky, ovladače a obalů
-                            </p>
-                            <p>
-                                Podíváme se na materiály ze kterých je hračka a obaly vytvořená
-                            </p>
-                            <p>
-                                Řekneme si něco o funkčnosti návrhu jeho klady ale také zápory
-                            </p>
-                            <p>
-                                Ukážeme si změny mezi jednotlivými verzemi
-                            </p>
-                            <p>
-                                Vysvětlím jaká nastavení 3D tisku jsme používal jaké problémy se vyskytli a jak jsem je řešil
-                            </p>
-                        </div>
+            <div class="parent-block top">
+                <div class="left-column">
+                    <div class="child-block heading small">
+                        <h1>
+                            Design
+                        </h1>
+                        <h2>
+                            Všude samá kulička
+                        </h2>
                     </div>
-                    <div class="right-column">
-                        <div class="child-block tall">
-                            <img src="index_images/allin1.jpg" alt="prezenteace obsahu">
-                        </div>
+                    <div class="child-block small">
+                        <p>
+                            V této kapitole si povíme něco o vzhledu hračky, ovladače a obalů
+                        </p>
+                        <p>
+                            Podíváme se na materiály ze kterých je hračka a obaly vytvořená
+                        </p>
+                        <p>
+                            Řekneme si něco o funkčnosti návrhu jeho klady ale také zápory
+                        </p>
+                        <p>
+                            Ukážeme si změny mezi jednotlivými verzemi
+                        </p>
+                        <p>
+                            Vysvětlím jaká nastavení 3D tisku jsme používal jaké problémy se vyskytli a jak jsem je řešil
+                        </p>
                     </div>
                 </div>
+                <div class="right-column">
+                    <div class="child-block tall">
+                        <img src="index_images/allin1.jpg" alt="prezenteace obsahu">
+                    </div>
+                </div>
+            </div>
 
-                <div class="parent-block">
+            <div class="parent-block" id="rm">
                 <div class="right-column">
                     <div class="child-block tall">
                         <img class="basic-img" src="design_images/remote.gif" alt="">
@@ -92,22 +93,22 @@
                 </div>
             </div>
 
-            <div class="parent-block">
+            <div class="parent-block" id="skel">
                 <div class="child-block tall">
                     <img src="design_images/kostra_bef.jpg" alt="">
                 </div>
-                <div class="child-block">
-                        <h1>
-                            Kostra
-                        </h1>
-                        <h2>
-                            Redukce podpěr
-                        </h2>
+                <div class="child-block samll">
+                    <h1>
+                        Kostra
+                    </h1>
+                    <h2>
+                        Redukce podpěr
+                    </h2>
                     <p>
-                        Samotná kostra prošla úpravami pro jednoduší 3D-Tisk což zredukovalo dobu tisku která je již dost dlouhá (cca 12h) kvůli použití 0,25mm tysky. Zkoušel jsem i 0,4mm tysku nicméně výsledek s ní mi nepřijde dosatečně kvalitní kvůli malým rozměrům modelu
+                        Samotná kostra prošla úpravami pro snazší 3D tisk, což zredukovalo dobu tisku, která je již tak značná (cca 12 h) kvůli použití 0,25mm trysky. Zkoušel jsem i 0,4mm trysku, nicméně výsledek mi vzhledem k malým rozměrům modelu nepřišel dostatečně kvalitní.
                     </p>
                     <p>
-                        Nedošlo k úplnému odstranění podpěr jelikož uvnitř této polokoule se nachází plochy k uložení reproduktoru a baterie.
+                        Nedošlo k úplnému odstranění podpěr, jelikož se uvnitř této polokoule nacházejí plochy pro uložení reproduktoru a baterie.
                     </p>
                 </div>
                 <div class="child-block tall">
@@ -115,6 +116,111 @@
                 </div>
             </div>
 
+            <div class="parent-block" id="brid">
+                <div class="child-block tall">
+                    <img src="design_images/kostra_bef.jpg" alt="">
+                </div>
+                <div class="child-block samll">
+                        <h1>
+                            3D-Tisk
+                        </h1>
+                        <h2>
+                            Perfektní mosty
+                        </h2>
+                        <p>
+                            Koncem roku 2024 vznikla myšlenka <a href="https://www.youtube.com/watch?v=Mrs2kAuRCBk">perfektních mostů</a> (tzv. "Perfect Bridges") a není to dlouho, co se toto nastavení dostalo přímo do OrcaSliceru. Jelikož jsem se snažil o co nejvyšší kvalitu výtisků, byla toto jasná volba. 
+                        </p>
+                        <p>
+                            V OrcaSliceru toto nastavení najdete pod položkou Objekt -> Kvalita -> Bridging. Hodnoty, které je třeba změnit, jsou "Bridge flow ratio" a "External bridge density". Já používám hodnoty 1.3 a 112 %. 
+                            Pro každý materiál, tiskárnu a hotend budou čísla mírně odlišná, proto si je můžete nakalibrovat sami pomocí tohoto <a href="https://www.printables.com/model/1482067-bridge-density-experiments">modelu</a>.
+                        </p>
+                </div>
+                <div class="child-block tall">
+                    <img src="design_images/perfbridge.png" alt="">
+                </div>
+            </div>
+
+            <div class="parent-block" id="mmsup">
+                <div class="child-block tall">
+                    <img src="design_images/kostra_bef.jpg" alt="">
+                </div>
+                <div class="child-block samll">
+                        <h1>
+                            3D-Tisk
+                        </h1>
+                        <h2>
+                            Multi material podpěry
+                        </h2>
+                    <p>
+                        Další z technik, které dokáží výtisk pozvednout a ušetřit vám trápení, jsou multimateriálové podpěry. Například materiály PLA a PETG se k sobě navzájem nelepí, a jsou tedy schopny se vzájemně podpírat. 
+                        Podpěra se netiskne celá z jiného materiálu, mění se pouze kontaktní vrstva (interface). Díky tomu lze podpěru lépe oddělit a místo, kde se nacházela, si zachová hladký a konzistentní povrch.
+                    </p>
+                </div>
+                <div class="child-block tall">
+                    <img src="design_images/multimatsup.png" alt="">
+                </div>
+            </div>
+            
+            <div class="parent-block">
+                <div class="left-column">
+                    <div class="child-block heading small">
+                        <h1>
+                            3D-Tisk
+                        </h1>
+                        <h2>
+                            Problém multimateriálových podpěr
+                        </h2>
+                    </div>
+                    <div class="child-block small">
+                        <p>
+                            I když jsou na internetu multimateriálové podpěry prezentovány jako neneprůstřelný způsob, jak dosáhnout úžasných výtisků bez jakékoliv námahy, realita je jiná a rád bych ji uvedl na pravou míru.
+                        </p>
+                        <p>
+                            Základním předpokladem, aby tisk z více materiálů nebyl příliš pracný, je vlastnictví systému AMS, MMU nebo tiskárny s více extrudery (multi-extruder).
+                        </p>
+                        <p>
+                            V případě multi-extruderu je tisk těchto podpěr opravdu jednoduchý. V ostatních případech však musíte zajistit, aby se tryska před zavedením druhého filamentu správně vyčistila, jinak může být výsledný výtisk křehký.
+                        </p>
+                        <p>
+                            U malých dílů, které jsou tvořeny převážně perimetry, může navíc docházet ke špatnému splynutí vrstev v místě kontaktu s podpěrou. Je to způsobeno vychladnutím materiálu během pomalé výměny filamentu. Tento problém je dobře patrný na obrázku vpravo.
+                        </p>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="child-block tall">
+                        <img src="design_images/multisupbad.png" alt="prezenteace obsahu">
+                    </div>
+                </div>
+            </div>
+
+            <div class="parent-block" id="charg">
+                <div class="right-column">
+                    <div class="child-block tall">
+                        <img class="basic-img" src="design_images/wirelesscharger.jpg" alt="">
+                    </div>
+                </div>
+                <div class="left-column">
+                    <div class="child-block heading small">
+                        <h1>
+                            Nabíječka
+                        </h1>
+                        <h2>
+                            Byl bezdrát nutný?
+                        </h2>
+                    </div>
+                    <div class="child-block small">
+                        <p>
+                            Zpětně mohu zhodnotit, že jsem mohl použít například magnetický dokovací konektor (magnetic docking connector). Nabíjení by mohlo být rychlejší, avšak část s designováním magnetů by nejenže neodpadla, ale nejspíše by musela být ještě přesnější než v případě cívek.
+                        </p>
+                        <p>
+                            Hlavní myšlenka byla zachovat použitelnost <a href="https://www.alza.cz/infinix-15w-magnetic-wireless-fast-charge-pad-d12323224.htm">bezdrátové nabíječky</a>. Proto jsem vytvořil nabíjecí redukci, kterou lze v případě potřeby nabíjení jiného zařízení snadno odejmout.
+                        </p>
+                        <p>
+                            Aby měl uživatel jistotu, že se hračka nebo ovladač správně nabíjí, opatřil jsem je haptickou odezvou, která se aktivuje při správném zarovnání. 
+                        </p>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
     <div id="footer-placeholder"></div>

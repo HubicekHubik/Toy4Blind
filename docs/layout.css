@@ -20,6 +20,7 @@ main {
     max-width: 1200px;
     width: 90%;
     margin: 20px auto;
+    scroll-margin-top: 80px;
 }
 
 .parent-block.col {
