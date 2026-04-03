@@ -143,15 +143,37 @@ void button_changed(const struct device *dev, struct gpio_callback *cb, uint32_t
         }
     }
 
+	if (index == 1) {
+
+        if (pressed && press_start[index] == 0) {
+            // just pressed
+            press_start[index] = now;
+        }
+
+        if (!pressed) {
+			int time = now - press_start[index];
+            if (time >= 3000) {
+                LOG_INF("LONG PRESS detected on button 2\n");
+				button_msg.cmd = MT_BT_DISCONNECT;
+				k_msgq_put(&but2ble_q, &button_msg, K_NO_WAIT);
+				LOG_INF("Button %d released\n", index + 1);
+				btn_pressed[index] = false;
+				press_start[index] = 0;
+				return;
+            }
+		    press_start[index] = 0;
+        }
+    }
+
     if (!pressed) {
         LOG_INF("Button %d released\n", index + 1);
 		switch (index)
 		{
 		case 0:
-			button_msg.cmd=MSG_TYPE_SOUNDSET;
+			button_msg.cmd=MT_CHANGE_CATEGORY;
 			break;
 		case 1:
-			button_msg.cmd=MT_BT_DISCONNECT;
+			button_msg.cmd= MT_LSM6DSL_ON;
 			break;
 		case 2:
 			act_toy_idx++;
@@ -171,6 +193,7 @@ void button_changed(const struct device *dev, struct gpio_callback *cb, uint32_t
 		btn_pressed[index] = false;
     } else {
         LOG_INF("Button %d pressed\n", index + 1);
+		tx_lmr_e.type = MT_LMR;
 		tx_lmr_e.payload.lmr.effect = CLICK_EFECT;
 		k_msgq_put(&lmr_msgq, &tx_lmr_e, K_NO_WAIT);
     }
