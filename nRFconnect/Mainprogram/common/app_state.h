@@ -27,7 +27,7 @@ struct audio_dir {
 
 struct category_group {
     char categ_id;
-    uint8_t dir_indices[10];
+    uint8_t dir_indices[8];
     uint8_t dir_count;
 };
 
