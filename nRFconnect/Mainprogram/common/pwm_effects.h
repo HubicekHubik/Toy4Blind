@@ -1,5 +1,6 @@
 #ifndef PWM_EFFECTS_H_
 #define PWM_EFFECTS_H_
+#include <zephyr/device.h>
 /*
 Definition of the effects used by pwm 
 */
@@ -33,7 +34,11 @@ void effect_fade_left(const struct device *pwm_dev);
  * @param pwm_dev device reference from a devicetree node identifier.
 */
 void effect_fade_right(const struct device *pwm_dev);
-
+/**Fading effect only motor 1 is active 
+ * 
+ * @param pwm_dev device reference from a devicetree node identifier.
+*/
+void effect_grad(const struct device *pwm_dev);
 /**Effect both motors are active 
  * 
  * @param pwm_dev device reference from a devicetree node identifier.

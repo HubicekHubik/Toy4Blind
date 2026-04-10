@@ -67,6 +67,9 @@ void LMR_control_thread(void *arg1, void *arg2, void *arg3) {
 				case 5:
 					effect_fade_left(pwm0_dev);
 					break;
+				case 6:
+					effect_grad(pwm0_dev);
+					break;
 				case CHARGING_EFFECT:
 					effect_docked(pwm0_dev);
 					break;
