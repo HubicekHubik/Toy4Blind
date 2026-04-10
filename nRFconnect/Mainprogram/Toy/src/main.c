@@ -19,6 +19,9 @@ LOG_MODULE_REGISTER(Toy, CONFIG_LOG_DEFAULT_LEVEL);
 #include <zephyr/types.h>
 #include <dk_buttons_and_leds.h>
 
+#include <zephyr/bluetooth/bluetooth.h>
+#include <zephyr/bluetooth/services/nus.h>
+
 /*modules that uses Toy and Remote together*/
 #include "toy_utils.h"
 /*Modules for nvs*/
@@ -149,7 +152,7 @@ static void system_feedback_thread(void *arg1, void *arg2, void *arg3) {
 						LOG_WRN("Volume is at minimum %d", volume);
 					}
 					break;
-				case MSG_TYPE_TURNOFF:
+				case MSG_TYPE_TURNOFF: //maybe should be removed
 					if (device_running) {
 						LOG_INF("Turning off device");
 						device_running = false;
@@ -173,6 +176,22 @@ static void system_feedback_thread(void *arg1, void *arg2, void *arg3) {
 					nvs_save_categ(current_category);
 					LOG_INF("Current category changed to %d", current_category);
 				break;
+				case MT_LOW_BATERY:
+					struct toy_events tx_low_bat = {
+						.type = MT_GEST,
+						.payload.gest.type = MT_LOW_BATERY,
+					};
+					k_msgq_put(&aud_event_msgq, &tx_low_bat, K_NO_WAIT);
+					break;
+				case MT_BAT_INF:
+					char send_buffer[128];
+					int len = sizeof(rx_event.payload.power);
+					
+					send_buffer[0] = MT_RECV_POW_DATA;
+					memcpy(&send_buffer[1], &rx_event.payload.power, len);
+					//LOG_INF("Send power status data to mobile aplication Bat_mV: %d, Charging: %d, Charged: %d", rx_event.payload.power.V_bat, rx_event.payload.power.charging, rx_event.payload.power.charged);
+					bt_nus_send(master_conn, (const uint8_t *)send_buffer, len + 1);
+					break;
 				default:
 					LOG_WRN("Unknown system feedback message received: %d", rx_event.type);
 					break;
