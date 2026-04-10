@@ -8,7 +8,7 @@
 /*MSG types */
 #define MT_GEST 			  	0xB1 //MESSAGE TYPE GESTURE
 #define MT_LMR 				 	0xB2 //MESSAGE TYPE LINEAR MOTOR EVENT
-#define MT_SYSINF 				0x1F //MESSAGE TYPE SYSTEM INFO
+#define MT_BAT_INF 				0x1F //MESSAGE TYPE SYSTEM INFO
 #define MSG_TYPE_SYSCHNG 		0x8C //MESSAGE TYPE SYSTEM CHANGE
 #define MT_LSM6DSL_ON			0x6A //MESSAGE TYPE LSM6DSL ON
 #define MT_LSM6DSL_OFF			0x6F //MESSAGE TYPE LSM6DSL OFF
@@ -24,6 +24,7 @@
 /*App & toy msg*/
 #define MT_REQUEST_SD_DATA 		0x6D
 #define MT_RECV_SD_DATA 		0x7D
+#define MT_RECV_POW_DATA 		0x9D
 #define MT_DELETE_SD_FILE 		0xDF
 #define MT_DELETE_SD_CATEGORY 	0xDC
 #define MT_RENAME_SD_FILE 		0xEF
@@ -48,8 +49,14 @@ struct but_ev{
 	uint8_t cmd;
 };
 
+struct pow_ev {
+	uint16_t V_bat;
+	uint8_t charging;
+	uint8_t charged;
+};
+
 struct ei_ev{
-	float values[5];
+	float values[8];
 	float anomaly;
 };
 
@@ -66,12 +73,6 @@ struct lmr_ev {
 	uint8_t ms_duration; //not implemented yet
 };
 
-struct bat_ev {
-	uint16_t V_bat;
-	uint16_t V_ched;
-	uint16_t V_ching;
-};
-
 struct sys_ev {
 	uint8_t low_bat;
 	uint8_t device_on_chg;
@@ -85,8 +86,8 @@ struct toy_events {
     union {         
         struct audio_ev gest;
         struct lmr_ev   lmr;
-        struct bat_ev powInf;
         struct sys_ev   sys;
+		struct pow_ev   power;
     } payload;
 } __attribute__((packed));
 #endif
