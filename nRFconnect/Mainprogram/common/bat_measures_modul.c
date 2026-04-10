@@ -1,5 +1,4 @@
 #include "bat_measures_modul.h"
-#include "haptic_modul.h"
 #include "app_state.h"
 #include "toy_utils.h"
 
@@ -13,6 +12,12 @@ LOG_MODULE_REGISTER(bat_measure, CONFIG_LOG_DEFAULT_LEVEL);
 #include "battery.h"
 #include <zephyr/drivers/adc.h>
 #define LOW_BATTERY_MV 3300
+
+struct bat_ev {
+	uint16_t V_bat;
+	uint16_t V_ched;
+	uint16_t V_ching;
+};
 
 bool charging = false;
 bool charged = false;
@@ -37,7 +42,7 @@ K_THREAD_STACK_DEFINE(battery_stack_area, BATTERY_THREAD_STACK_SIZE);
 static struct k_thread battery_thread_data;
 static void battery_manager_thread(void *arg1, void *arg2, void *arg3);
 
-void resolve_batery_event(struct toy_events *pow_inf);
+void resolve_batery_event(struct bat_ev *pow_inf);
 
 int bat_measure_modul_init() {
     int ret;
@@ -80,10 +85,7 @@ static void battery_manager_thread(void *arg1, void *arg2, void *arg3) {
 		.oversampling = 8
 	};
 
-	struct toy_events tx_event = {
-		.type = MT_SYSINF,
-		.len = sizeof(struct bat_ev)
-	};
+	struct bat_ev powInf;
 
 	int32_t last_ched = -1;
 	int32_t last_ching = -1;
@@ -97,20 +99,20 @@ static void battery_manager_thread(void *arg1, void *arg2, void *arg3) {
 				int32_t mv0 = sample_buffer;
 				adc_raw_to_millivolts(adc_ref_internal(adc), ADC_GAIN_1_3, 12, &mv0);
 				if(i == 0){
-					tx_event.payload.powInf.V_ched = mv0;
+					powInf.V_ched = mv0;
 				} else {
-					tx_event.payload.powInf.V_ching = mv0;
+					powInf.V_ching = mv0;
 				} 
 			} else {
 				LOG_INF("ADC read failed: %d\n", ret);
 			}
 		
-			uint16_t ching_diff = abs(last_ching - tx_event.payload.powInf.V_ching);
-			uint16_t ched_diff = abs(last_ched - tx_event.payload.powInf.V_ched);
+			uint16_t ching_diff = abs(last_ching - powInf.V_ching);
+			uint16_t ched_diff = abs(last_ched - powInf.V_ched);
 			if ((ching_diff > 400) || (ched_diff > 400)) {
 				LOG_INF("Voltaage on pins changed sanding msg %d %d", ching_diff, ched_diff);				
-				last_ching = tx_event.payload.powInf.V_ching;
-				last_ched = tx_event.payload.powInf.V_ched;
+				last_ching = powInf.V_ching;
+				last_ched = powInf.V_ched;
 				changed = true;
 			}
 		}
@@ -121,7 +123,7 @@ static void battery_manager_thread(void *arg1, void *arg2, void *arg3) {
 
 		if (now - last_time >= BAT_MEASURE_MS) {
 			uint16_t batt_mV = battery_sample();
-			tx_event.payload.powInf.V_bat = batt_mV;
+			powInf.V_bat = batt_mV;
 			if (batt_mV < 0) {
 				LOG_INF("Failed to read battery voltage: %d", batt_mV);
 			}
@@ -130,51 +132,48 @@ static void battery_manager_thread(void *arg1, void *arg2, void *arg3) {
 		}
 		
 		if (changed) {
-            resolve_batery_event(&tx_event);
+            resolve_batery_event(&powInf);
         }
 
 		k_sleep(K_MSEC(1000));
 	}
 }
 
-void resolve_batery_event(struct toy_events *pow_inf) {
+void resolve_batery_event(struct bat_ev *pow_inf) {
     int ret;
-    struct toy_events tx_lmr_e = {
-		.type = MT_SYSINF
+    struct toy_events tx_bat_state = {
+		.type = MT_BAT_INF
 	};
 
-	LOG_INF("Value of V_ching : %d of V_ched : %d of V_bat : %d", pow_inf->payload.powInf.V_ching, pow_inf->payload.powInf.V_ched, pow_inf->payload.powInf.V_bat);
-    if ((pow_inf->payload.powInf.V_ching == 0) && (pow_inf->payload.powInf.V_ched == 0)) {
+	LOG_INF("Value of V_ching : %d of V_ched : %d of V_bat : %d", pow_inf->V_ching, pow_inf->V_ched, pow_inf->V_bat);
+    if ((pow_inf->V_ching == 0) && (pow_inf->V_ched == 0)) {
         LOG_INF("Device not on the charger");
         charging = false;
         charged = false;
     }
 
-    if ((pow_inf->payload.powInf.V_ching > 400) && !charging) {
+    if ((pow_inf->V_ching > 400) && !charging) {
         LOG_INF("Device was placed on charger");
         charging = true;
-		tx_lmr_e.type = MT_LMR;
-        tx_lmr_e.payload.lmr.effect = CHARGING_EFFECT;
-        ret = k_msgq_put(&lmr_msgq, &tx_lmr_e, K_NO_WAIT);
     }
 
-    if ((pow_inf->payload.powInf.V_ched > 600) && (pow_inf->payload.powInf.V_ching == 0)) {
+    if ((pow_inf->V_ched > 600) && (pow_inf->V_ching == 0)) {
         LOG_INF("Device is charged");
         if (!charged) {
-            tx_lmr_e.payload.lmr.effect = CHARGING_EFFECT;
-            ret = k_msgq_put(&lmr_msgq, &tx_lmr_e, K_NO_WAIT);
             charged = true;
         }
     }
 
-    if ((pow_inf->payload.powInf.V_bat < LOW_BATTERY_MV) && !charging) {
+    if ((pow_inf->V_bat < LOW_BATTERY_MV) && !charging) {
         LOG_INF("Battery low warning is device on %d", device_running);
         if(device_running) {
             LOG_INF("Battery low sending low battery warning");
-			struct toy_events tx_lowbat = {
-				.type = MT_LOW_BATERY
-			};
-            ret = k_msgq_put(&sysfb_msgq, &tx_lowbat, K_NO_WAIT);
+			tx_bat_state.type = MT_LOW_BATERY;
         }
     }
+	tx_bat_state.len = sizeof(struct pow_ev);
+	tx_bat_state.payload.power.V_bat = pow_inf->V_bat;
+	tx_bat_state.payload.power.charging = charging;
+	tx_bat_state.payload.power.charged = charged;
+    ret = k_msgq_put(&sysfb_msgq, &tx_bat_state, K_NO_WAIT);
 }
