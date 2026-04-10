@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_battery"
+        android:title="Stav baterie"
+        app:actionLayout="@layout/view_battery_status"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_info"
         android:title="Nápověda"
         android:icon="@drawable/info_24px"
