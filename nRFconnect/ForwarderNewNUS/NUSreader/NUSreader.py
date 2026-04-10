@@ -3,6 +3,7 @@ import struct
 from bleak import BleakScanner, BleakClient
 import serial
 import time
+import math
 
 SERIAL_PORT = "COM21"  # virtuální COM port pro EI
 BAUDRATE = 115200
@@ -33,7 +34,9 @@ async def notification_handler(sender, data):
     if len(data) == 24:  # 6 floats x 4B
         ax, ay, az, gx, gy, gz = struct.unpack('<ffffff', data)
         # poslat do EI data forwarderu
-        line = f"{ax}\t{ay}\t{az}\t{gx}\t{gy}\t{gz}\r\n"
+        aMag = math.sqrt( ax**2 + ay**2 + az**2)
+        gMag = math.sqrt( gx**2 + gy**2 + gz**2)
+        line = f"{ax}\t{ay}\t{az}\t{gx}\t{gy}\t{gz}\t{aMag}\t{gMag}\r\n"
         ser.write(line.encode('utf-8'))
 
 async def main():
