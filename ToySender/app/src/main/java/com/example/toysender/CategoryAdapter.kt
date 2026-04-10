@@ -1,12 +1,17 @@
 package com.example.toysender
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityManager
+import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.LinearLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -23,8 +28,7 @@ class CategoryAdapter(
     val onCategLongClickDelete: (String) -> Unit,
     val onCategLongClickRename: (String) -> Unit,
     val onAddFolderClick: (String) -> Unit,
-    val onAddCategoryClick: () -> Unit
-
+    val onAddCategoryClick: () -> Unit,
 ) : ListAdapter<CategoryUiModel, CategoryAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -81,7 +85,7 @@ class CategoryAdapter(
                     category.folders.forEach { (folderName, files) ->
                         val view = if (folderName == "[ADD_NEW_FOLDER]") {
                             createAddButton(R.layout.add_folder_button) {
-                                if (folderCount < 5){
+                                if (folderCount < 7){
                                     onAddFolderClick(category.name)
                                 }else {
                                     MaterialAlertDialogBuilder(container.context)
@@ -170,7 +174,7 @@ class CategoryAdapter(
                         onAddFileClick()
                     } else {
                         MaterialAlertDialogBuilder(container.context)
-                            .setView(R.layout.dialog_file_limit) // Tady jen "vlepíš" svůj design
+                            .setView(R.layout.dialog_file_limit)
                             .setPositiveButton("Rozumím", null)
                             .show()
                     }
@@ -179,12 +183,23 @@ class CategoryAdapter(
             } else {
                 val fileView = inflater.inflate(R.layout.item_file, container, false)
                 val fileNameTxt = fileView.findViewById<TextView>(R.id.fileName)
-                val btnRename = fileView.findViewById<View>(R.id.btnRename)
-                val btnDelete = fileView.findViewById<View>(R.id.btnDelete)
 
                 fileNameTxt.text = file.fileName
-                btnRename.setOnClickListener { onFileRename(file) }
-                btnDelete.setOnClickListener { onFileDelete(file) }
+
+                fileView.setOnLongClickListener {
+                    val options = arrayOf("Přejmenovat sloubor", "Smazat soubor")
+
+                    MaterialAlertDialogBuilder(container.context)
+                        .setTitle("Soubor ${file.fileName}")
+                        .setItems(options) { _, which ->
+                            when (which) {
+                                0 -> onFileRename(file)
+                                1 -> onFileDelete(file)
+                            }
+                        }
+                        .show()
+                    true
+                }
                 fileView
             }
         }

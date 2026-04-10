@@ -11,12 +11,15 @@ import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
 import android.content.Context
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -25,13 +28,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import no.nordicsemi.android.ble.observer.ConnectionObserver
-
+import android.view.accessibility.AccessibilityManager
 class nav_fragment : Fragment() {
     private lateinit var scanButton: Button
-    private lateinit var sendFileButton: Button
     private var scanner: BluetoothLeScanner? = null
     private lateinit var bleManager: MyBleManager
-
     private val viewModel: MyViewModel by activityViewModels()
     private var selectedFileUri: Uri? = null
     // Register the file picker launcher
@@ -40,7 +41,13 @@ class nav_fragment : Fragment() {
     ) { uri: Uri? ->
         if (uri != null) {
             selectedFileUri = uri
-            sendFileButton.isEnabled = true
+            MaterialAlertDialogBuilder(requireContext())
+                .setView(R.layout.dialog_submit_file)
+                .setNegativeButton("Zrušit", null)
+                .setPositiveButton("Odeslat"){_, _ ->
+                    fileSubmit()
+                }
+            .show()
         }
     }
     private lateinit var recyclerView: RecyclerView
@@ -54,7 +61,6 @@ class nav_fragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerView)
 
         scanButton = view.findViewById(R.id.scanButton)
-        sendFileButton = view.findViewById(R.id.sendFileButton)
 
         bleManager = (requireActivity() as MainActivity).bleManager
 
@@ -81,12 +87,15 @@ class nav_fragment : Fragment() {
 
             onAddFileClick = { filePickerLauncher.launch("audio/x-wav") },
             onAddFolderClick = { categoryName -> showCreateFolderDialog(categoryName) },
-            onAddCategoryClick = { showCreateCategoryDialog() }
-
+            onAddCategoryClick = { showCreateCategoryDialog() },
 
         )
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        if (isTalkBackEnabled()) {
+            recyclerView.itemAnimator = null
+        }
 
         fun updateUiList() {
             val currentMap = viewModel.groupedFiles.value ?: emptyMap()
@@ -137,13 +146,12 @@ class nav_fragment : Fragment() {
         viewModel.connectionState.observe(viewLifecycleOwner) { state ->
             when (state) {
                 BleState.SCANNING -> {
-                    scanButton.text = getString(R.string.search_toy)
                 }
                 BleState.CONNECTED -> {
-                    scanButton.text = getString(R.string.status_connected)
+                    updateScanButton(isConnected = true)
                 }
                 BleState.DISCONNECTED -> {
-                    scanButton.text = getString(R.string.search_toy)
+                    updateScanButton(isConnected = false)
                     scanButton.clearAnimation()
                     viewModel.expandedCategory.value = null
                     viewModel.expandedFolder.value = null
@@ -184,18 +192,6 @@ class nav_fragment : Fragment() {
             viewModel.connectionState.value = BleState.SCANNING
             startBleScan()
         }
-
-        sendFileButton.setOnClickListener {
-            val category = viewModel.expandedCategory.value
-            val folder = viewModel.expandedFolder.value
-
-            val currentDir = "${category}_${folder}"
-
-            if (selectedFileUri != null && category != null && folder != null) {
-                bleManager.startSendingFile(selectedFileUri, currentDir)
-            }
-        }
-
         return view
     }
 
@@ -359,5 +355,37 @@ class nav_fragment : Fragment() {
             .useAutoConnect(false)
             .enqueue()
     }
+    private fun updateScanButton(isConnected: Boolean) {
+        val density = resources.displayMetrics.density
+        val params = scanButton.layoutParams as LinearLayout.LayoutParams
 
+        if (isConnected) {
+            scanButton.text = getString(R.string.status_connected)
+            scanButton.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#4CAF50"))
+            params.width = (150 * density).toInt()
+            params.height = (100 * density).toInt()
+        } else {
+            scanButton.text = getString(R.string.status_scanning)
+            scanButton.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#2E55A2"))
+            params.width = (150 * density).toInt()
+            params.height = (150 * density).toInt()
+        }
+        scanButton.layoutParams = params
+    }
+
+    fun fileSubmit() {
+        val category = viewModel.expandedCategory.value
+        val folder = viewModel.expandedFolder.value
+
+        val currentDir = "${category}_${folder}"
+
+        if (selectedFileUri != null && category != null && folder != null) {
+            bleManager.startSendingFile(selectedFileUri, currentDir)
+        }
+    }
+    private fun isTalkBackEnabled(): Boolean {
+        val am = requireContext().getSystemService(Context.ACCESSIBILITY_SERVICE) as AccessibilityManager
+
+        return am.isEnabled && am.isTouchExplorationEnabled
+    }
 }

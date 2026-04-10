@@ -23,7 +23,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="V kategorii může být maximálně 8 druhů zvuků."
+        android:text="V kategorii může být maximálně 7 druhů zvuků."
         android:gravity="center"
         android:layout_marginTop="8dp"/>
 </LinearLayout>

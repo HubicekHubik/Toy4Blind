@@ -2,7 +2,7 @@
     <string name="app_name">ToySender</string>
     <string name="scan_button_text">Skenovat hračku</string>
     <string name="status_ready">Status: Připraven</string>
-    <string name="status_scanning">Skenuji</string>
+    <string name="status_scanning">Hledat</string>
     <string name="status_found">Nalezena hračka: %s</string>
     <string name="select_waw">"Vyberte .WAV soubor"</string>
     <string name="waw_not_sel">".WAV soubor nevybrán"</string>

@@ -7,6 +7,6 @@
     <item
         android:id="@+id/nav_remote"
         android:icon="@drawable/sports_esports_24px"
-        android:enabled="true"
+        android:enabled="false"
         android:title="Ovladač" />
 </menu>

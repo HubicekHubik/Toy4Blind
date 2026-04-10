@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-  
-</selector>
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:maxLevel="0" android:drawable="@drawable/battery_0_bar_40px" />
+    <item android:maxLevel="15" android:drawable="@drawable/battery_1_bar_40px" />
+    <item android:maxLevel="30" android:drawable="@drawable/battery_2_bar_40px" />
+    <item android:maxLevel="45" android:drawable="@drawable/battery_3_bar_40px" />
+    <item android:maxLevel="60" android:drawable="@drawable/battery_4_bar_40px" />
+    <item android:maxLevel="75" android:drawable="@drawable/battery_5_bar_40px" />
+    <item android:maxLevel="90" android:drawable="@drawable/battery_6_bar_40px" />
+    <item android:maxLevel="100" android:drawable="@drawable/battery_full_40px" />
+
+    <item android:maxLevel="120" android:drawable="@drawable/battery_charging_20_40px" />
+    <item android:maxLevel="130" android:drawable="@drawable/battery_charging_30_40px" />
+    <item android:maxLevel="150" android:drawable="@drawable/battery_charging_50_40px" />
+    <item android:maxLevel="160" android:drawable="@drawable/battery_charging_60_40px" />
+    <item android:maxLevel="180" android:drawable="@drawable/battery_charging_80_40px" />
+    <item android:maxLevel="190" android:drawable="@drawable/battery_charging_90_40px" />
+    <item android:maxLevel="200" android:drawable="@drawable/battery_charging_full_40px" />
+</level-list>

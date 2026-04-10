@@ -20,7 +20,14 @@ import kotlin.math.sqrt
 
 enum class BleState { DISCONNECTED, SCANNING, CONNECTED, ERROR }
 
+data class BatteryInfo(
+    val voltageMv: Int,
+    val isCharging: Boolean,
+    val isCharged: Boolean
+)
 class MyBleManager(context: Context) : BleManager(context), DataReceivedCallback {
+    private val _batteryInfo = MutableLiveData<BatteryInfo>()
+    val batteryInfo: LiveData<BatteryInfo> get() = _batteryInfo
     private val _isToyOn = MutableLiveData<Boolean>(false)
     val isToyOn: LiveData<Boolean> get() = _isToyOn
     private val UART_SERVICE_UUID = java.util.UUID.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e")
@@ -89,6 +96,17 @@ class MyBleManager(context: Context) : BleManager(context), DataReceivedCallback
                     val tableText = String(rawData, 1, rawData.size - 1, Charsets.UTF_8)
 
                     debugData.postValue(tableText)
+                }
+            }
+            MT_RECV_POW_DATA -> {
+                val raw = data.value ?: return
+                if (raw.size >= 5) { // 1B typ + 2B napětí + 1B charging + 1B charged
+                    // Čtení Little Endian uint16 (napětí)
+                    val vBat = ((raw[2].toInt() and 0xFF) shl 8) or (raw[1].toInt() and 0xFF)
+                    val charging = raw[3].toInt() != 0
+                    val charged = raw[4].toInt() != 0
+
+                    _batteryInfo.postValue(BatteryInfo(vBat, charging, charged))
                 }
             }
         }
@@ -245,6 +263,7 @@ class MyBleManager(context: Context) : BleManager(context), DataReceivedCallback
     companion object {
         const val MT_REQUEST_SD_DATA: Byte = 0x6D.toByte()
         const val MT_RECV_SD_DATA: Byte = 0x7D.toByte()
+        const val MT_RECV_POW_DATA: Byte = 0x9D.toByte()
         const val MT_FILE: Byte = 0xFE.toByte()
         const val MT_FILE_TRANSFER: Byte = 0xF6.toByte()
         const val MT_DELETE_SD_FILE: Byte = 0xDF.toByte()

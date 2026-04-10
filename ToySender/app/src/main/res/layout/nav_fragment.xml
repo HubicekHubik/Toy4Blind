@@ -13,15 +13,8 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="20dp"
+        android:accessibilityLiveRegion="polite"
         />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/sendFileButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:enabled="false"
-        android:text="@string/sf_button_text" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"

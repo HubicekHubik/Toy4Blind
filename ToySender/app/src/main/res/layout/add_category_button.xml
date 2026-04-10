@@ -6,7 +6,7 @@
     style="@style/Widget.Material3.Button.TextButton.Icon"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="Přidat novou kategorii..."
+    android:text="Přidat novou kategorii"
     android:textColor="#2196F3"
     android:gravity="start|center_vertical"
     app:icon="@drawable/attach_file_add_24px"
