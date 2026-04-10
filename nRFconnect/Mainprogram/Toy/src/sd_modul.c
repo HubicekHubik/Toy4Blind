@@ -64,24 +64,19 @@ int sd_modul_init() {
 
 int SD_init(void)
 {
-	/*
-	 * Init of SD card open and list
-	 * raw disk i/o
-	 */
 	static const char *disk_pdrv = DISK_DRIVE_NAME;
 	int ret = 0;
 
 	uint32_t block_count = 0;
 	uint32_t block_size = 0;
-	// Inicializace disku
+
 	ret = disk_access_ioctl(disk_pdrv, DISK_IOCTL_CTRL_INIT, NULL);
 	if (ret != 0)
 	{
 		LOG_ERR("Storage init ERROR!");
-		return ret; // návrat při chybě
+		return ret;
 	}
 
-	// Získání počtu sektorů
 	ret = disk_access_ioctl(disk_pdrv, DISK_IOCTL_GET_SECTOR_COUNT, &block_count);
 	if (ret != 0)
 	{
@@ -90,7 +85,6 @@ int SD_init(void)
 	}
 	LOG_INF("Block count %u", block_count);
 
-	// Získání velikosti sektoru
 	ret = disk_access_ioctl(disk_pdrv, DISK_IOCTL_GET_SECTOR_SIZE, &block_size);
 	if (ret != 0)
 	{
@@ -128,13 +122,6 @@ int SD_init(void)
 	return 0;
 }
 
-/* List dir entry by path
- *
- * @param path Absolute path to list
- *
- * @return Negative errno code on error, number of listed entries on
- *         success.
- */
 int lsdir(const char *path)
 {
     int res;
@@ -153,13 +140,13 @@ int lsdir(const char *path)
         return res;
     }
 
-    while (actual_dir_count < MAX_DIRS) { // Limit 20 složek
+    while (actual_dir_count < MAX_DIRS) {
         res = fs_readdir(&dirp, &entry);
         if (res || entry.name[0] == 0) break;
 
         if (entry.type == FS_DIR_ENTRY_DIR && entry.name[0] != '.') {
 			if (strcmp(entry.name, "SYSTEM~1") == 0) continue; // skip system directory created by FATFS
-            if(entry.name[1] == '_') {// 1. Uložíme název složky do struktury
+            if(entry.name[1] == '_') {
 				soundset_dirs[actual_dir_count].category = entry.name[0];
 				strncpy(soundset_dirs[actual_dir_count].dir_name, &entry.name[2], MAX_DIR_NAME_LEN - 1);
 			} else {
@@ -181,7 +168,6 @@ int lsdir(const char *path)
 			if (current_categ != 'Q') {
 				int found_idx = -1;
 
-				// Hledáme, jestli už tuhle kategorii v seznamu máme
 				for (int i = 0; i < actual_categories_count; i++) {
 					if (categories[i].categ_id == current_categ) {
 						found_idx = i;
@@ -189,7 +175,6 @@ int lsdir(const char *path)
 					}
 				}
 
-				// Pokud je to nová kategorie (a není to 'Q'), vytvoříme pro ni záznam
 				if (found_idx == -1 && actual_categories_count < MAX_CATEGORIES) {
 					found_idx = actual_categories_count;
 					categories[found_idx].categ_id = current_categ;
@@ -197,8 +182,7 @@ int lsdir(const char *path)
 					actual_categories_count++;
 				}
 
-				// Pokud jsme našli/vytvořili kategorii, přidáme do ní index aktuální složky
-				if (found_idx != -1 && categories[found_idx].dir_count < 10) {
+				if (found_idx != -1 && categories[found_idx].dir_count < MAX_DIRS_COUNT) {
 					categories[found_idx].dir_indices[categories[found_idx].dir_count] = actual_dir_count;
 					categories[found_idx].dir_count++;
 				}
@@ -227,13 +211,10 @@ const char *draw_audio_path(int gesture_id) {
 
     if (total_files == 0) return NULL;
 
-    // 2. Vybereme náhodný index
     int picked_sound = sys_rand32_get() % total_files;
 
-    // 3. Sestavíme cestu ke složce
     char full_dir_path[MAX_PATH/2];
     snprintf(full_dir_path, sizeof(full_dir_path), "%s/%c_%s",DISK_MOUNT_PT, my_dir.category, my_dir.dir_name);
-    // 4. Jen JEDEN průchod složkou pro získání jména
     int current_index = 0;
 	bool found = false;
     fs_dir_t_init(&dirp);
@@ -258,7 +239,7 @@ void send_ad_data_to_phone() {
     struct fs_dirent entry;
     static char full_dir_path[MAX_PATH];
 	char send_buffer[MAX_PATH + 1];
-	send_buffer[0] = MT_RECV_SD_DATA; // Identifikátor typu zprávy
+	send_buffer[0] = MT_RECV_SD_DATA;
 	struct category_group *tx_categ;
 
 	lsdir(disk_mount_pt);
@@ -296,29 +277,23 @@ int delete_sd_data(const char *path_from_phone) {
     int res;
     char full_folder_path[MAX_PATH];
 
-    // 1. Sestavíme absolutní cestu k adresáři/souboru
     snprintf(full_folder_path, sizeof(full_folder_path), "%s/%s", DISK_MOUNT_PT, path_from_phone);
     LOG_INF("DEBUG: Pokus o smazání: %s", full_folder_path);
 
-    // 2. Zkusíme to otevřít jako adresář
     fs_dir_t_init(&dirp);
     res = fs_opendir(&dirp, full_folder_path);
     
     if (res != 0) {
-        // Pokud to nejde otevřít jako adresář, zkusíme to smazat jako jeden soubor
         LOG_INF("Cesta není adresář, mažu jako soubor.");
         return fs_unlink(full_folder_path);
     }
 
-    // 3. Procházíme obsah adresáře a mažeme soubory
     while (fs_readdir(&dirp, &entry) == 0 && entry.name[0] != 0) {
-        // Přeskočíme systémové tečky
         if (strcmp(entry.name, ".") == 0 || strcmp(entry.name, "..") == 0) {
             continue;
         }
 
         char file_to_delete[MAX_PATH];
-        // DŮLEŽITÉ: Tady skládáme cestu i s DISK_MOUNT_PT!
         snprintf(file_to_delete, sizeof(file_to_delete), "%s/%s", full_folder_path, entry.name);
 
         res = fs_unlink(file_to_delete);
@@ -329,10 +304,8 @@ int delete_sd_data(const char *path_from_phone) {
         }
     }
 
-    // 4. Zavřeme rozdělanou práci s adresářem
     fs_closedir(&dirp);
 
-    // 5. Teď už je adresář prázdný, tak smažeme i ten samotný adresář
     res = fs_unlink(full_folder_path);
     if (res == 0) {
         LOG_INF("Složka úspěšně odstraněna: %s", full_folder_path);
@@ -480,13 +453,11 @@ int count_files_in_dir(const char *parent_path, const char *dir_name)
     char full_path[64];
     int file_count = 0;
 
-    // Sestavíme cestu např. "/SD:/CAT"
     snprintf(full_path, sizeof(full_path), "%s/%s", parent_path, dir_name);
     
     fs_dir_t_init(&sub_dirp);
     if (fs_opendir(&sub_dirp, full_path) == 0) {
         while (fs_readdir(&sub_dirp, &entry) == 0 && entry.name[0] != 0) {
-            // Počítáme jen soubory (ne složky)
             if (entry.type == FS_DIR_ENTRY_FILE) {
                 file_count++;
             }
@@ -536,22 +507,19 @@ static void ad_write_thread(void *arg1, void *arg2, void *arg3) {
 				break;
 			case MT_FILE_TRANSFER:
 				if (file_open) {
-					// Kopírujeme data do bufferu
 					memcpy(&data_buffer[buffer_index], rec_fd.data, rec_fd.data_len);
 					buffer_index += rec_fd.data_len;
 					received_so_far += rec_fd.data_len;
 
-					// Zápis nastane pouze při naplnění bufferu NEBO na konci souboru
 					if (buffer_index >= AUDIO_DATA_CHUNK_SIZE || received_so_far >= file_size) {
 						UINT written;
-						// Zapisujeme JEN tolik, kolik je v bufferu reálně uloženo!
 						fr = f_write(&new_wav, data_buffer, buffer_index, &written);
 						
 						if (fr != FR_OK) {
 							LOG_WRN("Chyba zapisu na SD: %d", fr);
 						}
 						
-						buffer_index = 0; // Po zápisu buffer vyprázdníme
+						buffer_index = 0;
 						//LOG_INF("Zapsano %u bytes, celkem zapsano: %u/%u", written, received_so_far, file_size);
 						if (received_so_far >= file_size) {
 							f_close(&new_wav);

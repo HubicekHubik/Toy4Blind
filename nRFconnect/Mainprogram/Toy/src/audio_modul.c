@@ -126,7 +126,7 @@ void audio_haptic_feedback_thread(void *arg1, void *arg2, void *arg3) {
 			char temp_path[MAX_PATH];
 
 			const char *result_path = NULL;
-
+			
 			switch (rx_ah.type) {
 				case MT_GEST:
 					result_path = draw_audio_path(rx_ah.payload.gest.type);
