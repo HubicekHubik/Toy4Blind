@@ -165,8 +165,8 @@ int main(void)
         return EXIT_FAILURE;
     }
 
-	/* set accel/gyro sampling frequency to 104 Hz */
-	odr_attr.val1 = 104;
+	/* set accel/gyro sampling frequency to 52 Hz */
+	odr_attr.val1 = 52;
 	odr_attr.val2 = 0;
 
 	if (sensor_attr_set(lsm6dsl_dev, SENSOR_CHAN_ACCEL_XYZ,
