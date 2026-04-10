@@ -200,6 +200,7 @@ static void discovery_cb(struct bt_gatt_dm *dm, void *context)
 
 	printk("Service discovery hotovo, hledam NUS charakteristiky...\n");
 	uint8_t conn_idx = bt_conn_index(bt_gatt_dm_conn_get(dm));
+	LOG_INF("Assigning handles for idx %d", conn_idx);
 	// Přiřadíme nalezené kanály našemu nus_clientovi
 	err = bt_nus_handles_assign(dm, &nus_client[conn_idx]);
 	if (err) {
@@ -207,7 +208,7 @@ static void discovery_cb(struct bt_gatt_dm *dm, void *context)
 	} else {
 		printk("NUS nalezen! Ted muzeme odesilat data.\n");
 		// Volitelně: automaticky se přihlásit k odběru dat z hračky
-		err = bt_nus_subscribe_receive(&nus_client[conn_idx]);
+		//err = bt_nus_subscribe_receive(&nus_client[conn_idx]);
 		if (err) {
 			printk("Subscribe failed (err %d)\n", err);
 		}
@@ -218,10 +219,14 @@ static void discovery_cb(struct bt_gatt_dm *dm, void *context)
 }
 
 void connected(struct bt_conn *conn, uint8_t err) {
-	uint8_t idx = bt_conn_index(conn);
     if (err) {
         LOG_ERR("Connection failed (err %u)", err);
-		connected_toys[idx] = NULL;
+        return;
+    }
+
+	uint8_t idx = bt_conn_index(conn);
+    if (idx >= CONFIG_BT_MAX_CONN) {
+        bt_conn_disconnect(conn, BT_HCI_ERR_REMOTE_USER_TERM_CONN);
         return;
     }
 
@@ -231,7 +236,6 @@ void connected(struct bt_conn *conn, uint8_t err) {
 	bt_conn_unref(conn);
     if (err) return;
 
-	// TADY JE TEN KLÍČ: Remote musí prozkoumat hračku a "přihlásit se k odběru"
     err = bt_gatt_dm_start(conn, BT_UUID_NUS, &discovery_cb_data, NULL);
     if (err) {
         LOG_ERR("Discovery start failed (err %d)", err);
