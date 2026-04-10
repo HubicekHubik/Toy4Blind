@@ -8,8 +8,9 @@
 #define MIN_VOLUME 0
 
 #define MAX_PATH 128
-#define MAX_DIRS 40
 #define MAX_CATEGORIES 8
+#define MAX_DIRS_COUNT 8
+#define MAX_DIRS (MAX_CATEGORIES * MAX_DIRS_COUNT)
 #define MAX_DIR_NAME_LEN 32
 #define MAX_FILE_NAME_LEN 3
 
@@ -23,11 +24,12 @@ struct audio_dir {
 	char category;
 	uint8_t files;
 	char dir_name[MAX_DIR_NAME_LEN];
+	uint8_t selector;
 };
 
 struct category_group {
     char categ_id;
-    uint8_t dir_indices[8];
+    uint8_t dir_indices[MAX_DIRS_COUNT];
     uint8_t dir_count;
 };
 
