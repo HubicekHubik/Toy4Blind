@@ -21,19 +21,36 @@ LOG_MODULE_REGISTER(EI_IMU, CONFIG_LOG_DEFAULT_LEVEL);
 
 #include <ei_wrapper.h>
 #define SAMPLING_FREQ 52
-#define RESULTS_PRINT 1
-bool ei_canceled = false;
-#define HISTORY_LEN 14
-#define NUM_CLASSES 5
-#define MIN_DETECTION_COUNT 6
-#define STRAIGHT_IDX 5
-//#define DEBUG_RESULT_CB  coment this to use non debug result_ready
+//#define DEBUG_RESULT_CB   comment this out to use debug result_ready
+#define SEND_DEBUG_DATA 0 //set this to 0 for not sending debug data to app
+#define RESULTS_PRINT 0
+
 #define IDLEFOLLOWUP_TREASHOLD 60
 
-uint8_t hystor_index;
-float label_history[HISTORY_LEN][NUM_CLASSES];
-float labels_value[NUM_CLASSES];
-uint8_t idlefollowup = 0;
+uint8_t get_mapped_gesture(int original_index);
+
+typedef enum {
+    MY_GEST_CIRCLE = 0,
+    MY_GEST_DROP   = 1,
+    MY_GEST_IDLE   = 2,
+    MY_GEST_ROLL   = 4,
+    MY_GEST_SHAKE  = 5,
+    MY_GEST_TAP    = 6,
+    MY_GEST_TOS    = 7,
+    MY_GEST_NOISE  = 3
+} my_gesture_t;
+
+struct ei_ev{
+	float values[8];
+	float anomaly;
+};
+
+uint8_t by_game_tresholds[GAME_MODE_CNT][8] = {
+	[GAME_MODE_DEFAULT] = {2, 1, IDLEFOLLOWUP_TREASHOLD, 255, 1, 2, 2, 1},
+	[GAME_MODE_CHAINS] = {2, 1, IDLEFOLLOWUP_TREASHOLD / 2, 255, 1, 2, 2, 1},
+	[GAME_MODE_SWAPPED] = {2, 1, IDLEFOLLOWUP_TREASHOLD, 255, 1, 2, 2, 1},
+	[GAME_MODE_MIRROR] = {2, 1, IDLEFOLLOWUP_TREASHOLD, 255, 1, 2, 2, 1},
+};
 
 static void result_ready_cb(int err);
 
@@ -127,9 +144,6 @@ void lsm6dsl_ei_wake() {
 	odr_attr.val1 = SAMPLING_FREQ;
 	odr_attr.val2 = 0;
 
-	//struct sensor_value has_freq;
-	//sensor_attr_get(lsm6dsl_dev, SENSOR_CHAN_ACCEL_XYZ, SENSOR_ATTR_SAMPLING_FREQUENCY, &has_freq);
-	//if(has_freq.val1 != 0 && has_freq.val2 != 0) {}
 	if (sensor_attr_set(lsm6dsl_dev, SENSOR_CHAN_ACCEL_XYZ,
 						SENSOR_ATTR_SAMPLING_FREQUENCY, &odr_attr) < 0) {
 		LOG_WRN("Cannot set sampling frequency for accelerometer.");
@@ -305,86 +319,73 @@ void resolve_classification(float values[8], float anomaly) {
 	int len = 0;
 	int max_res = ei_wrapper_get_classifier_label_count();
 	int err;
-	static uint8_t circle_count = 0;
-	static uint8_t roll_count = 0;
-	static uint8_t tap_count = 0;
+	static uint8_t counter[8] = {0};
+	const uint8_t *tresholds = by_game_tresholds[current_game];
+	static float prob_val[8] = {0.95, 0.95, 0.99, 0.95, 0.95, 0.95, 0.95, 0.95};
 
 	for (size_t i = 0; i < max_res; i++) {
-		if(master_conn != NULL) {
+		if((master_conn != NULL) && SEND_DEBUG_DATA ){
 		len += snprintf(buf + len, sizeof(buf) - len, 
                             "Value: %.2f\tLabel: %s\n", 
                             (double)values[i], ei_wrapper_get_classifier_label(i));
 		}
+		if (i == 3) continue;
 
-		if (i == 2) {
-			if (values[i] >= 0.99f) {
-				idlefollowup += 1;
-				//printk("idlefollowup increased to %d\n", idlefollowup);
-			} else {
-				idlefollowup = 0;
-				//printk("idlefollowup voided se to 0\n");
-			}
+		if (values[i] >= prob_val[i]) {
+			counter[i]++;
+		} else {
+			counter[i] = 0;
 		}
+	}
 
-		if (i == 0) {
-			if(values[i] > 0.95f){
-				circle_count +=1;
-			} else {
-				circle_count = 0;
-			}
-		}
-
-		if (i == 4) {
-			if(values[i] > 0.95f){
-				roll_count +=1;
-			} else {
-				roll_count = 0;
-			}
-		}
-		if (i == 6) {
-			if(values[i] > 0.95f){
-				tap_count +=1;
-			} else {
-				tap_count = 0;
-			}
-		}
-		if (( i != 3) && (values[i] > 0.95f) && (anomaly < 0.4f) &&
-			((i != 2) || (idlefollowup >= IDLEFOLLOWUP_TREASHOLD)) &&
-			((i != 0) || (circle_count == 2)) &&
-			((i != 4) ||(roll_count == 1)) &&
-			((i != 6) ||(tap_count == 2))) {
+	for (size_t i = 0; i < max_res; i++) {
+		if (i == 3) continue;
+		if (counter[i] == tresholds[i]) {
+			uint8_t i_maped = get_mapped_gesture(i);
 			struct toy_events tx_gest = {
 				.type = MT_GEST,
-				.payload.gest.type = i,
+				.payload.gest.type = i_maped,
 				.payload.gest.prob = (uint8_t)(values[i] * 100.0f),
 				.payload.gest.anomaly = (uint16_t)(anomaly *anomaly * 100.0f),
 				.payload.gest.sign = 0
 			};
-			if (i == 7) {
-				tx_gest.payload.gest.type = 3;
-			}
-			if (anomaly < 0) {
-				tx_gest.payload.gest.sign = 1;
-			}
-			if (!audioPlaying) {
-				LOG_INF("Gesture detected: %s index is: %d prob: %2f anomaly: %f", ei_wrapper_get_classifier_label(i), i, (double)values[i], (double)anomaly);
+			bool canceled;
+			if (current_game == GAME_MODE_SWAPPED || current_game == GAME_MODE_MIRROR) {
+				struct toy_events tx_game = {
+					.type = MT_GEST,
+					.len = sizeof(struct game_ev),
+					.payload.game.gest_id = i_maped,
+					.payload.game.mode = current_game,
+					.payload.game.prob = (uint8_t)(values[i] * 100.0f),
+				};
+
+				bt_nus_send(remote_conn, &tx_game, sizeof(tx_game));
+				ei_wrapper_clear_data(&canceled);
+				ei_wrapper_start_prediction(0, 1);
+			}else if (!audioPlaying) {
+				LOG_INF("Gesture detected: %s index is: %d prob: %2f anomaly: %f", ei_wrapper_get_classifier_label(tx_gest.payload.gest.type), tx_gest.payload.gest.type, (double)values[i], (double)anomaly);
 				k_msgq_put(&sysfb_msgq, &tx_gest, K_NO_WAIT);
-				bool canceled;
 				ei_wrapper_clear_data(&canceled);
 				ei_wrapper_start_prediction(0, 1);
 			}
-			idlefollowup = 0;
-			circle_count = 0;
-			roll_count = 0;
-			tap_count = 0;
+			memset(&counter, 0, sizeof(counter));
+			break;
 		}
 	}
-
-	if(master_conn != NULL) {
+	
+	if(master_conn != NULL && SEND_DEBUG_DATA) {
 		len += snprintf(buf + len, sizeof(buf) - len, "Anomaly: %.2f", (double)anomaly);
         uint8_t packet[240];
         packet[0] = MT_DEBUG_DATA;
         memcpy(&packet[1], buf, len);
         bt_nus_send(master_conn, packet, len + 1);
 	}
+}
+
+uint8_t get_mapped_gesture(int original_index) {
+    switch(original_index) {
+        case 3: return 7;
+        case 7: return 3;
+        default: return original_index;
+    }
 }
