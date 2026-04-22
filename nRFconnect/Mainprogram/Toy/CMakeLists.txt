@@ -16,10 +16,11 @@ target_sources(app PRIVATE src/main.c
                            src/nvs_modul.c
                            src/sd_modul.c
                            src/audio_modul.c
-                           ../common/app_state.c
-                           src/ei_imu_modul.c
-                           ../common/haptic_modul.c
                            src/ble_modul.c
+                           src/ei_imu_modul.c
+                           src/game_modul.c
+                           ../common/app_state.c
+                           ../common/haptic_modul.c
                            ../common/bat_measures_modul.c
                            ../common/battery.c
                            ../common/pwm_effects.c
