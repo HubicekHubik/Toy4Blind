@@ -98,9 +98,9 @@ void read_buttons(void *arg1, void *arg2, void *arg3) {
 }
 
 void button_changed(const struct device *dev, struct gpio_callback *cb, uint32_t pins) {
-    int index = 0;
-	bool pressed = false;
-    // Zjistí, které tlačítko vyvolalo interrupt
+	int index = -1;
+    bool pressed = false;
+
 	for (size_t i = 0; i < BUTTON_COUNT; i++) {
 		if (pins & BIT(buttons[i].pin)) {
 			index = i;
@@ -109,92 +109,51 @@ void button_changed(const struct device *dev, struct gpio_callback *cb, uint32_t
 			break;
 		}
 	}
+	if (index == -1) return;
 
-    static int64_t last_time[BUTTON_COUNT] = {0};
     static int64_t press_start[BUTTON_COUNT] = {0};
-
     int64_t now = k_uptime_get();
-    //if (now - last_time[index] < DEBOUNCE_MS) return;
-    last_time[index] = now;
-
 	struct but_ev button_msg; 
+	struct toy_events tx_lra_e = {0};
 
-	struct toy_events tx_lmr_e = {0};
+	if (pressed) {
+        press_start[index] = now; 
+        LOG_INF("Button %d pressed", index + 1);
+        
+        tx_lra_e.type = MT_LRA;
+        tx_lra_e.payload.lra.effect = CLICK_EFECT;
+        k_msgq_put(&lra_msgq, &tx_lra_e, K_NO_WAIT);
 
-	if (index == 2) {
-
-        if (pressed && press_start[index] == 0) {
-            // just pressed
-            press_start[index] = now;
-        }
-
-        if (!pressed) {
-			int time = now - press_start[index];
-            if (time >= 3000) {
-                LOG_INF("LONG PRESS detected on button 3 (3s) lets search for toy\n");
-				button_msg.cmd = MSG_TYPE_TOY_SWITCH;
-				k_msgq_put(&but2ble_q, &button_msg, K_NO_WAIT);
-				LOG_INF("Button %d released\n", index + 1);
-				btn_pressed[index] = false;
-				press_start[index] = 0;
-				return;
-            }
-		    press_start[index] = 0;
-        }
-    }
-
-	if (index == 1) {
-
-        if (pressed && press_start[index] == 0) {
-            // just pressed
-            press_start[index] = now;
-        }
-
-        if (!pressed) {
-			int time = now - press_start[index];
-            if (time >= 3000) {
-                LOG_INF("LONG PRESS detected on button 2\n");
-				button_msg.cmd = MT_BT_DISCONNECT;
-				k_msgq_put(&but2ble_q, &button_msg, K_NO_WAIT);
-				LOG_INF("Button %d released\n", index + 1);
-				btn_pressed[index] = false;
-				press_start[index] = 0;
-				return;
-            }
-		    press_start[index] = 0;
-        }
-    }
-
-    if (!pressed) {
-        LOG_INF("Button %d released\n", index + 1);
-		switch (index)
-		{
-		case 0:
-			button_msg.cmd=MT_CHANGE_CATEGORY;
-			break;
-		case 1:
-			button_msg.cmd= MT_LSM6DSL_ON;
-			break;
-		case 2:
-			act_toy_idx++;
-			act_toy_idx%=CONFIG_BT_MAX_CONN;
-			LOG_INF("Current act_toy_idx = %d", act_toy_idx);
-			return;
-		case 3:
-			button_msg.cmd=MT_VOL_UP;
-			break;
-		case 4:
-			button_msg.cmd=MT_VOL_DOWN;
-			break;
-		default:
-			break;
-		}
-		k_msgq_put(&but2ble_q, &button_msg, K_NO_WAIT);
-		btn_pressed[index] = false;
     } else {
-        LOG_INF("Button %d pressed\n", index + 1);
-		tx_lmr_e.type = MT_LMR;
-		tx_lmr_e.payload.lmr.effect = CLICK_EFECT;
-		k_msgq_put(&lmr_msgq, &tx_lmr_e, K_NO_WAIT);
+        if (press_start[index] == 0) return;
+
+        int64_t duration = now - press_start[index];
+        press_start[index] = 0;
+        
+        LOG_INF("Button %d released after %lld ms", index + 1, duration);
+
+        if (duration >= 2000) {
+            if (index == 0) button_msg.cmd = MT_G_MODE_CHANGE;
+            else if (index == 1) button_msg.cmd = MT_BT_DISCONNECT;
+            else if (index == 2) button_msg.cmd = MT_CONNECT_TOY;
+            else return;
+
+            LOG_INF("LONG PRESS detected");
+            k_msgq_put(&but2ble_q, &button_msg, K_NO_WAIT);
+        } 
+        else {
+            switch (index) {
+                case 0: button_msg.cmd = MT_CHANGE_CATEGORY; break;
+                case 1: button_msg.cmd = MT_LSM6DSL_ON; break;
+                case 2:
+                    act_toy_idx = (act_toy_idx + 1) % CONFIG_BT_MAX_CONN;
+                    button_msg.cmd = MT_SWITCH_TOY;
+                    break;
+                case 3: button_msg.cmd = MT_VOL_UP; break;
+                case 4: button_msg.cmd = MT_VOL_DOWN; break;
+                default: return;
+            }
+            k_msgq_put(&but2ble_q, &button_msg, K_NO_WAIT);
+        }
     }
 }
