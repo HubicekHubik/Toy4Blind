@@ -18,6 +18,16 @@
 #define AUDIO_DATA_RAW_LEN AUDIO_DATA_LEN - 1
 #define AUDIO_DATA_CHUNK_SIZE (AUDIO_DATA_RAW_LEN) * 10
 
+#define CHAIN_TRESHOLD 3
+
+typedef enum {
+	GAME_MODE_DEFAULT,
+	GAME_MODE_SWAPPED,
+	GAME_MODE_CHAINS,
+	GAME_MODE_MIRROR,
+	GAME_MODE_CNT
+} toy_game_mode_t;
+
 extern struct k_msgq sysfb_msgq;
 
 struct audio_dir {
@@ -42,9 +52,13 @@ struct file_data {
 extern bool device_running;
 extern uint8_t volume;
 extern uint8_t current_category;
+extern int ctg_piano_idx;
+extern toy_game_mode_t current_game;
 extern struct audio_dir soundset_dirs[MAX_DIRS];
 extern struct category_group categories[MAX_CATEGORIES];
 extern uint8_t actual_categories_count;
 extern struct bt_conn *master_conn;
+extern struct bt_conn *remote_conn;
+extern struct bt_conn *toy_conn;
 extern bool audioPlaying;
 #endif
