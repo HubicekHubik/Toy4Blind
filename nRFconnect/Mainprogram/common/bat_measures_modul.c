@@ -145,7 +145,7 @@ void resolve_batery_event(struct bat_ev *pow_inf) {
 		.type = MT_BAT_INF
 	};
 
-	LOG_INF("Value of V_ching : %d of V_ched : %d of V_bat : %d", pow_inf->V_ching, pow_inf->V_ched, pow_inf->V_bat);
+	//LOG_INF("Value of V_ching : %d of V_ched : %d of V_bat : %d", pow_inf->V_ching, pow_inf->V_ched, pow_inf->V_bat);
     if ((pow_inf->V_ching == 0) && (pow_inf->V_ched == 0)) {
         LOG_INF("Device not on the charger");
         charging = false;
@@ -155,11 +155,13 @@ void resolve_batery_event(struct bat_ev *pow_inf) {
     if ((pow_inf->V_ching > 400) && !charging) {
         LOG_INF("Device was placed on charger");
         charging = true;
+		tx_bat_state.type = MT_CHARGING;
     }
 
     if ((pow_inf->V_ched > 600) && (pow_inf->V_ching == 0)) {
         LOG_INF("Device is charged");
         if (!charged) {
+			tx_bat_state.type = MT_CHARGED;
             charged = true;
         }
     }
@@ -175,5 +177,6 @@ void resolve_batery_event(struct bat_ev *pow_inf) {
 	tx_bat_state.payload.power.V_bat = pow_inf->V_bat;
 	tx_bat_state.payload.power.charging = charging;
 	tx_bat_state.payload.power.charged = charged;
+	tx_bat_state.payload.power.deviceOn = device_running;
     ret = k_msgq_put(&sysfb_msgq, &tx_bat_state, K_NO_WAIT);
 }
