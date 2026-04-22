@@ -27,14 +27,15 @@ void effect_pulse_both(const struct device *pwm_dev);
  * 
  * @param pwm_dev device reference from a devicetree node identifier.
 */
-void effect_fade_left(const struct device *pwm_dev);
+void effect_rumble_wave(const struct device *pwm_dev);
 
-/**Fading effect only motor 1 is active 
+/**Rumbling effect
  * 
  * @param pwm_dev device reference from a devicetree node identifier.
 */
-void effect_fade_right(const struct device *pwm_dev);
-/**Fading effect only motor 1 is active 
+void effect_ping_pong(const struct device *pwm_dev);
+
+/**Ping pong effect
  * 
  * @param pwm_dev device reference from a devicetree node identifier.
 */
@@ -51,4 +52,6 @@ void effect_docked(const struct device *pwm_dev);
 void effect_click(const struct device *pwm_dev);
 
 void effect_connected(const struct device *pwm_dev);
+
+void effect_heartbeat(const struct device *pwm_dev);
 #endif
