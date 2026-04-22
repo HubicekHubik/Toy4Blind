@@ -14,7 +14,7 @@ int count_files_in_dir(const char *parent_path, const char *dir_name);
 
 int lsdir(const char *path);
 
-const char *draw_audio_path(int gesture_id);
+const char *draw_audio_path(int gesture_id, uint8_t ctg_override);
 
 void send_ad_data_to_phone();
 
@@ -30,4 +30,5 @@ void rename_category(const uint8_t* raw_data, uint16_t total_len);
 
 void add_dir(const uint8_t* raw_data, uint16_t total_len);
 
+const char* permute_and_find(const uint8_t* chain);
 #endif

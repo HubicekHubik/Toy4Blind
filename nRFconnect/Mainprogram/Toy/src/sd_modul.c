@@ -122,13 +122,13 @@ int SD_init(void)
 	return 0;
 }
 
-int lsdir(const char *path)
-{
+int lsdir(const char *path) {
     int res;
     struct fs_dir_t dirp;
     static struct fs_dirent entry;
     int actual_dir_count = 0;
-
+	ctg_piano_idx = -1;
+	
 	actual_categories_count = 0;
     memset(categories, 0, sizeof(categories));
     memset(soundset_dirs, 0, sizeof(soundset_dirs));
@@ -183,6 +183,9 @@ int lsdir(const char *path)
 				}
 
 				if (found_idx != -1 && categories[found_idx].dir_count < MAX_DIRS_COUNT) {
+					if (current_categ == 'P') {
+						ctg_piano_idx = found_idx;
+					}
 					categories[found_idx].dir_indices[categories[found_idx].dir_count] = actual_dir_count;
 					categories[found_idx].dir_count++;
 				}
@@ -196,14 +199,23 @@ int lsdir(const char *path)
     return actual_dir_count;
 }
 
-const char *draw_audio_path(int gesture_id) {
+const char *draw_audio_path(int gesture_id, uint8_t ctg_override) {
 	struct fs_dir_t dirp;
     struct fs_dirent entry;
     static char path_buffer[MAX_PATH];
-    if (current_category >= actual_categories_count) return NULL;
 
-	struct category_group my_category = categories[current_category];
+	struct category_group my_category;
 
+	if (ctg_override != 255) {
+		if (ctg_override >= actual_categories_count) return NULL;
+
+		my_category = categories[ctg_override];
+	} else {
+		if (current_category >= actual_categories_count) return NULL;
+
+		my_category = categories[current_category];
+	}
+	
 	if (my_category.dir_count < gesture_id) return NULL;
 	
 	struct audio_dir my_dir = soundset_dirs[my_category.dir_indices[gesture_id]];
@@ -278,13 +290,13 @@ int delete_sd_data(const char *path_from_phone) {
     char full_folder_path[MAX_PATH];
 
     snprintf(full_folder_path, sizeof(full_folder_path), "%s/%s", DISK_MOUNT_PT, path_from_phone);
-    LOG_INF("DEBUG: Pokus o smazání: %s", full_folder_path);
+    LOG_INF("Delete tryle of path: %s", full_folder_path);
 
     fs_dir_t_init(&dirp);
     res = fs_opendir(&dirp, full_folder_path);
     
     if (res != 0) {
-        LOG_INF("Cesta není adresář, mažu jako soubor.");
+        LOG_INF("Path is not a dir deleting as file.");
         return fs_unlink(full_folder_path);
     }
 
@@ -298,9 +310,9 @@ int delete_sd_data(const char *path_from_phone) {
 
         res = fs_unlink(file_to_delete);
         if (res == 0) {
-            LOG_INF("Smazán soubor uvnitř: %s", file_to_delete);
+            LOG_INF("Inner file %s succesfully deleted", file_to_delete);
         } else {
-            LOG_ERR("Chyba při mazání souboru %s (%d)", file_to_delete, res);
+            LOG_ERR("Error during file %s delete error: %d", file_to_delete, res);
         }
     }
 
@@ -308,9 +320,9 @@ int delete_sd_data(const char *path_from_phone) {
 
     res = fs_unlink(full_folder_path);
     if (res == 0) {
-        LOG_INF("Složka úspěšně odstraněna: %s", full_folder_path);
+        LOG_INF("Folder succesfully deleted: %s", full_folder_path);
     } else {
-        LOG_ERR("Nepodařilo se smazat prázdnou složku! Kód: %d", res);
+        LOG_ERR("Was unable to delete empty folder! Error: %d", res);
     }
 
     return res;
@@ -343,21 +355,21 @@ void rename_sd_file(const uint8_t* raw_data, uint16_t total_len) {
     snprintf(full_old_path, sizeof(full_old_path), "%s/%s", DISK_MOUNT_PT, old_name_part);
     snprintf(full_new_path, sizeof(full_new_path), "%s/%s/%s", DISK_MOUNT_PT, dir_name,new_name_part);
 
-    LOG_INF("Přejmenovávám: %s", full_old_path);
-    LOG_INF("Na: %s", full_new_path);
+    LOG_INF("Rennaming: %s", full_old_path);
+    LOG_INF("to: %s", full_new_path);
 
     res = fs_rename(full_old_path, full_new_path);
     
     if (res == FR_OK) {
-        LOG_INF("Přejmenování úspěšné");
+        LOG_INF("Renaming succesfull");
     } else {
-        LOG_ERR("Chyba f_rename: %d", res);
+        LOG_ERR("Error of f_rename: %d", res);
     }
 }
 
 void rename_sd_folder(const uint8_t* raw_data, uint16_t total_len) {
     uint8_t old_len = raw_data[0]; // Délka staré cesty (poslaná z Androidu)
-	LOG_INF("tohle je format dat pro rename folder %s", raw_data);
+	LOG_INF("This is form for rename folder %s", raw_data);
 	char old_name_part[MAX_DIR_NAME_LEN];
     char new_name_part[MAX_DIR_NAME_LEN];
     
@@ -381,9 +393,9 @@ void rename_sd_folder(const uint8_t* raw_data, uint16_t total_len) {
     res = fs_rename(full_old_path, full_new_path);
     
     if (res == FR_OK) {
-        LOG_INF("Přejmenování úspěšné");
+        LOG_INF("Rename succesfull");
     } else {
-        LOG_ERR("Chyba f_rename: %d", res);
+        LOG_ERR("Error of f_rename: %d", res);
     }
 }
 
@@ -394,14 +406,14 @@ void add_dir(const uint8_t* raw_data, uint16_t total_len) {
 
 	char full_path[MAX_PATH];
 	snprintf(full_path, sizeof(full_path), "%s/%s", DISK_MOUNT_PT, add_dir);
-	LOG_INF("Vytvářím adresář %s", full_path);
+	LOG_INF("Creating dir: %s", full_path);
 
 	int res = fs_mkdir(full_path);
 
 	if (res == FR_OK) {
-        LOG_INF("Adresář vytvořen");
+        LOG_INF("Dir created");
     } else {
-        LOG_ERR("Chyba mkdir: %d", res);
+        LOG_ERR("Error of mkdir: %d", res);
     }
 }
 
@@ -434,13 +446,13 @@ void rename_category(const uint8_t* raw_data, uint16_t total_len) {
             snprintf(new_full_path, sizeof(new_full_path), "%s/%c_%s", 
                      DISK_MOUNT_PT, new_c, soundset_dirs[i].dir_name);
 
-			LOG_INF("Přejmenovávám složku kategorie: %s -> %s", old_full_path, new_full_path);
+			LOG_INF("Renaming folder of category: %s -> %s", old_full_path, new_full_path);
             
             int res = fs_rename(old_full_path, new_full_path);
             if (res == 0) {
                 soundset_dirs[i].category = new_c;
             } else {
-                LOG_ERR("Chyba přejmenování složky v kategorii: %d", res);
+                LOG_ERR("Error during renaming folder inside category: %d", res);
             }
 		}
 	}
@@ -485,7 +497,7 @@ static void ad_write_thread(void *arg1, void *arg2, void *arg3) {
 			case MT_FILE:
 				file_size = sys_get_le32(rec_fd.data);
 				file_name_len = sys_get_le16(&rec_fd.data[4]);
-				buffer_index = 0; // Resetujeme index pro nový soubor
+				buffer_index = 0;
 
 				if (file_name_len >= sizeof(file_name)) {
 					file_name_len = sizeof(file_name) - 1;
@@ -495,14 +507,14 @@ static void ad_write_thread(void *arg1, void *arg2, void *arg3) {
 				file_name[file_name_len] = '\0';
 				snprintf(full_path, sizeof(full_path), "SD:/%s",file_name);
 				
-				LOG_INF("Vytvarim soubor: %s, velikost: %u velikost_nazvu: %d", full_path, file_size, file_name_len);
+				LOG_INF("Creating file: %s, size: %u name_len: %d", full_path, file_size, file_name_len);
 				
 				fr = f_open(&new_wav, full_path, FA_WRITE | FA_CREATE_ALWAYS);
 				if (fr == FR_OK) {
 					file_open = true;
 					received_so_far = 0;
 				} else {
-					LOG_ERR("Chyba f_open: %d", fr);
+					LOG_ERR("Error f_open: %d", fr);
 				}
 				break;
 			case MT_FILE_TRANSFER:
@@ -520,11 +532,11 @@ static void ad_write_thread(void *arg1, void *arg2, void *arg3) {
 						}
 						
 						buffer_index = 0;
-						//LOG_INF("Zapsano %u bytes, celkem zapsano: %u/%u", written, received_so_far, file_size);
+						//LOG_INF("Written %u bytes, totaly written: %u/%u", written, received_so_far, file_size);
 						if (received_so_far >= file_size) {
 							f_close(&new_wav);
 							file_open = false;
-							LOG_INF("Soubor uspesne ulozen. Celkem: %u", received_so_far);
+							LOG_INF("File sucessfully recieved. Total bytes: %u", received_so_far);
 							
 							/*const struct device *dev_i2s = DEVICE_DT_GET(DT_ALIAS(i2stx));
 							playaudio(dev_i2s, full_path);*/
@@ -570,4 +582,40 @@ static void ad_write_thread(void *arg1, void *arg2, void *arg3) {
 			k_sem_give(&sd_data_sem);
 		}
     }
+}
+
+const char* permute_and_find(const uint8_t* chain) {
+	static char full_path[128];
+	bool found = false;
+
+	FRESULT fr;
+    FIL temp_file;
+
+	char permut_chain[CHAIN_TRESHOLD + 1];
+	for (size_t i = 0; i < CHAIN_TRESHOLD; i++) permut_chain[i] = chain[i] + '0';
+	permut_chain[CHAIN_TRESHOLD] = '\0';
+
+	const int permutations[6][3] = {
+        {0, 1, 2}, {0, 2, 1}, {1, 0, 2}, 
+        {1, 2, 0}, {2, 0, 1}, {2, 1, 0}
+    };
+
+	for (size_t i = 0; i < 6; i++) {
+
+		snprintf(full_path, sizeof(full_path), "SD:/piano/t%c%c%c.wav", 
+						permut_chain[permutations[i][0]], 
+						permut_chain[permutations[i][1]], 
+						permut_chain[permutations[i][2]]);
+
+		LOG_INF("Trying to find %s", full_path);
+
+		fr = f_open(&temp_file ,full_path, FA_READ);
+		if (fr == FR_OK) {
+			found = true;
+			f_close(&temp_file);
+			break;
+		}
+	}
+
+	return found ? (full_path + strlen(DISK_MOUNT_PT)) : NULL;
 }
