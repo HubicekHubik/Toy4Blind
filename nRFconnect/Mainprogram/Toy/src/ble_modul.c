@@ -30,6 +30,8 @@ void connected(struct bt_conn *conn, uint8_t err);
 
 void disconnected(struct bt_conn *conn, uint8_t reason);
 
+void con_discon_form_adress(struct bt_conn *conn, bool connect);
+
 static void bt_receive_cb(struct bt_conn *conn, const void *data, uint16_t len, void *ctx);
 
 static void le_data_len_updated(struct bt_conn *conn, struct bt_conn_le_data_len_info *info)
@@ -62,8 +64,8 @@ static struct bt_nus_cb nus_callbacks = {
 };
 
 static struct bt_gatt_exchange_params exchange_params;
-
-static void update_data_len_mtu_timing_phy(struct bt_conn *conn);
+static void update_data_len_mtu(struct bt_conn *conn);
+static void update_timing_phy(struct bt_conn *conn, uint8_t cmd);
 static void exchange_func(struct bt_conn *conn, uint8_t err,
                           struct bt_gatt_exchange_params *params);
 
@@ -86,8 +88,8 @@ int ble_modul_init(void){
 
 static void BT_thread(void *arg1, void *arg2, void *arg3) {
     bt_enable(NULL);
-    // Tady se NUS "narodí" jen jednou a správně
-	int err = bt_nus_cb_register(&nus_callbacks, NULL);
+
+    int err = bt_nus_cb_register(&nus_callbacks, NULL);
 	if (err) {
 		printk("Failed to register CONN callback: %d\n", err);
 		return;
@@ -103,31 +105,35 @@ void connected(struct bt_conn *conn, uint8_t err) {
         LOG_ERR("Connection failed (err %u)", err);
         return;
     }
-    master_conn = bt_conn_ref(conn); // Save the connection
-    LOG_INF("Phone Connected!");
+    con_discon_form_adress(conn, true);
+
+    //master_conn = bt_conn_ref(conn); // Save the connection
+    LOG_INF("Device Connected!");
 	
 	k_sleep(K_MSEC(1));
-    struct toy_events tx_conn_e = {
-        .type = MT_BT_CONNECTED,
-        .payload.lmr.effect = CONNECTED_EFFECT
-    };
-	k_msgq_put(&aud_event_msgq, &tx_conn_e, K_NO_WAIT);
-    update_data_len_mtu_timing_phy(conn);
+    struct toy_events tx_conn_e = {.type = MT_BT_CONNECTED};
+	k_msgq_put(&sysfb_msgq, &tx_conn_e, K_NO_WAIT);
+
+    update_data_len_mtu(conn);
+    update_timing_phy(conn, MT_DEC_SPEED);
+    
+    if ((master_conn == NULL) || (remote_conn == NULL)) {
+        int adv_err = bt_le_adv_start(BT_LE_ADV_CONN_FAST_1, ad, ARRAY_SIZE(ad), sd, ARRAY_SIZE(sd));
+        if (adv_err) {
+            LOG_ERR("Unable to reset advertising (err %d)", adv_err);
+        } else {
+            LOG_INF("Advertising reset...");
+        }
+    }
 }
 
 void disconnected(struct bt_conn *conn, uint8_t reason) {
     LOG_INF("Disconnected (reason %u)", reason);
     
-    struct toy_events tx_conn_e = {
-    .type = MT_BT_DISCONNECT,
-    .payload.lmr.effect = MT_BT_DISCONNECT
-    };
-    k_msgq_put(&aud_event_msgq, &tx_conn_e, K_NO_WAIT);
+    struct toy_events tx_conn_e = {.type = MT_BT_DISCONNECT};
+    k_msgq_put(&sysfb_msgq, &tx_conn_e, K_NO_WAIT);
 
-    if (master_conn) {
-        bt_conn_unref(master_conn);
-        master_conn = NULL;
-    }
+    con_discon_form_adress(conn, false);
 
 	bt_le_adv_stop();
 
@@ -143,6 +149,12 @@ static void bt_receive_cb(struct bt_conn *conn, const void *data, uint16_t len, 
 	const uint8_t *data8 = (const uint8_t *)data;
     uint8_t cmd = data8[0];
 	switch (cmd) {
+            case MT_GEST:
+            	if (device_running) {
+                    k_msgq_put(&aud_event_msgq, data, K_NO_WAIT);
+                }
+                break;
+            case MT_G_MODE_CHANGE:
             case MT_CHANGE_CATEGORY:
             case MSG_TYPE_TURNOFF:
             case MT_LSM6DSL_OFF:
@@ -150,7 +162,9 @@ static void bt_receive_cb(struct bt_conn *conn, const void *data, uint16_t len, 
             case MT_VOL_UP:
             case MT_VOL_DOWN:
             case MT_REQUEST_SD_DATA:
-                LOG_INF("Recieved comand form remote :%d",cmd);
+            case MT_SWITCH_TOY:
+            case MT_REQ_LASTBAT:
+                LOG_INF("Recieved comand form remote : 0x%2x",cmd);
                 k_msgq_put(&sysfb_msgq, &cmd, K_NO_WAIT);
                 break;
             case MT_FILE:
@@ -162,36 +176,30 @@ static void bt_receive_cb(struct bt_conn *conn, const void *data, uint16_t len, 
             case MT_RENAME_SD_CATEGORY:
             case MT_ADD_SD_DIR:
                 {
-                    struct file_data fd; // Definujeme jen jednu strukturu pro všechny
+                    struct file_data fd;
                     fd.file_msg_type = cmd;
                     fd.data_len = len - 1;
 
-                    // Bezpečnostní kontrola, abychom nepřetekli buffer v struct file_data
                     if (fd.data_len > sizeof(fd.data)) {
                         fd.data_len = sizeof(fd.data);
                     }
 
                     memcpy(fd.data, &data8[1], fd.data_len);
 
-                    // Přidání nulového terminátoru pro řetězce (cesty, názvy souborů)
                     if (fd.data_len < sizeof(fd.data)) {
                         fd.data[fd.data_len] = '\0';
                     }
                     k_msgq_put(&aud_dataq, &fd, K_NO_WAIT);
                 }
                 break;
-            case MT_BT_DISCONNECT:
-                //k_msgq_put(&sysfb_msgq, data, K_NO_WAIT); // Pošlu do systému
-                LOG_INF("Recieved info to switch off device");
-				int err = bt_conn_disconnect(conn, BT_HCI_ERR_REMOTE_USER_TERM_CONN);
-				if (err) {
-					printk("Chyba pri odpojovani: %d\n", err);
-				}
-				break;
-            case MSG_TYPE_SOUNDSET:
-                //k_msgq_put(&sysfb_msgq, data, K_NO_WAIT); // Pošlu k motorům
-                LOG_INF("Recieved info to switch sound set");
-				break;
+            case MT_INC_SPEED:
+                LOG_INF("Recieved msg to increase BLE speed");
+                update_timing_phy(conn, cmd);
+                break;
+            case MT_DEC_SPEED:
+                LOG_INF("Recieved msg to decrease BLE speed");
+                update_timing_phy(conn, cmd);
+                break;
 			default:
                 LOG_WRN("Unknown comand throwing away 0x%2x.\n", data8[0]);
                 break;
@@ -207,9 +215,7 @@ static void exchange_func(struct bt_conn *conn, uint8_t err,
         printk("MTU updated: %u\n", bt_gatt_get_mtu(conn));
     }
 }
-
-static void update_data_len_mtu_timing_phy(struct bt_conn *conn)
-{
+static void update_data_len_mtu(struct bt_conn *conn) {
     int err;
 
     struct bt_conn_le_data_len_param my_data_len = {
@@ -227,18 +233,75 @@ static void update_data_len_mtu_timing_phy(struct bt_conn *conn)
     if (err) {
         printk("bt_gatt_exchange_mtu failed (err %d)", err);
     }
-	k_sleep(K_MSEC(20));
-    const struct bt_conn_le_phy_param phy_param = {
-        .pref_tx_phy = BT_GAP_LE_PHY_2M,
-        .pref_rx_phy = BT_GAP_LE_PHY_2M,
-    };
-    err = bt_conn_le_phy_update(conn, &phy_param);
-    if (!err) {
-        LOG_INF("PHY update initiated successfully");
+}
+
+static void update_timing_phy(struct bt_conn *conn, uint8_t cmd) {
+    int err;
+    
+    if (cmd == MT_INC_SPEED) {
+        LOG_INF("Setting BLE to FAST mode");
+
+        const struct bt_conn_le_phy_param phy_param_fast = {
+            .pref_tx_phy = BT_GAP_LE_PHY_2M,
+            .pref_rx_phy = BT_GAP_LE_PHY_2M,
+        };
+        bt_conn_le_phy_update(conn, &phy_param_fast);
+
+        k_sleep(K_MSEC(50));
+
+        struct bt_le_conn_param *fast_params = BT_LE_CONN_PARAM(12, 12, 5, 400); 
+        err = bt_conn_le_param_update(conn, fast_params);
+        
     } else {
-    	LOG_ERR("Failed to initiate PHY update (err %d)", err);
-	}
-	k_sleep(K_MSEC(20));
-	struct bt_le_conn_param *fast_params = BT_LE_CONN_PARAM(12, 12, 0, 400); 
-	bt_conn_le_param_update(master_conn, fast_params);
+        LOG_INF("Setting BLE to SLOW mode");
+
+        const struct bt_conn_le_phy_param phy_param_slow = {
+            .pref_tx_phy = BT_GAP_LE_PHY_1M,
+            .pref_rx_phy = BT_GAP_LE_PHY_1M,
+        };
+        bt_conn_le_phy_update(conn, &phy_param_slow);
+
+        k_sleep(K_MSEC(50));
+
+        // Interval 45-60ms - šetří baterii, stačí pro povely z ovladače
+        struct bt_le_conn_param *slow_params = BT_LE_CONN_PARAM(36, 40, 5, 400); 
+        err = bt_conn_le_param_update(conn, slow_params);
+    }
+
+    if (!err) {
+        LOG_INF("Link parameters update initiated");
+    } else {
+        LOG_ERR("Link parameters update failed (err %d)", err);
+    }
+}
+
+void con_discon_form_adress(struct bt_conn *conn, bool connect) {
+    const bt_addr_le_t *addr = bt_conn_get_dst(conn);
+    if (connect){
+        if ((addr->a.val[5] & 0xc0) == 0x40) {
+            if (!master_conn) {
+                master_conn = bt_conn_ref(conn);
+                LOG_INF("Conected to App (based on adress type))");
+            }
+        } else {
+            if (!remote_conn) {
+                remote_conn = bt_conn_ref(conn);
+                LOG_INF("Conected to Remote (based on adress type))");
+            }
+        }
+    } else {
+        if ((addr->a.val[5] & 0xc0) == 0x40) {
+            if (master_conn) {
+                bt_conn_unref(master_conn);
+                master_conn = NULL;
+                LOG_INF("Disconected form App (based on adress type))");
+            }
+        } else {
+            if (remote_conn) {
+                bt_conn_unref(remote_conn);
+                remote_conn = NULL;
+                LOG_INF("Disconected from Remote (based on adress type))");
+            }
+        }
+    }
 }
