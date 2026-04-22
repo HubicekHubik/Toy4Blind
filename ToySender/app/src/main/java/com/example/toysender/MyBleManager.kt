@@ -23,7 +23,8 @@ enum class BleState { DISCONNECTED, SCANNING, CONNECTED, ERROR }
 data class BatteryInfo(
     val voltageMv: Int,
     val isCharging: Boolean,
-    val isCharged: Boolean
+    val isCharged: Boolean,
+    val isDeviceOn: Boolean
 )
 class MyBleManager(context: Context) : BleManager(context), DataReceivedCallback {
     private val _batteryInfo = MutableLiveData<BatteryInfo>()
@@ -100,13 +101,13 @@ class MyBleManager(context: Context) : BleManager(context), DataReceivedCallback
             }
             MT_RECV_POW_DATA -> {
                 val raw = data.value ?: return
-                if (raw.size >= 5) { // 1B typ + 2B napětí + 1B charging + 1B charged
-                    // Čtení Little Endian uint16 (napětí)
+                if (raw.size >= 6) {
                     val vBat = ((raw[2].toInt() and 0xFF) shl 8) or (raw[1].toInt() and 0xFF)
                     val charging = raw[3].toInt() != 0
                     val charged = raw[4].toInt() != 0
-
-                    _batteryInfo.postValue(BatteryInfo(vBat, charging, charged))
+                    val isOn = raw[5].toInt() != 0
+                    Log.d("BatteryInfo", "BatteryInfo: mV:${vBat} chraging:${charging} charged:${charged} isOn:${isOn}")
+                    _batteryInfo.postValue(BatteryInfo(vBat, charging, charged, isOn))
                 }
             }
         }
@@ -198,6 +199,7 @@ class MyBleManager(context: Context) : BleManager(context), DataReceivedCallback
                     sendData(payload)
                 }
             }
+            sendData(byteArrayOf(MT_DEC_SPEED))
         } catch (e: Exception) {
             Log.e("DATA_TRANSFER", "Chyba při posíláni audio dat", e)
         }
@@ -208,6 +210,7 @@ class MyBleManager(context: Context) : BleManager(context), DataReceivedCallback
         val header = createheader(uri, currentDir)
         if (header != null) {
             sendData(header)
+            sendData(byteArrayOf(MT_INC_SPEED))
         }
         devide_and_send(uri)
     }
@@ -244,6 +247,7 @@ class MyBleManager(context: Context) : BleManager(context), DataReceivedCallback
         Log.d("BLE_RENAME", "Odesílám: ${totalData.toString()}")
         sendData(totalData)
     }
+
     fun setToyState(isOn: Boolean) {
         _isToyOn.postValue(isOn)
     }
@@ -257,7 +261,7 @@ class MyBleManager(context: Context) : BleManager(context), DataReceivedCallback
         } else {
             sendData(byteArrayOf(MT_LSM6DSL_OFF))
         }
-
+        sendData(byteArrayOf(MT_REQ_LASTBAT))
         _isToyOn.value = newState
     }
     companion object {
@@ -265,12 +269,18 @@ class MyBleManager(context: Context) : BleManager(context), DataReceivedCallback
         const val MT_RECV_SD_DATA: Byte = 0x7D.toByte()
         const val MT_RECV_POW_DATA: Byte = 0x9D.toByte()
         const val MT_FILE: Byte = 0xFE.toByte()
+
+        const val MT_INC_SPEED: Byte = 0x16.toByte()
+        const val MT_DEC_SPEED: Byte = 0xD6.toByte()
+        const val MT_G_MODE_CHANGE: Byte = 0xC6.toByte()
         const val MT_FILE_TRANSFER: Byte = 0xF6.toByte()
         const val MT_DELETE_SD_FILE: Byte = 0xDF.toByte()
         const val MT_DELETE_SD_CATEGORY: Byte = 0xDC.toByte()
         const val MT_RENAME_SD_CATEGORY: Byte = 0xEC.toByte()
         const val MT_RENAME_SD_FILE: Byte = 0xEF.toByte()
         const val MT_RENAME_SD_FOLDER: Byte = 0xED.toByte()
+        const val MT_SWITCH_TOY: Byte = 0x66.toByte()
+        const val MT_REQ_LASTBAT: Byte = 0xEB.toByte()
 
         const val MT_ADD_SD_FILE: Byte = 0xAF.toByte()
         const val MT_ADD_DIR: Byte =  0xAD.toByte()

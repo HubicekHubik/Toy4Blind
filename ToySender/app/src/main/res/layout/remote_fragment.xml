@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        android:contentDescription="Vypnout nebo zapnout hračku"
+        android:contentDescription=""
         app:backgroundTint="#4CAF50"
         app:icon="@drawable/power_settings_new_24px"
         app:iconGravity="textStart"

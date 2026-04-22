@@ -5,6 +5,10 @@
         android:icon="@drawable/radar_24px"
         android:title="Knihovna" />
     <item
+        android:id="@+id/nav_swaptoy"
+        android:icon="@drawable/sync_40px"
+        android:title="Změnit" />
+    <item
         android:id="@+id/nav_remote"
         android:icon="@drawable/sports_esports_24px"
         android:enabled="false"

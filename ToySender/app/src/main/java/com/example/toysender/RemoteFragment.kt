@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -19,8 +20,8 @@ class RemoteFragment: Fragment() {
     private lateinit var changeGameButton: Button
     private lateinit var debugTextView: TextView
     private lateinit var debugScroll: NestedScrollView
-
-    private lateinit var bleManager: MyBleManager
+    private val viewModel: MyViewModel by activityViewModels()
+    private fun getActiveManager() = viewModel.getActiveManager()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,29 +30,27 @@ class RemoteFragment: Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.remote_fragment, container, false)
 
-        bleManager = (requireActivity() as MainActivity).bleManager
-
         onoffButton = view.findViewById(R.id.onoffButton)
-        onoffButton.setOnClickListener { bleManager.toggleToy() }
+        onoffButton.setOnClickListener { getActiveManager().toggleToy() }
 
         volUpButton = view.findViewById(R.id.volumeUpButton)
         volUpButton.setOnClickListener {
-            bleManager.sendData(byteArrayOf(MyBleManager.MT_VOL_UP))
+            getActiveManager().sendData(byteArrayOf(MyBleManager.MT_VOL_UP))
         }
 
         volDownButton = view.findViewById(R.id.volumeDownButton)
         volDownButton.setOnClickListener {
-            bleManager.sendData(byteArrayOf(MyBleManager.MT_VOL_DOWN))
+            getActiveManager().sendData(byteArrayOf(MyBleManager.MT_VOL_DOWN))
         }
 
         changeGameButton = view.findViewById(R.id.changeGameButton)
         changeGameButton.setOnClickListener {
-            bleManager.sendData(byteArrayOf(MyBleManager.MSG_TYPE_TOY_SWITCH))
+            getActiveManager().sendData(byteArrayOf(MyBleManager.MT_G_MODE_CHANGE))
         }
 
         changeCategoryButton = view.findViewById(R.id.changeCategoryButton)
         changeCategoryButton.setOnClickListener {
-            bleManager.sendData(byteArrayOf(MyBleManager.MT_CHANGE_CATEGORY))
+            getActiveManager().sendData(byteArrayOf(MyBleManager.MT_CHANGE_CATEGORY))
         }
 
         debugTextView = view.findViewById(R.id.debugTextView)
@@ -63,12 +62,30 @@ class RemoteFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bleManager.debugData.observe(viewLifecycleOwner) { info ->
-            val currentText = debugTextView.text.toString()
+        viewModel.activeToyIndex.observe(viewLifecycleOwner) { _ ->
+            debugTextView.text = ""
 
-            debugTextView.text = "$info\n----------------\n$currentText".take(1500)
+            val activeMgr = getActiveManager()
 
-            debugScroll.fullScroll(View.FOCUS_UP)
+            activeMgr.debugData.removeObservers(viewLifecycleOwner)
+            activeMgr.debugData.observe(viewLifecycleOwner) { info ->
+                val currentText = debugTextView.text.toString()
+                debugTextView.text = "$info\n----------------\n$currentText".take(1500)
+                debugScroll.fullScroll(View.FOCUS_UP)
+            }
+            activeMgr.batteryInfo.removeObservers(viewLifecycleOwner)
+            activeMgr.batteryInfo.observe(viewLifecycleOwner) { info ->
+                updateOnOffButton(info.isDeviceOn)
+            }
+        }
+    }
+    private fun updateOnOffButton(isOn: Boolean) {
+        if (isOn) {
+            onoffButton.stateDescription = "Vypnout hračku"
+            onoffButton.backgroundTintList = android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#4CAF50"))
+        } else {
+            onoffButton.stateDescription = "Zapnout hračku"
+            onoffButton.backgroundTintList = android.content.res.ColorStateList.valueOf(android.graphics.Color.parseColor("#F44336"))
         }
     }
 }

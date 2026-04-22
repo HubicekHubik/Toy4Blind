@@ -32,7 +32,6 @@ import android.view.accessibility.AccessibilityManager
 class nav_fragment : Fragment() {
     private lateinit var scanButton: Button
     private var scanner: BluetoothLeScanner? = null
-    private lateinit var bleManager: MyBleManager
     private val viewModel: MyViewModel by activityViewModels()
     private var selectedFileUri: Uri? = null
     // Register the file picker launcher
@@ -62,16 +61,6 @@ class nav_fragment : Fragment() {
 
         scanButton = view.findViewById(R.id.scanButton)
 
-        bleManager = (requireActivity() as MainActivity).bleManager
-
-        bleManager.onPathReceived = { path ->
-            if (path == "CLEAR_ALL_FILES_SIGNAL") {
-                viewModel.clearAllData()
-            } else {
-                viewModel.parseAndAddPath(path)
-            }
-        }
-
         val adapter = CategoryAdapter(
             onCategoryClick = { name -> viewModel.toggleCategory(categName = name)},
             onFolderClick = { folder -> viewModel.toggleFolder(folder) },
@@ -82,7 +71,7 @@ class nav_fragment : Fragment() {
             onCategLongClickDelete = { category -> showDeleteConfirmDialog(category, MyBleManager.MT_DELETE_SD_CATEGORY)},
             onCategLongClickRename = { category -> showRenameFolderDialog(category,"", "", MyBleManager.MT_RENAME_SD_CATEGORY)},
 
-            onFileDelete = { file -> bleManager.requestDelete(file.fullPath, MyBleManager.MT_DELETE_SD_FILE) },
+            onFileDelete = { file -> viewModel.getActiveManager().requestDelete(file.fullPath, MyBleManager.MT_DELETE_SD_FILE) },
             onFileRename = { file -> showRenameDialog(file)},
 
             onAddFileClick = { filePickerLauncher.launch("audio/x-wav") },
@@ -102,6 +91,8 @@ class nav_fragment : Fragment() {
             val expCat = viewModel.expandedCategory.value
             val expFold = viewModel.expandedFolder.value
 
+            val activeState = viewModel.getActiveConnectionState().value
+
             val uiModels = currentMap.map { (categoryName, foldersMap) ->
 
                 val foldersWithAddFile = foldersMap.mapValues { (folderName, files) ->
@@ -118,7 +109,7 @@ class nav_fragment : Fragment() {
                 )
             }
 
-            val finalList = if (viewModel.connectionState.value == BleState.CONNECTED) {
+            val finalList = if (activeState == BleState.CONNECTED) {
                 uiModels + CategoryUiModel(
                     name = "[ADD_NEW_CATEGORY]",
                     folders = emptyMap(),
@@ -143,55 +134,45 @@ class nav_fragment : Fragment() {
             updateUiList()
         }
 
-        viewModel.connectionState.observe(viewLifecycleOwner) { state ->
-            when (state) {
-                BleState.SCANNING -> {
+        viewModel.activeToyIndex.observe(viewLifecycleOwner) {
+            viewModel.getActiveConnectionState().removeObservers(viewLifecycleOwner)
+            viewModel.getActiveConnectionState().observe(viewLifecycleOwner) { state ->
+                updateUiList()
+                when (state) {
+                    BleState.CONNECTED -> updateScanButton(isConnected = true)
+                    BleState.DISCONNECTED -> updateScanButton(isConnected = false)
+                    BleState.SCANNING -> {}
+                    BleState.ERROR -> {}
                 }
-                BleState.CONNECTED -> {
-                    updateScanButton(isConnected = true)
-                }
-                BleState.DISCONNECTED -> {
-                    updateScanButton(isConnected = false)
-                    scanButton.clearAnimation()
-                    viewModel.expandedCategory.value = null
-                    viewModel.expandedFolder.value = null
-                    viewModel.clearAllData()
-                }
-                else -> {}
-            }
-        }
-
-        bleManager.connectionObserver = object : ConnectionObserver {
-            override fun onDeviceConnecting(device: BluetoothDevice) {
-            }
-
-            override fun onDeviceConnected(device: BluetoothDevice) {
-                viewModel.connectionState.postValue(BleState.CONNECTED)
-            }
-
-            override fun onDeviceFailedToConnect(device: BluetoothDevice, reason: Int) {
-            }
-
-            override fun onDeviceReady(device: BluetoothDevice) {
-            }
-
-            override fun onDeviceDisconnecting(device: BluetoothDevice) {
-            }
-
-            override fun onDeviceDisconnected(device: BluetoothDevice, reason: Int) {
-                viewModel.connectionState.postValue(BleState.DISCONNECTED)
             }
         }
 
         scanButton.setOnClickListener {
-            if (viewModel.connectionState.value == BleState.CONNECTED) {
-                bleManager.disconnect().enqueue()
-                viewModel.connectionState.value = BleState.DISCONNECTED
-                return@setOnClickListener
+            val activeManager = viewModel.getActiveManager()
+            val currentState = viewModel.getActiveConnectionState().value
+
+            if (currentState == BleState.CONNECTED) {
+                activeManager.disconnect().enqueue()
+            } else {
+                if (viewModel.activeToyIndex.value == 0) {
+                    viewModel.connectionState1.value = BleState.SCANNING
+                } else {
+                    viewModel.connectionState2.value = BleState.SCANNING
+                }
+                startBleScan()
             }
-            viewModel.connectionState.value = BleState.SCANNING
-            startBleScan()
         }
+
+        viewModel.isScanEnabled.observe(viewLifecycleOwner) { enabled ->
+            scanButton.isEnabled = enabled
+
+            if (enabled) {
+                scanButton.alpha = 1.0f
+            } else {
+                scanButton.alpha = 0.5f
+            }
+        }
+
         return view
     }
 
@@ -254,7 +235,9 @@ class nav_fragment : Fragment() {
             .setPositiveButton("Vytvořit") { _, _ ->
                 val categName = editText.text.toString().trim()
                 if (categName.isNotEmpty() && categName != "Q") {
-                    viewModel.parseAndAddPath("${categName}/")
+                    val activeIdx = viewModel.activeToyIndex.value ?: 0
+
+                    viewModel.parseAndAddPath(activeIdx,"${categName}/")
                 }
             }
             .setNegativeButton("Zrušit", null)
@@ -272,7 +255,7 @@ class nav_fragment : Fragment() {
                 val folderName = editText.text.toString().trim()
                 if (folderName.isNotEmpty()) {
                     val dirPath = categoryName + '_' + folderName
-                    bleManager.requestAdd(dirPath, MyBleManager.MT_ADD_DIR)
+                    viewModel.getActiveManager().requestAdd(dirPath, MyBleManager.MT_ADD_DIR)
                 }
             }
             .setNegativeButton("Zrušit", null)
@@ -284,8 +267,10 @@ class nav_fragment : Fragment() {
             .setTitle("Odstranit")
             .setMessage("Opravdu chcete odstranit $fullPath?")
             .setPositiveButton("Odstranit") { _, _ ->
-                viewModel.clearAllData()
-                bleManager.requestDelete(fullPath, cmd)
+                val activeIdx = viewModel.activeToyIndex.value ?: 0
+
+                viewModel.clearToyData(activeIdx)
+                viewModel.getActiveManager().requestDelete(fullPath, cmd)
             }
             .setNegativeButton("Zrušit", null)
             .show()
@@ -304,7 +289,7 @@ class nav_fragment : Fragment() {
                     val newName = editText.text.toString().trim()
                     if (newName.isNotEmpty() && newName != oldFolderName) {
                         val finalDir = "${categoryName}_$newName"
-                        bleManager.requestRename(fullPath, finalDir, cmd)
+                        viewModel.getActiveManager().requestRename(fullPath, finalDir, cmd)
                     }
                 }
                 .setNegativeButton("Zrušit", null)
@@ -321,7 +306,7 @@ class nav_fragment : Fragment() {
 
                     }
                     if (newName.isNotEmpty() && newName != categoryName) {
-                        bleManager.requestRename(categoryName, newName, cmd)
+                        viewModel.getActiveManager().requestRename(categoryName, newName, cmd)
                     }
                 }
                 .setNegativeButton("Zrušit", null)
@@ -343,14 +328,21 @@ class nav_fragment : Fragment() {
                     newName += ".wav"
                 }
                 if (newName.isNotEmpty()) {
-                    bleManager.requestRename(file.fullPath ,newName ,MyBleManager.MT_RENAME_SD_FILE)
+                    viewModel.getActiveManager().requestRename(file.fullPath ,newName ,MyBleManager.MT_RENAME_SD_FILE)
                 }
             }
             .setNegativeButton("Zrušit", null)
             .show()
     }
     private fun connectToDevice(device: BluetoothDevice) {
-        bleManager.connect(device)
+        val activeManager = viewModel.getActiveManager()
+
+        val otherManager = if (viewModel.activeToyIndex.value == 0) viewModel.bleManager2 else viewModel.bleManager1
+
+        if (otherManager.bluetoothDevice == device) {
+            return
+        }
+        activeManager.connect(device)
             .retry(3, 100)
             .useAutoConnect(false)
             .enqueue()
@@ -380,7 +372,7 @@ class nav_fragment : Fragment() {
         val currentDir = "${category}_${folder}"
 
         if (selectedFileUri != null && category != null && folder != null) {
-            bleManager.startSendingFile(selectedFileUri, currentDir)
+            viewModel.getActiveManager().startSendingFile(selectedFileUri, currentDir)
         }
     }
     private fun isTalkBackEnabled(): Boolean {
