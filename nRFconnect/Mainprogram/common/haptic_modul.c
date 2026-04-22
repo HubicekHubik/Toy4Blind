@@ -11,20 +11,20 @@ LOG_MODULE_REGISTER(haptic_modul, CONFIG_LOG_DEFAULT_LEVEL);
 #define PWM0_NODE DT_NODELABEL(pwm0)
 
 #define LMR_EVENT_MSGQ_LENGTH 32
-K_MSGQ_DEFINE(lmr_msgq, sizeof(struct toy_events), LMR_EVENT_MSGQ_LENGTH, 4);
+K_MSGQ_DEFINE(lra_msgq, sizeof(struct toy_events), LMR_EVENT_MSGQ_LENGTH, 4);
 
-#define PWM_THREAD_PRIORITY 11
+#define PWM_THREAD_PRIORITY 8
 #define LMRPWM_THREAD_STACK_SIZE 1024
 
-K_THREAD_STACK_DEFINE(lmrPwm_stack_area, LMRPWM_THREAD_STACK_SIZE);
-static struct k_thread lmrPwm_thread_data;
+K_THREAD_STACK_DEFINE(lraPwm_stack_area, LMRPWM_THREAD_STACK_SIZE);
+static struct k_thread lraPwm_thread_data;
 
 void LMR_control_thread(void *arg1, void *arg2, void *arg3);
 
 int haptic_modul_init() {
 
-	k_thread_create(&lmrPwm_thread_data, lmrPwm_stack_area,
-					K_THREAD_STACK_SIZEOF(lmrPwm_stack_area),
+	k_thread_create(&lraPwm_thread_data, lraPwm_stack_area,
+					K_THREAD_STACK_SIZEOF(lraPwm_stack_area),
 					LMR_control_thread,
 					NULL, NULL, NULL,
 					PWM_THREAD_PRIORITY, 0, K_NO_WAIT);
@@ -35,7 +35,7 @@ int haptic_modul_init() {
 void LMR_control_thread(void *arg1, void *arg2, void *arg3) {
 	const struct device *pwm0_dev = DEVICE_DT_GET(PWM0_NODE);
 	
-	struct toy_events rx_lmr_e;
+	struct toy_events rx_lra_e;
 
 	if (!device_is_ready(pwm0_dev))
 	{
@@ -48,10 +48,13 @@ void LMR_control_thread(void *arg1, void *arg2, void *arg3) {
 	while (true) {
 		//k_sem_take(&run_sem, K_FOREVER); // pokud je OFF, vlákno se zastaví
     	//k_sem_give(&run_sem);
-		if (k_msgq_get(&lmr_msgq, &rx_lmr_e, K_FOREVER) == 0) {
-			LOG_INF("LMR effect recieved: %d and time is %d", rx_lmr_e.payload.lmr.effect, rx_lmr_e.payload.lmr.ms_duration);
-			if (rx_lmr_e.type != MT_LMR) continue;
-			switch (rx_lmr_e.payload.lmr.effect) {
+		if (k_msgq_get(&lra_msgq, &rx_lra_e, K_FOREVER) == 0) {
+			LOG_INF("LMR effect recieved: %d and time is %d", rx_lra_e.payload.lra.effect, rx_lra_e.payload.lra.ms_duration);
+			if (rx_lra_e.type != MT_LRA) continue;
+			switch (rx_lra_e.payload.lra.effect) {
+				case 0:
+					effect_heartbeat(pwm0_dev);
+					break;
 				case 1:
 					effect_alternate(pwm0_dev);
 					break;
@@ -62,10 +65,10 @@ void LMR_control_thread(void *arg1, void *arg2, void *arg3) {
 					effect_fade(pwm0_dev);
 					break;
 				case 4:
-					effect_fade_right(pwm0_dev);
+					effect_rumble_wave(pwm0_dev);
 					break;
 				case 5:
-					effect_fade_left(pwm0_dev);
+					effect_ping_pong(pwm0_dev);
 					break;
 				case 6:
 					effect_grad(pwm0_dev);
@@ -77,7 +80,6 @@ void LMR_control_thread(void *arg1, void *arg2, void *arg3) {
 					effect_click(pwm0_dev);
 					break;
 				case CONNECTED_EFFECT:
-					LOG_INF("Playing conncted effect");
 					effect_connected(pwm0_dev);
 					break;
 				default:
