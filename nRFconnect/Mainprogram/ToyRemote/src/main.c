@@ -12,7 +12,7 @@
 #include <math.h>
 /**/
 #include <zephyr/logging/log.h>
-LOG_MODULE_REGISTER(Toy_Remote, CONFIG_LOG_DEFAULT_LEVEL);
+LOG_MODULE_REGISTER(Main, CONFIG_LOG_DEFAULT_LEVEL);
 
 #include "app_state.h"
 #include "toy_utils.h"
@@ -118,7 +118,7 @@ void read_toy_info(void *arg1, void *arg2, void *arg3) {
 
 	//int ret;
 
-	LOG_INF("Send audio thread init");
+	LOG_INF("Send gest thread init");
 	
 	/*struct esb_payload ping = {
 		.pipe = 0,
@@ -144,7 +144,7 @@ void read_toy_info(void *arg1, void *arg2, void *arg3) {
 			k_sleep(K_MSEC(PING_INTERVAL_MS));
 		}
 
-		// === Gesture recievd send audio
+		// === Gesture recievd send gest
 		if (g.cmd_id < 255) {
 			LOG_INF("Recieved gesture %d Device prefix 0x%02X", g.cmd_id, g.pipeprefix);
 		} else {
@@ -160,9 +160,16 @@ static void system_feedback_thread(void *arg1, void *arg2, void *arg3) {
     while (true) {
         if(k_msgq_get(&sysfb_msgq, &rx_event, K_FOREVER) == 0) {
 			switch (rx_event.type) {
-				case MT_SYSINF:
-					LOG_INF("Recieved something");
+				case MT_BAT_INF:
 					break;
+				case MT_CHARGING:
+				case MT_CHARGED:
+					struct toy_events tx_lra = {
+						.type = MT_LRA,
+						.payload.lra.effect = rx_event.payload.gest.type
+					};
+					k_msgq_put(&lra_msgq, &tx_lra, K_NO_WAIT);
+				break;
 				default:
 					LOG_WRN("Unknown system feedback message received: %d", rx_event.type);
 					break;
