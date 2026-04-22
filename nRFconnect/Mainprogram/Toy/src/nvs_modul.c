@@ -9,12 +9,13 @@
 
 LOG_MODULE_REGISTER(nvs_modul, CONFIG_LOG_DEFAULT_LEVEL);
 
-#define NVS_SCHEMA_VERSION   3
+#define NVS_SCHEMA_VERSION   1
 #define NVS_ID_SCHEMA_VERSION 0xFFFE
 #define NVS_ID_POWSTATE 	  0x0001
 #define NVS_ID_VOLUME   	  0x0002
-#define NVS_ID_SOUNDSET  	  0x0003
-//#define NVS_ID_RBTCNT		  0x0004
+#define NVS_ID_CUR_CATEG  	  0x0003
+#define NVS_ID_CUR_GAME  	  0x0004
+//#define NVS_ID_RBTCNT		  0x0005
 
 #define NVS_PARTITION		storage_partition
 #define NVS_PARTITION_DEVICE	FIXED_PARTITION_DEVICE(NVS_PARTITION)
@@ -22,7 +23,7 @@ LOG_MODULE_REGISTER(nvs_modul, CONFIG_LOG_DEFAULT_LEVEL);
 
 static struct nvs_fs fs;
 
-int nvs_init_datarec(uint8_t *volume, uint8_t *current_category, bool *deviceRunning) {
+int nvs_init_datarec(uint8_t *volume, uint8_t *current_category, bool *deviceRunning, toy_game_mode_t *current_gameM) {
 	int rc = 0;
 	struct flash_pages_info info;
 	uint32_t ver;
@@ -74,14 +75,16 @@ int nvs_init_datarec(uint8_t *volume, uint8_t *current_category, bool *deviceRun
 	uint8_t  def_power   = 1;
 	uint32_t def_sound   = 0;
 	uint8_t  def_volume  = 5;
+	uint8_t  def_gameM   = 0;
 
 	nvs_restore(NVS_ID_POWSTATE, deviceRunning, sizeof(*deviceRunning), &def_power);
 	LOG_INF("Device power state is %d", *deviceRunning);
-	nvs_restore(NVS_ID_SOUNDSET, current_category, sizeof(*current_category), &def_sound);
+	nvs_restore(NVS_ID_CUR_CATEG, current_category, sizeof(*current_category), &def_sound);
 	LOG_INF("Soundset index is %d", *current_category);
 	nvs_restore(NVS_ID_VOLUME, volume, sizeof(*volume), &def_volume);
 	LOG_INF("Volume is %d", *volume);
-
+	nvs_restore(NVS_ID_CUR_GAME, current_gameM, sizeof(*current_gameM), &def_gameM);
+	LOG_INF("Game Mode is %d", *current_gameM);
 	return 0;
 }
 
@@ -124,7 +127,16 @@ int nvs_save_power_state(bool deviceRunning) {
 }
 
 int nvs_save_categ(uint8_t currentCategory) {
-	int rc = nvs_write(&fs, NVS_ID_SOUNDSET, &currentCategory, sizeof(currentCategory));
+	int rc = nvs_write(&fs, NVS_ID_CUR_CATEG, &currentCategory, sizeof(currentCategory));
+	if (rc < 0) {
+		LOG_ERR("Failed to write schema version, rc=%d", rc);
+		return rc;
+	}
+	return 0;
+}
+
+int nvs_save_gameM(toy_game_mode_t currentGameMode) {
+	int rc = nvs_write(&fs, NVS_ID_CUR_GAME, &currentGameMode, sizeof(currentGameMode));
 	if (rc < 0) {
 		LOG_ERR("Failed to write schema version, rc=%d", rc);
 		return rc;
